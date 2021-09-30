@@ -1,0 +1,28 @@
+.container{
+
+   @apply px-4 mx-auto max-w-7xl;
+}
+
+.card{
+    @apply overflow-hidden bg-white rounded shadow-lg;
+}
+.card-body{
+
+@apply px-6 py-4;
+}
+
+.card-title{
+    @apply mb-2 text-xl leading-6 text-gray-700;
+}
+
+@media(min-width: 640px){
+    .container{
+        @apply px-6;
+    }
+}
+@media(min-width:1024px){
+    .container{
+        @apply px-8
+    }
+}
+

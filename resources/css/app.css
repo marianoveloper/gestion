@@ -1,0 +1,9 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@import 'commom.css';
+@import 'buttons.css';
+@import 'chat.css';
+@import 'redes.css';
+

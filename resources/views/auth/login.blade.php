@@ -1,5 +1,6 @@
 <x-guest-layout>
-    <x-jet-authentication-card>
+
+   <x-jet-authentication-card>
         <x-slot name="logo">
             <x-jet-authentication-card-logo />
         </x-slot>
@@ -14,6 +15,7 @@
 
         <form method="POST" action="{{ route('login') }}">
             @csrf
+
 
             <div>
                 <x-jet-label for="email" value="{{ __('Email') }}" />
@@ -33,11 +35,11 @@
             </div>
 
             <div class="flex items-center justify-end mt-4">
-               <!-- @if (Route::has('password.request'))
+                @if (Route::has('password.request'))
                     <a class="text-sm text-gray-600 underline hover:text-gray-900" href="{{ route('password.request') }}">
                         {{ __('Forgot your password?') }}
                     </a>
-                @endif-->
+                @endif
 
                 <x-jet-button class="ml-4">
                     {{ __('Ingresar') }}
@@ -45,4 +47,5 @@
             </div>
         </form>
     </x-jet-authentication-card>
+
 </x-guest-layout>

@@ -1,20 +1,5 @@
 <x-app-layout>
 
-<x-redes/>
-    <section class="bg-cover" style="background-image: url({{asset('images/homes/portada-19b.png')}})">
-        <div class="px-4 max-w-7x1 max-auto sm:px-6 lg:px-8 py-36">
-            <div class="w-full md:w-3/4 lg:w-1/2">
-                <h1 class="text-4xl text-green-900">Estudiá Online en la UCCuyo </h1>
-                <p class="mt-2 mb-4 text-lg text-green-800"> Ofrecemos Capacitaciones a Distancia</p>
-
-
-                @livewire('search')
-
-            </div>
-        </div>
-
-    </section>
-
     <section class="mt-24">
         <h1 class="mb-6 text-3xl text-center text-green-900">Propuestas Virtuales </h1>
         <div
@@ -27,7 +12,8 @@
                     </figure>
 
                     <header class="mt-2">
-                        <h1 class="text-2xl text-center text-green-900 hover:text-yellow-600 hover:underline"> {{$category[0]->name}}
+                        <h1 class="text-2xl text-center text-green-900 hover:text-yellow-600 hover:underline">
+                            {{$category[0]->name}}
                         </h1>
                     </header>
                 </a>
@@ -52,7 +38,8 @@
 
                     </figure>
                     <header class="mt-2">
-                        <h1 class="text-2xl text-center text-green-900 hover:text-yellow-600 hover:underline">{{$category[2]->name}} </h1>
+                        <h1 class="text-2xl text-center text-green-900 hover:text-yellow-600 hover:underline">
+                            {{$category[2]->name}} </h1>
                     </header>
                 </a>
             </article>
@@ -72,90 +59,121 @@
         </div>
         </div>
     </section>
-    <div class="container py-8">
-        <section>
-            <h1 class="mb-6 text-3xl text-center text-green-900">DESTACADOS</h1>
-            @livewire('category-courses')
-        </section>
-    </div>
-    <section class="py-8 " style="background-image: url({{asset('images/homes/barra-verde.png')}})">
-        <h1 class="text-3xl text-center text-white">Próximamente</h1>
 
+    <section class="text-gray-600 body-font">
+        <div class="container flex flex-wrap items-center px-5 py-24 mx-auto">
+            <div class="pr-0 lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0">
+                <h1 class="text-3xl font-medium text-gray-900 title-font">Slow-carb next level shoindcgoitch ethical
+                    authentic, poko scenester</h1>
+                <p class="mt-4 leading-relaxed">Poke slow-carb mixtape knausgaard, typewriter street art gentrify
+                    hammock starladder roathse. Craies vegan tousled etsy austin.</p>
+            </div>
+            <div class="flex flex-col w-full p-8 mt-10 bg-gray-100 rounded-lg lg:w-2/6 md:w-1/2 md:ml-auto md:mt-0">
+                <h2 class="mb-5 text-lg font-medium text-gray-900 title-font">Sign Up</h2>
+                <div class="relative mb-4">
+                    <label for="full-name" class="text-sm leading-7 text-gray-600">Full Name</label>
+                    <input type="text" id="full-name" name="full-name"
+                        class="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                </div>
+                <div class="relative mb-4">
+                    <label for="email" class="text-sm leading-7 text-gray-600">Email</label>
+                    <input type="email" id="email" name="email"
+                        class="w-full px-3 py-1 text-base leading-8 text-gray-700 transition-colors duration-200 ease-in-out bg-white border border-gray-300 rounded outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200">
+                </div>
+                <button
+                    class="px-8 py-2 text-lg text-white bg-indigo-500 border-0 rounded focus:outline-none hover:bg-indigo-600">Button</button>
+                <p class="mt-3 text-xs text-gray-500">Literally you probably haven't heard of them jean shorts.</p>
+            </div>
+        </div>
     </section>
-    <div class="container py-8">
-        <section>
-
-            @livewire('next-courses')
-        </section>
+<!-- component -->
+<section class="px-4 mx-auto mb-12 max-w-7xl sm:px-6 lg:px-4">
+    <article>
+        <h2 class="text-2xl font-extrabold text-gray-900">BLOG</h2>
+        <section class="grid grid-cols-1 mt-6 md:grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-8">
+            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+                style="background-image: url('https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');">
+                <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+                <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+                    <h3 class="text-center">
+                        <a class="text-2xl font-bold text-center text-white" href="#">
+                            <span class="absolute inset-0"></span>
+                            Top 10 highest paid programming languages of 2021
+                        </a>
+                    </h3>
+                </div>
+            </article>
+            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+                style="background-image: url('https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');">
+                <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+                <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+                    <h3 class="text-center">
+                        <a class="text-2xl font-bold text-center text-white" href="#">
+                            <span class="absolute inset-0"></span>
+                            Python Frameworks
+                        </a>
+                    </h3>
+                </div>
+            </article>
+            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+                style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+                <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+                <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+                    <h3 class="text-center">
+                        <a class="text-2xl font-bold text-center text-white" href="#">
+                            <span class="absolute inset-0"></span>
+                            The best plugins for Visual Studio Code
+                        </a>
+                    </h3>
+                </div>
+            </article>
+            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+            style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+            <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+            <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+                <h3 class="text-center">
+                    <a class="text-2xl font-bold text-center text-white" href="#">
+                        <span class="absolute inset-0"></span>
+                        The best plugins for Visual Studio Code
+                    </a>
+                </h3>
+            </div>
+        </article>
+        <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+        style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+        <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+        <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+            <h3 class="text-center">
+                <a class="text-2xl font-bold text-center text-white" href="#">
+                    <span class="absolute inset-0"></span>
+                    The best plugins for Visual Studio Code
+                </a>
+            </h3>
+        </div>
+    </article>
+    <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+    style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+    <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+    <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+        <h3 class="text-center">
+            <a class="text-2xl font-bold text-center text-white" href="#">
+                <span class="absolute inset-0"></span>
+                The best plugins for Visual Studio Code
+            </a>
+        </h3>
     </div>
-
+</article>
+        </section>
+    </article>
+</section>
 
     <!--------------------------------------------------->
-<x-wsp/>
+
     <x-slot name="js">
-        <script>
-            var swiper = new Swiper(".mySwiper", {
-              slidesPerView: 1,
-              spaceBetween: 0,
-              pagination: {
-                el: ".swiper-pagination",
-                clickable: true,
-              },
-              navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-              breakpoints: {
-                640: {
-                  slidesPerView: 1,
-                  spaceBetween: 10,
-                },
-                768: {
-                  slidesPerView: 2,
-                  spaceBetween: 10,
-                },
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 10,
-                },
-              },
-            });
-          </script>
 
-        <script>
-            new Glider(document.querySelector('.glider'), {
-                // Mobile-first defaults
-                slidesToShow: 1,
-                slidesToScroll: 1,
-                draggable: true,
-                dots: '.dots',
-                arrows: {
-                    prev: '.glider-prev',
-                    next: '.glider-next'
-                },
-                responsive: [{
-                    // screens greater than >= 775px
-                    breakpoint: 775,
-                    settings: {
-                        // Set to `auto` and provide item width to adjust to viewport
-                        slidesToShow: 'auto',
-                        slidesToScroll: 'auto',
-                        itemWidth: 150,
-                        duration: 0.25
-                    }
-                }, {
-                    // screens greater than >= 1024px
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 5,
-                        slidesToScroll: 1,
-                        itemWidth: 150,
-                        duration: 0.25
-                    }
-                }]
-            });
 
-        </script>
+
+
         <script>
             var botmanWidget = {
                 frameEndpoint: '/botman/chat',

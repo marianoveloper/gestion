@@ -18,53 +18,36 @@ class TypeSeeder extends Seeder
 
         Type::create([
             'category_id'=>1,
-            'name'=>'Tecnicatura',
-            'slug'=>Str::slug('Tecnicatura')
+            'name'=>'Apertura',
+            'slug'=>Str::slug('Apertura')
         ]);
         Type::create([
             'category_id'=>1,
-            'name'=>'Licenciatura',
-            'slug'=>Str::slug('Licenciatura')
+            'name'=>'Matriculación',
+            'slug'=>Str::slug('Matriculacion')
         ]);
+
         Type::create([
-            'category_id'=>1,
-            'name'=>'Profesorado',
-            'slug'=>Str::slug('Profesorado')
-        ]);
-        Type::create([
-            'category_id'=>1,
-            'name'=>'Grado',
-            'slug'=>Str::slug('Grado')
+            'category_id'=>2,
+            'name'=>'Apertura',
+            'slug'=>Str::slug('Apertura')
         ]);
         Type::create([
             'category_id'=>2,
-            'name'=>'Especialización',
-            'slug'=>Str::slug('Especialización')
+            'name'=>'Matriculacón',
+            'slug'=>Str::slug('Matriculacion')
         ]);
+
+
         Type::create([
-            'category_id'=>2,
-            'name'=>'Maestría',
-            'slug'=>Str::slug('Maestría')
-        ]);
-        Type::create([
-            'category_id'=>2,
-            'name'=>'Doctorado',
-            'slug'=>Str::slug('Licenciatura')
-        ]);
-        Type::create([
-            'category_id'=>2,
-            'name'=>'Diplomatura',
-            'slug'=>Str::slug('Diplomatura')
+            'category_id'=>3,
+            'name'=>'Académico',
+            'slug'=>Str::slug('Tutoriales')
         ]);
         Type::create([
             'category_id'=>3,
-            'name'=>'Actualización',
-            'slug'=>Str::slug('Actualización')
-        ]);
-        Type::create([
-            'category_id'=>3,
-            'name'=>'Taller',
-            'slug'=>Str::slug('Taller')
+            'name'=>'Diseño Instruccional',
+            'slug'=>Str::slug('Diseño Instruccional')
         ]);
 
     }

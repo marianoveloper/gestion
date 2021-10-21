@@ -15,8 +15,8 @@ class CategoryCourses extends Component
     {
         $types= Type::all();
         $categories= Category::all();
-        $courses = Course::where('status', 3)
-        ->whereIn('status_course',[1,3,4])
+        $courses = Course::where('status', 1)
+
         ->latest('id')
         ->paginate(8);
 

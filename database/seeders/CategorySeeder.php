@@ -22,14 +22,15 @@ class CategorySeeder extends Seeder
         ]);
         Category::create([
 
-            'name'=>'Diplomaturas y Especializaciones',
-            'slug'=>Str::slug('Diplomaturas y Especializaciones')
+            'name'=>'Cursos',
+            'slug'=>Str::slug('Cursos ')
         ]);
         Category::create([
 
-            'name'=>'Cursos de Actualización',
-            'slug'=>Str::slug('Cursos de Actualización')
+            'name'=>'Material Académico',
+            'slug'=>Str::slug('Material Academico')
         ]);
+
 
 
     }

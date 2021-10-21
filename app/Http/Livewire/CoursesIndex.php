@@ -16,20 +16,6 @@ class CoursesIndex extends Component
 
     public $type_id;
     public $category_id;
-/*
-public $course,$categorias;
-public $subcategoria=[];
-
-public function updatedCategoryId($value){
-
-    $category=Category::find($value);
-    $this->subcategoria=$category->types;
-
-}
-
-public function mount(){
-    $this->categorias=$this->course->category;
-}*/
 
     public function render()
     {
@@ -37,8 +23,8 @@ public function mount(){
         $types= Type::all();
         $categories= Category::all();
 
-        $courses = Course::where('status', 3)
-        ->whereIn('status_course',[1,3,4])
+        $courses = Course::where('status', 1)
+
         ->category($this->category_id)
         ->type($this->type_id)
         ->latest('id')

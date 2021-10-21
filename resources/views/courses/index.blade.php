@@ -17,22 +17,5 @@
 
     @livewire('courses-index')
 
-    <x-wsp/>
-    <x-slot name="js">
 
-        <script>
-            var botmanWidget = {
-                frameEndpoint: '/botman/chat',
-                title:"Uccuyo Virtual",
-                 introMessage: 'Hola 👋 Bienvenida/o a UCCuyo Virtual. Soy tu asistente virtual. En qué puedo ayudarte?',
-                 mainColor: '#fd9807',
-                 bubbleBackground:'#fd9807',
-                 bubbleAvatarUrl:'../images/chatbot4.png',
-                 placeholderText: 'Ingresa tu consulta',
-                 aboutLink: 'www.evirtualsj.com',
-                 aboutText: 'DEV Uccuyo',
-            };
-            </script>
-           <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
-    </x-slot>
 </x-app-layout>

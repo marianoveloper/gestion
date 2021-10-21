@@ -12,12 +12,11 @@ class HomeController extends Controller
 
     public function __invoke()
     {
-        $courses=Course::where('status',3)
-        ->whereIn('status_course',[1,3])
+        $courses=Course::where('status',1)
+
         ->latest('id')->get()->take(8);
         $types= Type::all();
         $category=Category::all();
-       //dd($types[0]->name);
 
 
         return view('welcome',compact('courses','types','category'));

@@ -10,14 +10,9 @@ class Course extends Model
     use HasFactory;
 
     protected $guarded=['id','status'];
-
-    const Borrador=1;// no visible falta completar datos
-    const Revision=2;//no visible falta aprobacion
-    const Publicado=3;//estan visible en la pagina
     const Activo=1;//habilitado inscripcion o pre-inscripcion
-    const Proximamente=2;//visible sin inscripcion o pre-inscripcion con fecha proxima abrir
-    const Finalizado=3;//visible
-    const Permanente=4;
+    const Borrador=2;// no visible falta completar datos
+
 
 
 

@@ -48,20 +48,15 @@ class CourseController extends Controller
             'title'=> 'required',
             'slug'=> 'required|unique:courses',
             'description'=> 'required',
-            'destination'=>'required',
-            'duration'=> 'required',
-            'date_start'=>'required|date|after:tomorrow',
-            'date_limit'=>'required|date|after:date_start',
+
             'url_info'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
-            'link_inscription'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+
             'category_id'=> 'required',
             'type_id'=> 'required',
             'file'=>'required|image',
-            'price'=>'required|numeric',
-            'status_course'=>'required',
-            'status_price'=>'required',
-            'status_link'=>'required',
-            'quota'=>'required',
+
+            'status'=>'required',
+
 
         ]);
 
@@ -75,12 +70,7 @@ class CourseController extends Controller
             'url'=>$url,
         ]);
 
-        $course->payment()->create([
-            'price'=>$request->price,
-            'status_price'=>$request->status_price,
-            'status_link'=>$request->status_link,
-            'quota'=>$request->quota,
-        ]);
+
 
 
 
@@ -125,44 +115,22 @@ class CourseController extends Controller
     {
         $request->validate([
             'title'=> 'required',
-            'slug'=> 'required|unique:courses,slug,'.$course->id,
+            'slug'=> 'required|unique:courses',
             'description'=> 'required',
-            'destination'=>'required',
-            'date_start'=>'required|date',
-            'date_limit'=>'required|date|after:date_start',
+
             'url_info'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
-            'link_inscription'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+
             'category_id'=> 'required',
             'type_id'=> 'required',
             'file'=>'image',
-            'price'=>'required',
-            'status_course'=>'required',
-            'status_price'=>'required',
-            'status_link'=>'required',
-            'quota'=>'required',
+
+            'status'=>'required',
 
         ]);
 $course->update($request->all());
 
 
-if($course->payment !=null){
 
-    $course->payment()->update([
-        'price'=>$request->price,
-        'status_price'=>$request->status_price,
-        'status_link'=>$request->status_link,
-        'quota'=>$request->quota,
-    ]);
-}elseif($course->payment ==null)
-{
-
-    $course->payment()->create([
-        'price'=>$request->price,
-        'status_price'=>$request->status_price,
-        'status_link'=>$request->status_link,
-        'quota'=>$request->quota,
-    ]);
-}
 
 
 if($request->file('file')){
@@ -201,10 +169,7 @@ return redirect()->route('dev.courses.edit',$course);
         return view('dev.courses.goals',compact('course'));
     }
 
-    public function payments(Course $course){
 
-        return view('dev.courses.payments',compact('course'));
-    }
 
     public function status(Course $course){
 

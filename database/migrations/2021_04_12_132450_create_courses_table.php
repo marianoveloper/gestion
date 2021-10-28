@@ -19,9 +19,8 @@ class CreateCoursesTable extends Migration
             $table->string('title');//titulo
 
             $table->text('description');//descripcion del curso
-
-            $table->string('url_info');//informativo
-            $table->string('link_inscription');//link intra/siu/form
+        
+            $table->string('link_form');//link form
             $table->enum('status',[Course::Activo,Course::Borrador])->default(Course::Borrador);//ESTADO DEL CURSO
             $table->string('slug');//direccion
 
@@ -30,8 +29,7 @@ class CreateCoursesTable extends Migration
             $table->unsignedBigInteger('user_id');//USUARIO
             $table->unsignedBigInteger('type_id')->nullable();//TIPO DE CURSO O CARRERA
             $table->unsignedBigInteger('category_id')->nullable();//CATEGORIA QUE PERTENECE
-           // $table->unsignedBigInteger('payment_id')->nullable();//PAGOS
-            $table->unsignedBigInteger('sede_id')->nullable();
+           
 
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

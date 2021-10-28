@@ -2,7 +2,7 @@
 
     <div class="mb-6 bg-white rounded-lg shadow-lg">
         <div class="flex items-center justify-between px-6 py-2">
-            <h1 class="font-semibold text-gray-700 uppercase">{{$category->name}}</h1>
+            <h1 class="font-bold text-gray-700 uppercase">{{$category->name}}</h1>
 
             <div class="grid grid-cols-2 text-gray-500 border border-gray-200 divide-x divide-gray-200">
                 <i class="fas fa-border-all p-3 cursor-pointer {{ $view == 'grid' ? 'text-yellow-600' : ''}}"
@@ -14,12 +14,12 @@
     </div>
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        <aside>
-            <h2 class="mb-2 font-semibold text-center">Subcategorías</h2>
+        <aside >
+            <h1 class="mb-2 font-semibold text-center text-xl">Formularios</h2>
             <ul class="divide-y divide-gray-200">
 
                 @foreach($category->types as $subcategory)
-                <li class="py-2 text-sm ">
+                <li class="py-2 text-xl ">
                     <a class="capitalize cursor-pointer hover:text-yellow-600 {{$subcategoria==$subcategory->slug ? 'text-yellow-500 font-semibold' : ''}}"
                         wire:click="$set('subcategoria','{{$subcategory->slug}}')">{{$subcategory->name}}
                     </a>

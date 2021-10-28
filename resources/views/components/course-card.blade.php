@@ -12,32 +12,33 @@
         @else
         <p class="mb-2 text-sm text-gray-500">Inicio: {{ \Carbon\Carbon::parse($course->date_start)->format('d/m/Y')}}
         </p>
-        @endif
-
-        @if($course->type->category->id==1)
-        <p class="mb-2 text-sm text-gray-500">Duración: {{$course->duration}}</p>
-
-        @else
-        @if($course->payment!= null && $course->payment->status_price==1)<!-- si contado y no es nulo--->
-        <p class="mb-2 text-gray-500 text-md">Precio Total: ${{$course->price}}</p>
-@elseif($course->payment!= null && $course->payment->status_price==2)<!--- si es cuotas --->
-            <p class="mb-2 text-gray-500 text-md">Precio: {{$course->payment->quota}} cuotas de  ${{$course->price}}</p>
-    @elseif($course->payment!= null && $course->payment->status_price==3)<!-- si es gratuito -->
-    <p class="mb-2 text-gray-500 text-md">Participación: Gratuita</p>
-@endif
-        @endif
+        @endif   
+ 
 
 
-        @if($course->status_course==1 || $course->status_course==4)
-        <span class="px-2 py-1 mt-1 text-sm text-gray-200 bg-green-600 rounded-full">Inscripciones
-            Abiertas</span>
-        @else
-        <span class="px-2 py-1 text-sm text-gray-100 bg-gray-900 rounded-full">Inscripciones
-            Finalizadas</span>
-        @endif
+      
         <a href="{{route('courses.show', $course)}}"
-            class="block px-4 py-2 mt-4 font-bold text-center text-white bg-yellow-500 rounded hover:bg-yellow-700">
-            Mas Información
+            class="block px-4 py-2 mt-4 font-bold text-center text-white bg-green-500 rounded hover:bg-green-700">
+            Ver
         </a>
     </div>
 </article>
+<!-- component -->
+<!-- This is an example component -->
+<div class="max-w-lg mx-auto">
+    <div class="bg-white shadow-md border border-gray-200 rounded-lg max-w-sm mb-5">
+        <a href="#">
+            <img class="rounded-t-lg" src="https://flowbite.com/docs/images/blog/image-1.jpg" alt="">
+        </a>
+        <div class="p-5">
+            <a href="#">
+                <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">Noteworthy technology acquisitions 2021</h5>
+            </a>
+            <p class="font-normal text-gray-700 mb-3">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+            <a class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center" href="#">
+                Read more
+            </a>
+        </div>
+    </div>
+    <p>This card component is part of a larger, open-source library of Tailwind CSS components. Learn more by going to the official <a class="text-blue-600 hover:underline" href="https://flowbite.com/docs/getting-started/introduction/" target="_blank">Flowbite Documentation</a>.</p>
+</div>

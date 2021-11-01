@@ -60,6 +60,7 @@ class CourseController extends Controller
 
         ]);
 
+
         $course=Course::create($request->all());
 
         if($request->file('file')){
@@ -113,12 +114,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, Course $course)
     {
+
         $request->validate([
             'title'=> 'required',
 
             'description'=> 'required',
 
-            'url_info'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+            'link_form'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
 
             'category_id'=> 'required',
             'type_id'=> 'required',
@@ -127,6 +129,7 @@ class CourseController extends Controller
             'status'=>'required',
 
         ]);
+
 $course->update($request->all());
 
 

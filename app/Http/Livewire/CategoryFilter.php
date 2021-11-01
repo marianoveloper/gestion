@@ -18,16 +18,20 @@ class CategoryFilter extends Component
     public function render()
     {
         //$types= Type::all();
+        $coursesQuery = Course::where('status', 1)
 
-      //  $courses= $this->category->courses()->where('status',3)->paginate(8);
+        ->category($this->category->id);
 
+
+        /*$coursesQuery= Course::where('id',$this->category->id);
 
         $coursesQuery= Course::query()->whereHas('type.category',function(Builder $query){
             $query->where('id',$this->category->id);
 
-        });
+        });*/
 
         if($this->subcategoria){
+
             $coursesQuery= $coursesQuery->whereHas('type',function(Builder $query){
                 $query->where('name',$this->subcategoria);
             });
@@ -35,6 +39,7 @@ class CategoryFilter extends Component
 
         $courses=$coursesQuery->where('status',1)
        ->paginate(10);
+
 
         return view('livewire.category-filter',compact('courses'));
     }

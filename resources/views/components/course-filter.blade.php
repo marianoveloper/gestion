@@ -1,6 +1,6 @@
 @props(['course'])
 <li class="bg-white rounded-lg shadow">
-    <a href="{{route('courses.show', $course)}}">
+
         <article>
             <figure>
                 <img class="object-cover object-center w-full" src="{{ url('storage/'.$course->image->url) }}" alt="">
@@ -13,6 +13,6 @@
                 </a>
             </div>
         </article>
-    </a>
+
 
 </li>

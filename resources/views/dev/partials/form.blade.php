@@ -9,7 +9,6 @@
     @enderror
 </div>
 
-
 <div class="mb-4">
     {!! Form::label('slug', 'Slug del Formulario') !!}
     {!! Form::text('slug', null, ['readonly'=>'readonly', 'class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
@@ -31,17 +30,13 @@
     @enderror
 </div>
 
-
-
-
-
 <div class="grid grid-cols-4 gap-4">
     <div >
         {!! Form::label('link_form', 'url de Formulario') !!}
         {!! Form::text('link_form', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
-        sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('link_inscription')? 'border-red-600': '')]) !!}
+        sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('link_form')? 'border-red-600': '')]) !!}
 
-        @error('link_inscription')
+        @error('link_form')
         <strong class="text-xs text-red-600">{{$message}}</strong>
         @enderror
     </div>

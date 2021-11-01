@@ -15,7 +15,7 @@
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         <aside >
-            <h1 class="mb-2 font-semibold text-center text-xl">Formularios</h2>
+            <h1 class="mb-2 text-xl font-semibold text-center">Formularios</h2>
             <ul class="divide-y divide-gray-200">
 
                 @foreach($category->types as $subcategory)
@@ -55,7 +55,7 @@
                 <li class="md:col-span-2 lg:col-span-4">
                     <div class="relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded" role="alert">
                         <strong class="font-bold">Upss!</strong>
-                        <span class="block sm:inline">No existe ningún curso con ese filtro.</span>
+                        <span class="block sm:inline">No existe ningún formulario con ese filtro.</span>
                     </div>
                 </li>
                 @endforelse

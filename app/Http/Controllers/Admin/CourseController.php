@@ -24,7 +24,7 @@ class CourseController extends Controller
 
     public function aproved(Course $course){
 
-        if(!$course->goals || !$course->requirements || !$course->image && $course->status_course == 1 ){
+        if(!$course->title ){
 
             return back()->with('info','No se puede publicar un curso que no este completo');
         }
@@ -32,7 +32,7 @@ class CourseController extends Controller
             return back()->with('info','Es necesario subir como minimo una imagen');
         }
 
-        $course->status=3;
+        $course->status=1;
         $course->save();
         return redirect()->route('admin.course.index')->with('info','la propuesta se creo correctamente');
     }

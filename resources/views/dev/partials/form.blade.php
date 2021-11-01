@@ -38,7 +38,7 @@
 <div class="grid grid-cols-4 gap-4">
     <div >
         {!! Form::label('link_form', 'url de Formulario') !!}
-        {!! Form::text('link_inscription', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+        {!! Form::text('link_form', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
         sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('link_inscription')? 'border-red-600': '')]) !!}
 
         @error('link_inscription')

@@ -7,11 +7,11 @@
         <h2 class="text-2xl font-extrabold text-gray-900"></h2>
         <section class="grid grid-cols-1 mt-6 md:grid-cols-1 lg:grid-cols-3 gap-x-6 gap-y-8">
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url('https://images.unsplash.com/photo-1623479322729-28b25c16b011?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');">
+                style="background-image: url({{asset('images/homes/carrera.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
-                        <a class="text-2xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
+                        <a class="text-3xl font-bold text-center text-white " href="{{route('categories.show',$category[0])}}">
                             <span class="absolute inset-0"></span>
                             {{$category[0]->name}}
                         </a>
@@ -19,11 +19,11 @@
                 </div>
             </article>
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url('https://images.unsplash.com/photo-1569012871812-f38ee64cd54c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');">
+                style="background-image: url({{asset('images/homes/curso.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
-                        <a class="text-2xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
+                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
                             <span class="absolute inset-0"></span>
                             {{$category[1]->name}}
                         </a>
@@ -31,11 +31,11 @@
                 </div>
             </article>
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1170&q=80');">
+                style="background-image: url({{asset('images/homes/diplomatura.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
-                        <a class="text-2xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
+                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
                             <span class="absolute inset-0"></span>
                             {{$category[2]->name}}
                         </a>

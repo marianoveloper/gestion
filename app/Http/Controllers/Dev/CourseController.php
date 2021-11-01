@@ -49,7 +49,7 @@ class CourseController extends Controller
             'slug'=> 'required|unique:courses',
             'description'=> 'required',
 
-            'url_info'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+            'link_form'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
 
             'category_id'=> 'required',
             'type_id'=> 'required',
@@ -115,7 +115,7 @@ class CourseController extends Controller
     {
         $request->validate([
             'title'=> 'required',
-            'slug'=> 'required|unique:courses',
+
             'description'=> 'required',
 
             'url_info'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],

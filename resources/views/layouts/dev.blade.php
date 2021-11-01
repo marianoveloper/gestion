@@ -63,11 +63,7 @@
                     </div>
                   @break
                  @case(2)
-                 <form action="{{route('dev.courses.status',$course)}}" method="POST">
-                    @csrf
 
-                    <button type="submit" class="btn btn-danger">Solicitar Revisión</button>
-                </form>
                  <div class="card">
                      <div class="text-yellow-800 bg-yellow-100 card-body ">
 

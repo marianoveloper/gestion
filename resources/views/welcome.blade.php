@@ -23,7 +23,7 @@
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
-                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
+                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[1])}}">
                             <span class="absolute inset-0"></span>
                             {{$category[1]->name}}
                         </a>
@@ -35,7 +35,7 @@
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
-                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[0])}}">
+                        <a class="text-3xl font-bold text-center text-white" href="{{route('categories.show',$category[2])}}">
                             <span class="absolute inset-0"></span>
                             {{$category[2]->name}}
                         </a>

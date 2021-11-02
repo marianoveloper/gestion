@@ -5,7 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
-use app\mail\Consulta;
+use App\Mail\Consulta;
+use App\Http\Controllers\ConsultaController;
 use Illuminate\Support\Facades\Mail;
 
 Route::get('/', HomeController::class)->name('home');
@@ -25,15 +26,9 @@ Route::get('cursos/{course}',[CourseController::class,'show'])->name('courses.sh
 
 Route::get('categories/{category}',[CategoryController::class,'show'])->name('categories.show');
 
-Route::get('contactanos', function () {
 
-    $correo= new Consulta;
-
-    Mail::to('soportevirtual@uccuyo.edu.ar')->send($correo);
-
-    return "mensaje enviado";
-
-});
+Route::get('consulta', [ConsultaController::class, 'index'])->name('consulta.index');
+Route::post('consulta', [ConsultaController::class, 'store'])->name('consulta.store');
 
 
 

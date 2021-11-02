@@ -5,6 +5,11 @@
             'route' => route('home'),
             'active' => request()->routeIs('home')
         ],
+        [
+            'name' => 'Contacto',
+            'route' => route('consulta.index'),
+            'active' => request()->routeIs('consulta')
+],
 
 
 

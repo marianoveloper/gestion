@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="mt-4 mb-4 md:mt-auto">
-                    <x-jet-button href="{{ route('courses.show', $course) }}">
+                    <x-jet-button href="{{$course->link_form}}">
                         Ingresar
                     </x-jet-button>
                 </div>

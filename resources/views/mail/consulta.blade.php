@@ -1,13 +1,28 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
+    <!-- Required meta tags -->
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Este mail de prueba</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, eaque aliquid delectus numquam quae praesentium necessitatibus magni consectetur sunt odit! Debitis possimus officiis sunt commodi dignissimos. Assumenda natus reiciendis sed!</p>
-</body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+      <div class="container">
+        <div class="container"><h2 class="font-semibold text-gray-600">Estimado(a), la siguiente solicitud se ha generado desde Sistema de Gestión Virtual</h2></div>
+      </div>
+    <div class="container">
+      <div class="container"><h3 class="font-semibold text-gray-600">Nombre: {{$contacto['name']}}</h3></div>
+      <div class="container"><h3 class="font-semibold text-gray-600">Correo: {{$contacto['email']}}</h3></div>
+      <div class="container"><h3 class="font-semibold text-gray-600">Mensaje: {{$contacto['mensaje']}}</h3></div>
+    </div>
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+  </body>
 </html>

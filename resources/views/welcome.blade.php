@@ -47,7 +47,7 @@
     </article>
 </section>
 <section class="py-8 mt-20" style="background-image: url({{asset('images/homes/barra-verde.png')}})">
-    <h1 class="text-3xl text-center text-white">Tenés alguna consulta o sugerencia</h1>
+    <h1 class="text-3xl text-center text-white">Tenés algun pedido específico, consulta o sugerencia</h1>
 
     <div class="flex justify-center mt-4">
         <a href="{{route('consulta.index')}}"

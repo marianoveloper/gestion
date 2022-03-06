@@ -64,7 +64,7 @@
     <div class="container py-8">
 
         <section class="py-8 " style="background-image: url({{asset('images/homes/barra-verde.png')}})">
-            <h1 class="text-3xl text-center text-white">Solicitud de Apertura de Carrera</h1>
+            <h1 class="text-3xl text-center text-white">Solicitud de Apertura de Cátedra</h1>
 
 
         </section>
@@ -261,13 +261,13 @@
                     </div>
                 </div>
                 <div class="flex justify-center py-8">
-                    {!! Form::submit('Crear nuevo Formulario', ['class'=> 'btn btn-primary cursor-pointer']) !!}
+                    {!! Form::submit('Enviar nuevo Formulario', ['class'=> 'btn btn-primary cursor-pointer']) !!}
                 </div>
                 {!! Form::close() !!}
             </div>
         </div>
         <x-slot name="js">
-            <script src="https://cdn.ckeditor.com/ckeditor5/29.1.0/classic/ckeditor.js"></script>
+            <script src="https://cdn.ckeditor.com/ckeditor5/32.0.0/classic/ckeditor.js"></script>
 
             <script src="{{asset('js/dev/courses/form.js')}}"></script>
             </x-slot-name>

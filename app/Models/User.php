@@ -66,4 +66,8 @@ class User extends Authenticatable
     public function course(){
         return $this->hasMany('App\Models\Course');
     }
+
+    public function formulario(){
+        return $this->hasMany(Formulario::class);
+    }
 }

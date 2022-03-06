@@ -20,6 +20,8 @@ class ConsultaController extends Controller
         return redirect()->route('consulta.index')->with('info', 'Su consulta ha sido enviada con exito.');
     }
 
-
+    public function show(){
+        return;
+    }
 
 }

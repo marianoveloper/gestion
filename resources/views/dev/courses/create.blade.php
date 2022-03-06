@@ -2,7 +2,7 @@
     <div class="container py-8">
         .<div class="card">
             <div class="card-body">
-                <h1 class="text-2xl font-bold bg-green-200 text-center">Nuevo Formulario</h1>
+                <h1 class="text-2xl font-bold text-center bg-green-200">Nuevo Formulario</h1>
                 <hr class="mt-2 mb-6">
 
                 {!! Form::open(['route'=> 'dev.courses.store','files'=>true, 'autocomplete'=>'off']) !!}

@@ -77,6 +77,7 @@
 
     @livewireScripts
 
+    @stack('js')
     @isset($js)
     {{$js}}
 

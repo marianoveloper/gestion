@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrera;
 use App\Models\Catedra;
+use App\Models\Academic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CatedraController extends Controller
 {
@@ -14,7 +17,9 @@ class CatedraController extends Controller
      */
     public function index()
     {
-        //
+        $academica=Academic::pluck('name','id');
+        $carrera=Carrera::pluck('name','id');
+        return view('catedra.index',compact('academica','carrera'));
     }
 
     /**
@@ -35,7 +40,33 @@ class CatedraController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+       $request->validate([
+
+        'contacto'=>'required',
+        'academic_id'=>'required',
+        'carrera_id'=>'required',
+
+        'file'=>'required|mimes:xls,xlsx,docx|max:2048',
+
+       ]);
+
+
+
+       $catedra=Catedra::create($request->all());
+
+       if($request->file('file')){
+        $url=Storage::put('catedra', $request->file('file'));
+
+    }
+
+    $catedra->resource()->create([
+        'url'=>$url,
+    ]);
+
+
+    return redirect()->route('catedra.index',$catedra)
+    ->with('info','La solicitud fue enviada');
     }
 
     /**
@@ -46,40 +77,7 @@ class CatedraController extends Controller
      */
     public function show(Catedra $catedra)
     {
-        //
+        return;
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Catedra  $catedra
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Catedra $catedra)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Catedra  $catedra
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Catedra $catedra)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Catedra  $catedra
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Catedra $catedra)
-    {
-        //
-    }
 }

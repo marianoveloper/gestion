@@ -1,14 +1,16 @@
 <?php
 
+use App\Mail\Consulta;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BotManController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CourseController;
-use App\Mail\Consulta;
+use App\Http\Controllers\CatedraController;
+use App\Http\Controllers\AperturaController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\MatriculacionController;
-use Illuminate\Support\Facades\Mail;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -34,5 +36,11 @@ Route::post('consulta', [ConsultaController::class, 'store'])->name('consulta.st
 
 Route::get('matriculacion', [MatriculacionController::class, 'index'])->name('matriculacion.index');
 Route::post('matriculacion', [MatriculacionController::class, 'store'])->name('matriculacion.store');
+
+Route::get('catedra', [CatedraController::class, 'index'])->name('catedra.index');
+Route::post('catedra', [CatedraController::class, 'store'])->name('catedra.store');
+
+Route::get('apertura', [AperturaController::class, 'index'])->name('carrera.index');
+Route::post('apertura', [AperturaController::class, 'store'])->name('carrera.store');
 
 

@@ -717,6 +717,7 @@ class ComposerStaticInite45850af85c5ac0936403e45fe047c67
         'App\\Http\\Controllers\\Dev\\CourseController' => __DIR__ . '/../..' . '/app/Http/Controllers/Dev/CourseController.php',
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\MatriculacionController' => __DIR__ . '/../..' . '/app/Http/Controllers/MatriculacionController.php',
+        'App\\Http\\Controllers\\SubcategoryController' => __DIR__ . '/../..' . '/app/Http/Controllers/SubcategoryController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Livewire\\Admin\\UsersIndex' => __DIR__ . '/../..' . '/app/Http/Livewire/Admin/UsersIndex.php',
         'App\\Http\\Livewire\\CategoryCourses' => __DIR__ . '/../..' . '/app/Http/Livewire/CategoryCourses.php',

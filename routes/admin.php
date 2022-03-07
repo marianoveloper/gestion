@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Admin\CourseController;
+use App\Http\Controllers\Admin\MatriculacionController;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
 
@@ -23,3 +24,5 @@ Route::get('courses',[CourseController::class,'index'])->name('course.index');
 Route::get('courses/{course}',[CourseController::class,'show'])->name('course.show');
 
 Route::post('course/{course}/approve',[CourseController::class,'aproved'])->name('course.aproved');
+
+Route::resource('matriculacion',MatriculacionController::class)->names('matriculacion');

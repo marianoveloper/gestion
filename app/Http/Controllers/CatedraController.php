@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Carrera;
 use App\Models\Catedra;
 use App\Models\Academic;
+use App\Mail\Notificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class CatedraController extends Controller
@@ -64,7 +66,13 @@ class CatedraController extends Controller
         'url'=>$url,
     ]);
 
+    $correo=auth()->user()->email;
+    $subject="Solicitud de Apertura de Cátedra";
 
+   $mail=new Notificacion($subject,$correo);
+
+
+    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
     return redirect()->route('catedra.index',$catedra)
     ->with('info','La solicitud fue enviada');
     }

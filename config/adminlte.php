@@ -256,7 +256,13 @@ return [
             'active'    => ['admin/users*'],
 
         ],
+
         ['header' => 'OPCIONES DE CURSOS'],
+        ['text' => 'Matriculación',
+            'route' => 'admin.matriculacion.index',
+            'icon' => 'fas fa-fw fa-cogs',
+    ],
+
         [
             'text' => 'Pendientes de aprobación',
             'route'  => 'admin.course.index',

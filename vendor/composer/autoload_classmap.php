@@ -32,6 +32,7 @@ return array(
     'App\\Http\\Controllers\\Dev\\CourseController' => $baseDir . '/app/Http/Controllers/Dev/CourseController.php',
     'App\\Http\\Controllers\\HomeController' => $baseDir . '/app/Http/Controllers/HomeController.php',
     'App\\Http\\Controllers\\MatriculacionController' => $baseDir . '/app/Http/Controllers/MatriculacionController.php',
+    'App\\Http\\Controllers\\SubcategoryController' => $baseDir . '/app/Http/Controllers/SubcategoryController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
     'App\\Http\\Livewire\\Admin\\UsersIndex' => $baseDir . '/app/Http/Livewire/Admin/UsersIndex.php',
     'App\\Http\\Livewire\\CategoryCourses' => $baseDir . '/app/Http/Livewire/CategoryCourses.php',

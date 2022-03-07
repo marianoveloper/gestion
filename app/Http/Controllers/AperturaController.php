@@ -6,8 +6,10 @@ use App\Models\Sede;
 use App\Models\Carrera;
 use App\Models\Academic;
 use App\Models\Apertura;
+use App\Mail\Notificacion;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class AperturaController extends Controller
@@ -33,7 +35,7 @@ class AperturaController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -44,13 +46,24 @@ class AperturaController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
 
             'contacto'=>'required',
             'academic_id'=>'required',
-            'carrera_id'=>'required',
+            'subcategory_id'=>'required',
+            'title'=>'required',
+            'descripcion'=>'required',
+            'perfil'=>'required',
+            'alcances'=>'required',
+            'objetivos'=>'required',
+            'destinatarios'=>'required',
+            'requisitos'=>'required',
+            'duracion'=>'required',
+            'file'=>'required|mimes:pdf|max:2048',
+            'resol'=>'required|mimes:pdf|max:2048',
 
-            'file'=>'required|mimes:xls,xlsx,docx|max:2048',
+
 
            ]);
 
@@ -58,6 +71,7 @@ class AperturaController extends Controller
 
            $carrera=Apertura::create($request->all());
 
+           //plan de estudio
            if($request->file('file')){
             $url=Storage::put('carrera', $request->file('file'));
 
@@ -67,6 +81,24 @@ class AperturaController extends Controller
             'url'=>$url,
         ]);
 
+        //resolucion
+        if($request->file('resol')){
+            $url=Storage::put('carrera', $request->file('resol'));
+
+        }
+
+        $carrera->resource()->create([
+            'url'=>$url,
+        ]);
+
+
+        $correo=auth()->user()->email;
+        $subject="Solicitud de Apertura de Carrera Virtual";
+
+       $mail=new Notificacion($subject,$correo);
+
+
+        Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
 
         return redirect()->route('carrera.index')
         ->with('info','La solicitud fue enviada');

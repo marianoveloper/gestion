@@ -45,7 +45,7 @@
                 </div>
                 <div class="grid grid-cols-3 gap-4 mb-4">
                     <div>
-                        {!! Form::label('sede', 'Sede') !!}
+                        {!! Form::label('sede_id', 'Sede') !!}
                         {!! Form::select('sede_id', $sede, null, ['class'=>'focus:ring-indigo-500
                         focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
@@ -93,16 +93,19 @@
 
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Presentación de la Propuesta </label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="descripcion" id="descripcion" type="text" placeholder="Presentación de la Carrera"required></textarea>
+                    {!! Form::textarea('descripcion', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('descripcion')?
+    'border-red-600': '')]) !!}
 
-                    @error('description')
+                    @error('descripcion')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Perfil del Egresado </label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="perfil" id="perfil" type="text" placeholder="Perfil del egresado"required></textarea>
-
+                    {!! Form::textarea('perfil', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('perfil')?
+                    'border-red-600': '')]) !!}
 
                     @error('perfil')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
@@ -110,7 +113,9 @@
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Alcances e Incumbencias</label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="alcances" id="alcances" type="text" placeholder="Alcances e Incumbencias"required></textarea>
+                    {!! Form::textarea('alcances', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('alcances')?
+                    'border-red-600': '')]) !!}
 
                     @error('alcances')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
@@ -118,40 +123,44 @@
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Objetivos de la Propuesta</label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="objetivos" id="objetivos" type="text" placeholder="Objetivos de la Propuesta"required></textarea>
+                    {!! Form::textarea('objetivos', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('objetivos')?
+    'border-red-600': '')]) !!}
 
 
-                    @error('title')
+                    @error('objetivos')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Duración de la Carrera</label>
-                    {!! Form::text('title', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full
+                    {!! Form::text('duracion', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full
                     pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('title')? 'border-red-600':
+                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('duracion')? 'border-red-600':
                     '')]) !!}
 
-                    @error('title')
+                    @error('duracion')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Destinatarios</label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="destinatarios" id="destinatarios" type="text" placeholder="Destinatarios"required></textarea>
-
-
-                    @error('slug')
+                    {!! Form::textarea('destinatarios', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('destinatarios')?
+                    'border-red-600': '')]) !!}
+                    @error('destinatarios')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
 
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Requisitos de Inscripción</label>
-                    <textarea class="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline" name="requisitos" id="requisitos" type="text" placeholder="Requisitos de Inscripción"required></textarea>
+                    {!! Form::textarea('requisitos', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('requisitos')?
+                    'border-red-600': '')]) !!}
 
 
-                    @error('slug')
+                    @error('requisitos')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
@@ -214,48 +223,7 @@
       .catch(error => {
           console.log(error);
       });
-      ClassicEditor
-      .create(document.querySelector('#alcances'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-        heading: {
-            options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-            ]
-        }
-      })
-      .catch(error => {
-          console.log(error);
-      });
-      ClassicEditor
-      .create(document.querySelector('#perfil'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-        heading: {
-            options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-            ]
-        }
-      })
-      .catch(error => {
-          console.log(error);
-      });
-      ClassicEditor
-      .create(document.querySelector('#objetivos'), {
-        toolbar: [ 'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote' ],
-        heading: {
-            options: [
-                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
-                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
-                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' }
-            ]
-        }
-      })
-      .catch(error => {
-          console.log(error);
-      });
+
 
 
 

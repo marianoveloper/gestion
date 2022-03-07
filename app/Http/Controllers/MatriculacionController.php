@@ -7,7 +7,9 @@ use App\Models\Academic;
 use Illuminate\Http\Request;
 use App\Models\Matriculacion;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
+use App\Mail\Notificacion;
 
 class MatriculacionController extends Controller
 {
@@ -67,6 +69,15 @@ class MatriculacionController extends Controller
         'url'=>$url,
     ]);
 
+
+
+    $correo=auth()->user()->email;
+    $subject="Matriculación";
+
+   $mail=new Notificacion($subject,$correo);
+
+
+    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
 
     return redirect()->route('matriculacion.index',$matriculacion)
     ->with('info','Archivo fue enviado');

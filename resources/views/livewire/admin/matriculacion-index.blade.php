@@ -21,6 +21,7 @@
                     </thead>
                     <tbody>
                         @foreach ($matriculacion as $mat)
+
                         <tr>
                             <td>{{$mat->id}}</td>
                             <td>{{$mat->created_at}}</td>
@@ -48,7 +49,9 @@
                             <td>{{$mat->academic->name}}</td>
                             <td>{{$mat->carrera->name}}</td>
                             <td width="10px">
-                                <a class="btn btn-success"  href="#">Descargar</a>
+                                <button wire:click="download({{$mat->id}})" class="p-1 text-gray-400 rounded hover:text-blue-500 focus:text-blue-500 focus:ring-2 ring-blue-300 focus:outline-none">
+
+                                </button>
                             </td>
                         </tr>
                         @endforeach

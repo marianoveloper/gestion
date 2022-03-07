@@ -62,11 +62,15 @@ class MatriculacionController extends Controller
 
        if($request->file('file')){
         $url=Storage::put('matriculaciones', $request->file('file'));
+        $name=$request->file('file')->hashName();
 
     }
 
+//dd($name);
+
     $matriculacion->resource()->create([
         'url'=>$url,
+        'name'=>$name,
     ]);
 
 

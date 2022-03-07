@@ -8,6 +8,7 @@ use App\Models\Academic;
 use Livewire\WithPagination;
 use App\Models\Matriculacion;
 
+
 class MatriculacionIndex extends Component
 {
     use WithPagination;
@@ -15,6 +16,8 @@ class MatriculacionIndex extends Component
     protected $paginationTheme ="bootstrap";
 
     public $search;
+
+    public $mat,$file;
 
     public function render()
     {
@@ -32,4 +35,13 @@ class MatriculacionIndex extends Component
     public function limpiar_page(){
         $this->reset('page');
     }
+    public function download($id) {
+
+        $this->mat=Matriculacion::find($id);
+
+        return response()->download(
+            storage_path('app/public/matriculaciones/') . $this->mat->resource->name
+        );
+    }
+
 }

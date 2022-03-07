@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Sede;
+use App\Models\Academic;
+use App\Models\Matriculacion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Carrera extends Model
 {
@@ -21,6 +24,8 @@ public function academic(){
     return $this->hasManyThrough(Academic::class,Sede::class);
 
 }
-
+public function matriculacions(){
+    return $this->hasMany(Matriculacion::class);
+}
 
 }

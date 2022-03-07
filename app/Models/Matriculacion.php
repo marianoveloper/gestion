@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Sede;
 use App\Models\User;
 use App\Models\Image;
+use App\Models\Carrera;
 use App\Models\Academic;
 use App\Models\Resource;
 use Illuminate\Database\Eloquent\Model;
@@ -26,7 +27,11 @@ class Matriculacion extends Model
 
 //relacion academica con curso
 public function academic(){
-    return $this->hasManyThrough(Academic::class,Sede::class);
+    return $this->hasMany(Academic::class);
+
+}
+public function carrera(){
+    return $this->belongsTo(Carrera::class);
 
 }
 

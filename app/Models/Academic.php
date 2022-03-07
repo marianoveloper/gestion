@@ -16,7 +16,7 @@ class Academic extends Model
         return $this->hasMany(Course::class);
     }
  public function sede(){
-       return $this->belongsTo('App\Models\Sede');
+       return $this->belongsTo(Sede::class);
 
     }
 }

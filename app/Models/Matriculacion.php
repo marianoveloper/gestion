@@ -25,11 +25,18 @@ class Matriculacion extends Model
     return $this->belongsTo(User::class);
 }
 
-//relacion academica con curso
+/*relacion academica con curso
 public function academic(){
-    return $this->hasMany(Academic::class);
+    return $this->hasManyThrough(Academic::class,Sede::class);
+
+}*/
+
+public function academic(){
+
+    return $this->belongsTo(Academic::class);
 
 }
+
 public function carrera(){
     return $this->belongsTo(Carrera::class);
 

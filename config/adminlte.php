@@ -262,7 +262,14 @@ return [
             'route' => 'admin.matriculacion.index',
             'icon' => 'fas fa-fw fa-cogs',
     ],
-
+    ['text' => 'Apertura de Cátedra',
+    'route' => 'admin.catedras.index',
+    'icon' => 'fas fa-fw fa-cogs',
+],
+['text' => 'Apertura de Carrera',
+            'route' => 'admin.carreras.index',
+            'icon' => 'fas fa-fw fa-cogs',
+    ],
         [
             'text' => 'Pendientes de aprobación',
             'route'  => 'admin.course.index',

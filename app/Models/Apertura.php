@@ -17,9 +17,9 @@ class Apertura extends Model
         return $this->belongsTo(User::class);
     }
 
-    //relacion academica con curso
     public function academic(){
-        return $this->hasManyThrough(Academic::class,Sede::class);
+
+        return $this->belongsTo(Academic::class);
 
     }
 

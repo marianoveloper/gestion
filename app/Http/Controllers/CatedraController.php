@@ -59,11 +59,13 @@ class CatedraController extends Controller
 
        if($request->file('file')){
         $url=Storage::put('catedra', $request->file('file'));
+        $name=$request->file('file')->hashName();
 
     }
 
     $catedra->resource()->create([
         'url'=>$url,
+        'name'=>$name,
     ]);
 
     $correo=auth()->user()->email;

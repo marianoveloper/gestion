@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Catedra;
+use App\Models\Matriculacion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Academic extends Model
 {
@@ -13,7 +15,11 @@ class Academic extends Model
     protected $guarded=['id'];
 
     public function matriculacions(){
-        return $this->hasMany(Course::class);
+        return $this->hasMany(Matriculacion::class);
+    }
+
+    public function catedras(){
+        return $this->hasMany(Catedra::class);
     }
  public function sede(){
        return $this->belongsTo(Sede::class);

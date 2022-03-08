@@ -14,7 +14,7 @@ class CatedraController extends Controller
      */
     public function index()
     {
-        return view('admin.catedras.index');
+        return view('admin.catedra.index');
     }
 
     /**

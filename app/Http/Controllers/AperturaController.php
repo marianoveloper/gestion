@@ -74,21 +74,23 @@ class AperturaController extends Controller
            //plan de estudio
            if($request->file('file')){
             $url=Storage::put('carrera', $request->file('file'));
-
+            $name=$request->file('file')->hashName();
         }
 
         $carrera->resource()->create([
             'url'=>$url,
+            'name'=>$name,
         ]);
 
         //resolucion
         if($request->file('resol')){
             $url=Storage::put('carrera', $request->file('resol'));
-
+            $name=$request->file('file')->hashName();
         }
 
         $carrera->resource()->create([
             'url'=>$url,
+            'name'=>$name,
         ]);
 
 

@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Formularios de Matriculación</h1>
+<h1>Solicitud de Apertura de Carreras</h1>
 @stop
 
 @section('content')
-   @livewire('admin.matriculacion-index')
+   @livewire('admin.carrera-index')
 @stop
 
 @section('css')

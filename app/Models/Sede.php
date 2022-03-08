@@ -21,4 +21,8 @@ class Sede extends Model
     public function matriculacions(){
         return $this->hasManyThrough(Matriculacion::class, Academic::class);
     }
+
+    public function aperturas(){
+        return $this->hasManyThrough(Apertura::class, Academic::class);
+    }
 }

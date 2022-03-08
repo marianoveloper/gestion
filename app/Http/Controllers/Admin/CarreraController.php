@@ -14,7 +14,7 @@ class CarreraController extends Controller
      */
     public function index()
     {
-        //
+        return view('admin.carrera.index');
     }
 
     /**

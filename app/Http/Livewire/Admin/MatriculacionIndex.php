@@ -27,9 +27,7 @@ class MatriculacionIndex extends Component
         $matriculacion = Matriculacion::all();
 
 
-
-
-        return view('livewire.admin.matriculacion-index',compact('matriculacion','academic','carrera'));
+       return view('livewire.admin.matriculacion-index',compact('matriculacion','academic','carrera'));
     }
 
     public function limpiar_page(){

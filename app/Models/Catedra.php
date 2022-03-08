@@ -19,12 +19,17 @@ class Catedra extends Model
     return $this->belongsTo(User::class);
 }
 
-//relacion academica con curso
 public function academic(){
-    return $this->hasManyThrough(Academic::class,Sede::class);
+
+    return $this->belongsTo(Academic::class);
 
 }
 
+
+public function carrera(){
+    return $this->belongsTo(Carrera::class);
+
+}
     public function resource(){
 
         return $this->morphOne(Resource::class,'resourceable');

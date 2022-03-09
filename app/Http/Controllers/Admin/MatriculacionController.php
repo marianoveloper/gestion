@@ -32,4 +32,20 @@ class MatriculacionController extends Controller
     {
         //
     }
+
+    public function status(Matriculacion $mat){
+
+        if($mat->status==1){
+            $mat->status=2;
+            $mat->save();
+
+        }
+        else{
+
+            $mat->status=1;
+            $mat->save();
+        }
+
+        return back();
+    }
 }

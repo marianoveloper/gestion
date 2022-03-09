@@ -70,20 +70,20 @@
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Modelo Excel de Matriculación</h1>
                 <hr class="mt-2 mb-6">
                 <span>
-                    El o los archivo/s debe/n ser obtenido/s de SIUCC o Guaraní. Después que realicemos la matriculación
-                    lo notificaremos en el correo indicado.
+                    El o los archivo/s debe/n ser obtenido/s de SIUCC o Guaraní.
                     La planilla debe contener los campos correctamente ordenados y completados: el DNI no debe contener
-                    puntos ni comas, el email no debe repetirse en la planilla. Para realizar la matriculación.
+                    puntos ni comas, el email no debe repetirse en la planilla. En el caso de matriculación de Docentes se debe indicar el Rol que va tener en la cátedra.
+                    Después que realicemos la matriculación lo notificaremos al correo utilizado en el Sistema de Gestión.
                 </span>
 
 
-                <div class="mb-4">
+                <div class="mt-4 mb-4">
                     <figure>
                         @isset($course->image)
                         <img id="picture" class="object-cover object-center w-full h-64" src="#">
                         @else
                         <img id="picture" class="object-cover object-center w-full h-58"
-                            src="{{asset('images/homes/matri.png')}}">
+                            src="{{asset('images/homes/matriculacion.png')}}">
                         @endisset
                     </figure>
 

@@ -14,8 +14,10 @@
                         <tr>
                             <th>ID</th>
                             <th>Fecha</th>
-                            <th>UA</th>
+                            <th>Unidad Académica</th>
                             <th>Carrera</th>
+                            <th>Descargar</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -28,11 +30,12 @@
 
                             <td>{{$cat->academic->name}}</td>
                             <td>{{$cat->carrera->name}}</td>
-                            <td width="10px">
-                                <button wire:click="download({{$cat->id}})" class="p-1 text-gray-400 rounded hover:text-blue-500 focus:text-blue-500 focus:ring-2 ring-blue-300 focus:outline-none">
+                            <td width="10px" class="flex items-center justify-between">
+                                <button wire:click="download({{$cat->id}})" class="btn btn-success"> <i class="fa fa-download"></i>
 
                                 </button>
                             </td>
+
                         </tr>
                         @endforeach
 

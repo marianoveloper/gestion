@@ -20,6 +20,9 @@ class Matriculacion extends Model
     const Alumno=1;
     const Docente=2;
 
+    const Activo=1;
+    const Hecho=2;
+
   //relacion uno a muchos trae los usuarios en los cursos
   public function user(){
     return $this->belongsTo(User::class);

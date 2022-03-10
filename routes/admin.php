@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\CarreraController;
 use App\Http\Controllers\Admin\CatedraController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MatriculacionController;
+use App\Models\Matriculacion;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
 
@@ -27,8 +28,12 @@ Route::get('courses/{course}',[CourseController::class,'show'])->name('course.sh
 
 Route::post('course/{course}/approve',[CourseController::class,'aproved'])->name('course.aproved');
 
-Route::resource('matriculacion',MatriculacionController::class)->names('matriculacion');
+Route::resource('matriculacion',MatriculacionController::class)->only('index','store','update')->names('matriculacion');
+
+
+Route::put('matriculacion/status/{mat}',[Matriculacion::class,'status'])->name('matriculacion.status');
 
 Route::resource('catedra',CatedraController::class)->names('catedra');
 
 Route::resource('carrera',CarreraController::class)->names('carrera');
+

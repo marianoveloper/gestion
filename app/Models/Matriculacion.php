@@ -14,14 +14,21 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Matriculacion extends Model
 {
     use HasFactory;
-
-    protected $guarded=['id'];
+    protected $guarded=['id','status'];
 
     const Alumno=1;
     const Docente=2;
 
     const Activo=1;
     const Hecho=2;
+
+
+    public function scopeStatus($query,$status){
+
+        if($status){
+            return $query->where('status',$status);
+        }
+    }
 
   //relacion uno a muchos trae los usuarios en los cursos
   public function user(){

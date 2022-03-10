@@ -42,4 +42,21 @@ class MatriculacionIndex extends Component
         );
     }
 
+    public function status($id){
+$this->mat=Matriculacion::find($id);
+
+        if($this->mat->status==1){
+            $this->mat->status=2;
+            $this->mat->save();
+
+        }
+        else{
+
+            $this->mat->status=1;
+            $this->mat->save();
+        }
+
+        return back();
+    }
+
 }

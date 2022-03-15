@@ -22,7 +22,7 @@ class CreateMatriculacionsTable extends Migration
             $table->unsignedBigInteger('academic_id')->nullable();//TIPO DE CURSO O CARRERA
             $table->unsignedBigInteger('carrera_id')->nullable();//CATEGORIA QUE PERTENECE
             $table->enum('status',[Matriculacion::Activo,Matriculacion::Hecho])->default(Matriculacion::Activo);
-
+            $table->date('date_start');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('academic_id')->references('id')->on('academics')->onDelete('set null');

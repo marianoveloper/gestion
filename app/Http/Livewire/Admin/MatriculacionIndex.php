@@ -41,22 +41,14 @@ class MatriculacionIndex extends Component
             storage_path('app/public/matriculaciones/') . $this->mat->resource->name
         );
     }
+        public function status(Matriculacion $mat){
 
-    public function status($id){
-$this->mat=Matriculacion::find($id);
 
-        if($this->mat->status==1){
-            $this->mat->status=2;
-            $this->mat->save();
+           $mat->status=2;
+
+           $mat->save();
 
         }
-        else{
 
-            $this->mat->status=1;
-            $this->mat->save();
-        }
-
-        return back();
-    }
 
 }

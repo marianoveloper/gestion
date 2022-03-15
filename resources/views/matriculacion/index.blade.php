@@ -1,12 +1,14 @@
 <x-app-layout>
-     <div>
+    <div>
 
-            <div class="text-center">
-                @if (session('info'))
-                    <a href="/" class="items-center w-full px-4 py-3 text-sm font-bold text-center text-white bg-yellow-500 rounded hover:bg-yellow-700">{{session('info')}}! Volver al Menu</a>
-                @endif
+        <div class="text-center">
+            @if (session('info'))
+            <a href="/"
+                class="items-center w-full px-4 py-3 text-sm font-bold text-center text-white bg-yellow-500 rounded hover:bg-yellow-700">{{session('info')}}!
+                Volver al Menu</a>
+            @endif
 
-            </div>
+        </div>
 
 
     </div>
@@ -33,9 +35,9 @@
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
 
-                <div class="grid grid-cols-2 gap-2 mb-4 md:grid-cols-1">
+                <div class="grid grid-cols-2 gap-2 mb-4">
                     <div class="mb-4">
-                        {!! Form::label('Tipo de  Matriculación', 'Tipo de Matriculación') !!}
+                        {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
                         {!! Form::select('tipo',['1'=>'Alumnos','2'=>'Docentes'],
                         null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
@@ -44,27 +46,38 @@
                     @error('tipo')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
+                    <div class="mb-4">
+                        {!! Form::label('date_start', 'Aula disponible a partir del:') !!}
+                        {!! Form::date('date_start',null, ['class'=>'form-input block w-full mt-1'.
+                        ($errors->has('date_start')?
+                        'border-red-600': '')]) !!}
 
+                        @error('date_start')
+                        <strong class="text-xs text-red-600">{{$message}}</strong>
+                        @enderror
+                    </div>
                 </div>
                 <div class="grid grid-cols-2 gap-2 mb-4">
                     <div>
                         {!! Form::label('academic_id', 'Unidad Académica') !!}
-                        {!! Form::select('academic_id', $academica, null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                        {!! Form::select('academic_id', $academica, null, ['class'=>'focus:ring-indigo-500
+                        focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
                     </div>
                     @error('academic_id')
-        <strong class="text-xs text-red-600">{{$message}}</strong>
-        @enderror
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
                     <div>
                         {!! Form::label('carrera_id', 'Seleccione la Carrera') !!}
-                        {!! Form::select('carrera_id', $carrera, null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                        {!! Form::select('carrera_id', $carrera, null, ['class'=>'focus:ring-indigo-500
+                        focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
 
                     </div>
 
                     @error('carrera_id')
-        <strong class="text-xs text-red-600">{{$message}}</strong>
-        @enderror
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
                 </div>
 
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Modelo Excel de Matriculación</h1>
@@ -72,8 +85,10 @@
                 <span>
                     El o los archivo/s debe/n ser obtenido/s de SIUCC o Guaraní.
                     La planilla debe contener los campos correctamente ordenados y completados: el DNI no debe contener
-                    puntos ni comas, el email no debe repetirse en la planilla. En el caso de matriculación de Docentes se debe indicar el Rol que va tener en la cátedra.
-                    Después que realicemos la matriculación lo notificaremos al correo utilizado en el Sistema de Gestión.
+                    puntos ni comas, el email no debe repetirse en la planilla. En el caso de matriculación de Docentes
+                    se debe indicar el Rol que va tener en la cátedra.
+                    Después que realicemos la matriculación lo notificaremos al correo utilizado en el Sistema de
+                    Gestión.
                 </span>
 
 

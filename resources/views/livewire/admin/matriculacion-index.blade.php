@@ -53,30 +53,8 @@
 
                                 </button>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
-
-                                    <form action="{{route('admin.matriculacion.update',$mat)}}" method="POST">
-                                        @csrf
-                                        @method('PUT')
-                                        @switch($mat->tipo)
-                                        @case(1)
-                                        <span
-                                        class="btn btn-danger">
-                                           Alumnos
-                                        </span>
-                                        @break
-                                        @case(2)
-                                        <span
-                                        class="btn btn-warning">
-                                            Docentes
-                                        </span>
-                                        @break
-
-                                        @default
-
-                                        @endswitch
-                                        <button type="submit"></button>
-                                    </form>
+                            <td width="10px">
+                                <button wire:click="status({{$mat}})" class="btn btn-danger"><i class="fas fa-trash"></i>
 
                             </td>
                         </tr>

@@ -57,10 +57,16 @@
                                 @case(5)
                                 <span
                                     class="badge badge-info">
+                                   Referente Virtual
+                                </span>
+                                @break
+                                @case(6)
+                                <span
+                                    class="badge badge-info">
                                     Coordinador
                                 </span>
                                 @break
-                                @case(2)
+                                @case(7)
                                 <span
                                     class="badge badge-info">
                                     Director
@@ -83,12 +89,13 @@
 
                                     @switch($mat->status)
                                     @case(1)
-                                    <button wire:click="status({{$mat}})" class="btn btn-success">
-                                    <i class="fas fa-clipboard-check"></i></button>
+                                    <button wire:click="status({{$mat}})" class="btn btn-warning">
+                                        <i class="fas fa-exclamation-triangle"></i></button>
                                     @break
                                     @case(2)
-                                    <button wire:click="status({{$mat}})" class="btn btn-warning">
-                                    <i class="fas fa-exclamation-triangle"></i></button>
+
+                                    <button wire:click="status({{$mat}})" class="btn btn-success">
+                                        <i class="fas fa-clipboard-check"></i></button>
                                     @break
                                     @default
 
@@ -105,7 +112,7 @@
 
 
                 <div class="card-footer">
-
+                    {{$matriculacion->links()}}
                 </div>
             @else
 

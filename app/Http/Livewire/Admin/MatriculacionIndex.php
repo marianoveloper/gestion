@@ -43,10 +43,18 @@ class MatriculacionIndex extends Component
     }
         public function status(Matriculacion $mat){
 
+            if($mat->status==1){
+                $mat->status=2;
 
-           $mat->status=2;
+                $mat->save();
+            }
+            else{
 
-           $mat->save();
+                $mat->status=1;
+
+                $mat->save();
+            }
+
 
         }
 

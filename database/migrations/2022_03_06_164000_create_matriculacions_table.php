@@ -16,7 +16,7 @@ class CreateMatriculacionsTable extends Migration
     {
         Schema::create('matriculacions', function (Blueprint $table) {
             $table->id();
-            $table->enum('tipo',[Matriculacion::Alumno,Matriculacion::Docente])->default(Matriculacion::Alumno);//ESTADO DEL CURSO
+            $table->enum('tipo',[Matriculacion::Estudiante,Matriculacion::Profesor,Matriculacion::Tutor,Matriculacion::AsesorPedagógico,Matriculacion::ReferenteVirtual,Matriculacion::Coordinador,Matriculacion::Director])->default(Matriculacion::Estudiante);//ESTADO DEL CURSO
 
             $table->unsignedBigInteger('user_id');//USUARIO
             $table->unsignedBigInteger('academic_id')->nullable();//TIPO DE CURSO O CARRERA

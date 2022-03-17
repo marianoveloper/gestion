@@ -12,10 +12,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Fecha</th>
-                            <th>Tipo</th>
-                            <th>UA</th>
+
+                            <th>Fecha Envio</th>
+                            <th>Aula disponible</th>
+                            <th>Unidad Académica</th>
+                            <th>Rol</th>
                             <th>Carrera</th>
                         </tr>
                     </thead>
@@ -23,38 +24,75 @@
                         @foreach ($matriculacion as $mat)
 
                         <tr>
-                            <td>{{$mat->id}}</td>
-                            <td>{{$mat->created_at}}</td>
 
+                            <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
+                            <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
+                            <td>{{$mat->academic->name}}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @switch($mat->tipo)
                                 @case(1)
                                 <span
-                                    class="inline-flex px-2 text-sm font-semibold leading-5 text-red-800 bg-red-100 rounded-full">
-                                   Alumnos
+                                    class="badge badge-success">
+                                   Estudiante
                                 </span>
                                 @break
                                 @case(2)
                                 <span
-                                    class="inline-flex px-2 text-sm font-semibold leading-5 text-yellow-800 bg-yellow-100 rounded-full">
-                                    Docentes
+                                    class="badge badge-primary">
+                                    Profesor
                                 </span>
                                 @break
-
+                                @case(3)
+                                <span
+                                    class="badge badge-info">
+                                   Tutor
+                                </span>
+                                @break
+                                @case(4)
+                                <span
+                                    class="badge badge-info">
+                                    Asesor Pedagógico
+                                </span>
+                                @break
+                                @case(5)
+                                <span
+                                    class="badge badge-info">
+                                    Coordinador
+                                </span>
+                                @break
+                                @case(2)
+                                <span
+                                    class="badge badge-info">
+                                    Director
+                                </span>
+                                @break
                                 @default
 
                                 @endswitch
 
+
                             </td>
-                            <td>{{$mat->academic->name}}</td>
+
                             <td>{{$mat->carrera->name}}</td>
                             <td width="10px">
-                                <button wire:click="download({{$mat->id}})" class="p-1 text-gray-400 rounded hover:text-blue-500 focus:text-blue-500 focus:ring-2 ring-blue-300 focus:outline-none">
-
+                                <button wire:click="download({{$mat->id}})" class="btn btn-info">
+                                    <i class="fas fa-download"></i>
                                 </button>
                             </td>
                             <td width="10px">
-                                <button wire:click="status({{$mat}})" class="btn btn-danger"><i class="fas fa-trash"></i>
+
+                                    @switch($mat->status)
+                                    @case(1)
+                                    <button wire:click="status({{$mat}})" class="btn btn-success">
+                                    <i class="fas fa-clipboard-check"></i></button>
+                                    @break
+                                    @case(2)
+                                    <button wire:click="status({{$mat}})" class="btn btn-warning">
+                                    <i class="fas fa-exclamation-triangle"></i></button>
+                                    @break
+                                    @default
+
+                                    @endswitch
 
                             </td>
                         </tr>

@@ -18,13 +18,21 @@ class MatriculacionIndex extends Component
     public $search;
 
     public $mat,$file;
+    public $carrera_id;
+    public $academic_id;
 
     public function render()
     {
         $academic= Academic::all();
         $carrera= Carrera::all();
 
-        $matriculacion = Matriculacion::where('');
+        $matriculacion = Matriculacion::whereIn('status',[1,2])
+        ->carrera($this->carrera_id)
+        ->academic($this->academic_id)
+        ->latest('id')
+        ->paginate(8);
+
+
 
 
        return view('livewire.admin.matriculacion-index',compact('matriculacion','academic','carrera'));

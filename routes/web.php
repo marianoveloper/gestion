@@ -10,6 +10,7 @@ use App\Http\Controllers\CatedraController;
 use App\Http\Controllers\AperturaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
+use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\MatriculacionController;
 
 Route::get('/', HomeController::class)->name('home');
@@ -43,4 +44,5 @@ Route::post('catedra', [CatedraController::class, 'store'])->name('catedra.store
 Route::get('apertura', [AperturaController::class, 'index'])->name('carrera.index');
 Route::post('apertura', [AperturaController::class, 'store'])->name('carrera.store');
 
-
+Route::get('propuesta',[PropuestaController::class,'index'])->name('propuesta.index');
+Route::post('propuesta',[PropuestaController::class,'store'])->name('propuesta.index');

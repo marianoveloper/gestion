@@ -25,7 +25,7 @@
                 <h1 class="mt-6 text-2xl font-bold text-center bg-green-200">Información de la Propuesta</h1>
                 <hr class="mt-2 mb-6">
 
-                {!! Form::open(['route'=> 'carrera.store','files'=>true, 'autocomplete'=>'off']) !!}
+                {!! Form::open(['route'=> 'propuesta.store','files'=>true, 'autocomplete'=>'off']) !!}
 
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
@@ -66,21 +66,21 @@
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                     <div>
-                        {!! Form::label('subcategory_id', 'Seleccione la Categoría') !!}
-                        {!! Form::select('subcategory_id', $subcategoria, null, ['class'=>'focus:ring-indigo-500
+                        {!! Form::label('subcategoria_id', 'Seleccione la Categoría') !!}
+                        {!! Form::select('subcategoria_id', $subcategoria, null, ['class'=>'focus:ring-indigo-500
                         focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
 
                     </div>
 
-                    @error('subcategory_id')
+                    @error('subcategoria_id')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Datos de la Propuesta</h1>
                 <hr class="mt-2 mb-6">
                 <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Título de la Carrera </label>
+                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Título de la Propuesta </label>
                     {!! Form::text('title', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full
                     pl-7 pr-12
                     sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('title')? 'border-red-600':
@@ -133,7 +133,7 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Duración de la Carrera</label>
+                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Duración de la Propuesta</label>
                     {!! Form::text('duracion', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full
                     pl-7 pr-12
                     sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('duracion')? 'border-red-600':

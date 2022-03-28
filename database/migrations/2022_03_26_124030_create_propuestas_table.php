@@ -23,6 +23,20 @@ class CreatePropuestasTable extends Migration
             $table->string('cupo');
             $table->date('date_start');
             $table->string('resolucion');
+
+
+            $table->unsignedBigInteger('user_id');//USUARIO
+            $table->unsignedBigInteger('academic_id');//TIPO DE CURSO O CARRERA
+            $table->unsignedBigInteger('subcategoria_id');//CATEGORIA QUE PERTENECE
+            $table->unsignedBigInteger('sede_id');//CATEGORIA QUE PERTENECE
+
+
+
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('set null');
+            $table->foreign('subcategoria_id')->references('id')->on('subcategorias')->onDelete('set null');
+            $table->foreign('sede_id')->references('id')->on('sede')->onDelete('set null');
             $table->timestamps();
         });
     }

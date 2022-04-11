@@ -12,11 +12,11 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Fecha</th>
+
+                            <th>Fecha Envio</th>
                             <th>Unidad Académica</th>
                             <th>Carrera</th>
-                            <th>Descargar</th>
+                            <th>Acciones</th>
 
                         </tr>
                     </thead>
@@ -24,17 +24,34 @@
                         @foreach ($catedra as $cat)
 
                         <tr>
-                            <td>{{$cat->id}}</td>
-                            <td>{{$cat->created_at}}</td>
+
+                            <td>{{ \Carbon\Carbon::parse($cat->created_at)->format('d/m/Y')}}</td>
 
 
                             <td>{{$cat->academic->name}}</td>
                             <td>{{$cat->carrera->name}}</td>
-                            <td width="10px" class="flex items-center justify-between">
-                                <button wire:click="download({{$cat->id}})" class="btn btn-success"> <i class="fa fa-download"></i>
-
+                            <td width="10px">
+                                <button wire:click="download({{$cat->id}})" class="btn btn-info">
+                                    <i class="fas fa-download"></i>
                                 </button>
                             </td>
+                            <td width="10px">
+
+                                @switch($cat->status)
+                                @case(1)
+                                <button wire:click="status({{$cat}})" class="btn btn-warning">
+                                    <i class="fas fa-exclamation-triangle"></i></button>
+                                @break
+                                @case(2)
+
+                                <button wire:click="status({{$cat}})" class="btn btn-success">
+                                    <i class="fas fa-clipboard-check"></i></button>
+                                @break
+                                @default
+
+                                @endswitch
+
+                        </td>
 
                         </tr>
                         @endforeach

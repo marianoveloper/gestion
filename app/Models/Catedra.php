@@ -11,8 +11,37 @@ class Catedra extends Model
 
     protected $guarded=['id'];
 
-    const Borrador=1;
-    const Activo=2;
+    const Activo=1;
+    const Hecho=2;
+
+/***query scopes********************* */
+public function scopeCarrera($query,$carrera_id){
+
+    if($carrera_id){
+        return $query->where('carrera_id',$carrera_id);
+    }
+}
+public function scopeAcademic($query,$academic_id){
+
+    if($academic_id){
+        return $query->where('academic_id',$academic_id);
+    }
+}
+
+public function scopeStatus($query,$status){
+
+    if($status){
+        return $query->where('status',$status);
+    }
+}
+
+public function scopeTipo($query,$tipo){
+
+    if($tipo){
+        return $query->where('tipo',$tipo);
+    }
+}
+
 
   //relacion uno a muchos trae los usuarios en los cursos
   public function user(){

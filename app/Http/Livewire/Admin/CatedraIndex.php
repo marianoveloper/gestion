@@ -17,13 +17,21 @@ class CatedraIndex extends Component
     public $search;
 
     public $cat,$file;
+    public $carrera_id;
+    public $academic_id;
 
     public function render()
     {
         $academic= Academic::all();
         $carrera= Carrera::all();
 
-        $catedra=Catedra::all();
+
+
+        $catedra=Catedra::whereIn('status',[1,2])
+        ->carrera($this->carrera_id)
+        ->academic($this->academic_id)
+        ->latest('id')
+        ->paginate(4);
 
         return view('livewire.admin.catedra-index',compact('catedra','academic','carrera'));
     }
@@ -36,4 +44,22 @@ class CatedraIndex extends Component
             storage_path('app/public/catedra/') . $this->cat->resource->name
         );
     }
+
+    public function status(Catedra $mat){
+
+        if($mat->status==1){
+            $mat->status=2;
+
+            $mat->save();
+        }
+        else{
+
+            $mat->status=1;
+
+            $mat->save();
+        }
+
+
+    }
+
 }

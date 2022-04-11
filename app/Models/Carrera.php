@@ -28,4 +28,8 @@ public function matriculacions(){
     return $this->hasMany(Matriculacion::class);
 }
 
+public function catedras(){
+    return $this->hasMany(Catedra::class);
+}
+
 }

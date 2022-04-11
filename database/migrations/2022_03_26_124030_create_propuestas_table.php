@@ -16,13 +16,15 @@ class CreatePropuestasTable extends Migration
         Schema::create('propuestas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
             $table->text('objetivos');
             $table->string('destinatarios');
             $table->string('requisitos');
             $table->string('cupo');
             $table->date('date_start');
-            $table->string('resolucion');
+            $table->string('costo');
+            $table->string('duracion');
+            $table->string('link_pago');
+            $table->string('tipo_resol');
 
 
             $table->unsignedBigInteger('user_id');//USUARIO
@@ -34,7 +36,7 @@ class CreatePropuestasTable extends Migration
 
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('set null');
+            $table->foreign('academic_id')->references('id')->on('academics')->onDelete('cascade');
             $table->foreign('subcategoria_id')->references('id')->on('subcategorias')->onDelete('set null');
             $table->foreign('sede_id')->references('id')->on('sede')->onDelete('set null');
             $table->timestamps();

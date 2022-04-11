@@ -7,6 +7,7 @@ use App\Models\Carrera;
 use App\Models\Academic;
 use App\Models\Propuesta;
 use App\Mail\Notificacion;
+use App\Models\Subcategoria;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -23,7 +24,7 @@ class PropuestaController extends Controller
     {
         $academica=Academic::pluck('name','id');
         $sede=Sede::pluck('name','id');
-        $subcategoria=Subcategory::pluck('name','id');
+        $subcategoria=Subcategoria::pluck('name','id');
         return view('propuesta.index',compact('academica','sede','subcategoria'));
     }
 
@@ -48,20 +49,25 @@ class PropuestaController extends Controller
 
         $request->validate([
 
-            'contacto'=>'required',
+
             'sede_id'=>'required',
             'academic_id'=>'required',
             'subcategoria_id'=>'required',
             'title'=>'required',
-            'descripcion'=>'required',
             'objetivos'=>'required',
             'destinatarios'=>'required',
             'requisitos'=>'required',
             'duracion'=>'required',
             'cupo'=>'required',
-            'date_start'=>'required|date',
-            'file'=>'required|mimes:pdf|max:2048',
+            'date_start'=>'required|date|after:tomorrow',
+            'costo'=>'required',
+            'tipo_resol'=>'required',
+            'link_pago'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+            'descripcion'=>'required|mimes:pdf|max:2048',
+            'programa'=>'required|mimes:pdf|max:2048',
             'resol'=>'required|mimes:pdf|max:2048',
+            'cv'=>'required|mimes:pdf|max:2048',
+            'flyer'=>'image',
 
 
 
@@ -69,29 +75,80 @@ class PropuestaController extends Controller
 
 
 
-           $carrera=Propuesta::create($request->all());
+           $propuesta=Propuesta::create($request->all());
 
-           //plan de estudio
-           if($request->file('file')){
-            $url=Storage::put('carrera', $request->file('file'));
-            $name=$request->file('file')->hashName();
+           //cv propuesta
+           if($request->file('cv')){
+            $url=Storage::put('cvpuccv', $request->file('cv'));
+            $name=$request->file('cv')->hashName();
         }
 
-        $carrera->resource()->create([
+        $propuesta->resource()->create([
+            'url'=>$url,
+                    'name'=>$name,
+                ]);
+
+        //descripcion puccv
+        if($request->file('descripcion')){
+            $url=Storage::put('descripcionpuccv', $request->file('descripcion'));
+            $name=$request->file('descripcion')->hashName();
+        }
+
+        $propuesta->resource()->create([
             'url'=>$url,
             'name'=>$name,
         ]);
 
-        //resolucion
+            //programa puccv
+            if($request->file('programa')){
+                $url=Storage::put('programapuccv', $request->file('programa'));
+                $name=$request->file('programa')->hashName();
+            }
+
+            $propuesta->resource()->create([
+                'url'=>$url,
+                'name'=>$name,
+            ]);
+
+
+        //resolucion puccv
         if($request->file('resol')){
-            $url=Storage::put('carrera', $request->file('resol'));
-            $name=$request->file('file')->hashName();
+            $url=Storage::put('resolpuccv', $request->file('resol'));
+            $name=$request->file('resol')->hashName();
         }
 
-        $carrera->resource()->create([
+        $propuesta->resource()->create([
             'url'=>$url,
             'name'=>$name,
         ]);
+
+
+        //flyer puccv
+        if($request->file('flyer')){
+            $url=Storage::put('flyerpuccv', $request->file('flyer'));
+            $name=$request->file('flyer')->hashName();
+
+        }
+
+        $propuesta->image()->create([
+            'url'=>$url,
+
+        ]);
+
+
+        //Datos responsables puccv
+
+        if($request->file('file')){
+            $url=Storage::put('responsablespucvv', $request->file('file'));
+            $name=$request->file('file')->hashName();
+
+        }
+
+         $propuesta->resource()->create([
+            'url'=>$url,
+            'name'=>$name,
+        ]);
+
 
 
         $correo=auth()->user()->email;

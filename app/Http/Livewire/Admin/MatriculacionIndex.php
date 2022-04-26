@@ -26,7 +26,7 @@ class MatriculacionIndex extends Component
         $academic= Academic::all();
         $carrera= Carrera::all();
 
-        $matriculacion = Matriculacion::whereIn('status',[1,2])
+        $matriculacion = Matriculacion::whereIn('status',[1,2,3])
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
         ->latest('id')
@@ -55,11 +55,15 @@ class MatriculacionIndex extends Component
                 $mat->status=2;
 
                 $mat->save();
+            }elseif($mat->status==2){
+                $mat->status=3;
+                $mat->status_name=auth()->user()->name;
+                $mat->save();
             }
             else{
 
                 $mat->status=1;
-
+                $mat->status_name=null;
                 $mat->save();
             }
 

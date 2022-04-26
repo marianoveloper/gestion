@@ -94,6 +94,11 @@
                                     @break
                                     @case(2)
 
+                                    <button wire:click="status({{$mat}})" class="btn btn-primary">
+                                        <i class="fas fa-spinner"></i></button>
+                                    @break
+                                    @case(3)
+
                                     <button wire:click="status({{$mat}})" class="btn btn-success">
                                         <i class="fas fa-clipboard-check"></i></button>
                                     @break
@@ -101,6 +106,12 @@
 
                                     @endswitch
 
+                            </td>
+                            <td>
+                                <span
+                                class="badge badge-success">
+                               {{$mat->status_name}}
+                            </span>
                             </td>
                         </tr>
                         @endforeach

@@ -27,6 +27,8 @@ class MatriculacionController extends Controller
 
             $request->status=2;
 
+        }elseif($request->status==2){
+            $request->status=3;
         }
         else{
 

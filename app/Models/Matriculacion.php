@@ -25,7 +25,8 @@ class Matriculacion extends Model
     const Director=7;
 
     const Activo=1;
-    const Hecho=2;
+    const Proceso=2;
+    const Hecho=3;
 
 /***query scopes********************* */
 public function scopeCarrera($query,$carrera_id){

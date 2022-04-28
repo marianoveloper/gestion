@@ -51,7 +51,9 @@ class MatriculacionController extends Controller
         'tipo'=>'required',
         'academic_id'=>'required',
         'carrera_id'=>'required',
+        'materia_id'=>'required',
         'date_start'=>'required|date',
+        'time_start'=>'required|time',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 
        ]);
@@ -78,12 +80,21 @@ class MatriculacionController extends Controller
 
 
     $correo=auth()->user()->email;
-    $subject="Matriculación";
+
+
+    $tipo="";
+    if($request->tipo==1){
+        $tipo="Estudiante";
+    }
+    else{
+        $tipo="Profesores";
+    }
+    $subject="Matriculación de ".$tipo;
 
    $mail=new Notificacion($subject,$correo);
 
 
-    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+    Mail::to($correo)->send($mail);
 
     return redirect()->route('matriculacion.index',$matriculacion)
     ->with('info','Archivo fue enviado');

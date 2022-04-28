@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Matriculacion;
+use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
@@ -10,7 +12,7 @@ use App\Http\Controllers\Admin\CarreraController;
 use App\Http\Controllers\Admin\CatedraController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MatriculacionController;
-use App\Models\Matriculacion;
+use App\Http\Controllers\Admin\DesmatriculacionController;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
 
@@ -37,3 +39,7 @@ Route::resource('catedra',CatedraController::class)->names('catedra');
 
 Route::resource('carrera',CarreraController::class)->names('carrera');
 
+Route::resource('desmatriculacion',DesmatriculacionController::class)->only('index','update')->names('desmatriculacion');
+
+
+Route::put('desmatriculacion/status/{mat}',[DesmatriculacionController::class,'status'])->name('desmatriculacion.status');

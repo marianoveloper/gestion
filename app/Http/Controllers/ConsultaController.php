@@ -14,8 +14,9 @@ class ConsultaController extends Controller
     }
 
     public function store(Request $request){
+        $mail=auth()->user()->email;
         $correo = new Consulta($request->all());
-        Mail::to('soportevirtual@uccuyo.edu.ar')->send($correo);
+        Mail::to($mail)->send($correo);
 
         return redirect()->route('consulta.index')->with('info', 'Su consulta ha sido enviada con exito.');
     }

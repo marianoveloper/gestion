@@ -15,9 +15,14 @@
 
                             <th>Fecha Envio</th>
                             <th>Aula disponible</th>
-                            <th>Unidad Académica</th>
+                            <th>Hora disponible</th>
                             <th>Rol</th>
+                            <th>Unidad Académica</th>
                             <th>Carrera</th>
+                            <th>Materia</th>
+                            <th>Año</th>
+                            <th>Codigo</th>
+
                         </tr>
                     </thead>
                     <tbody>
@@ -27,7 +32,8 @@
 
                             <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
                             <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
-                            <td>{{$mat->academic->name}}</td>
+                            <td>{{ \Carbon\Carbon::parse($mat->time_start)->format('H:i')}}</td>
+
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @switch($mat->tipo)
                                 @case(1)
@@ -78,8 +84,16 @@
 
 
                             </td>
-
+                            <td>{{$mat->academic->name}}</td>
                             <td>{{$mat->carrera->name}}</td>
+                            @if($mat->materia->count())
+                              <td>{{$mat->materia->name}}</td>
+                              <td>{{$mat->materia->year}}</td>
+                              <td>{{$mat->materia->code}}</td>
+                             @else
+                                <td> </td>
+                                <td> </td>
+                            @endif
                             <td width="10px">
                                 <button wire:click="download({{$mat->id}})" class="btn btn-info">
                                     <i class="fas fa-download"></i>

@@ -35,7 +35,7 @@
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
 
-                <div class="grid grid-cols-2 gap-2 mb-4">
+                <div class="grid grid-cols-3 gap-3 mb-4">
                     <div class="mb-4">
                         {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
                         {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
@@ -48,7 +48,7 @@
                     @enderror
                     <div class="mb-4">
                         {!! Form::label('date_start', 'Aula disponible a partir del:') !!}
-                        {!! Form::date('date_start',null, ['class'=>'form-input block w-full mt-1'.
+                        {!! Form::date('date_start',null, ['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
                         ($errors->has('date_start')?
                         'border-red-600': '')]) !!}
 
@@ -56,8 +56,16 @@
                         <strong class="text-xs text-red-600">{{$message}}</strong>
                         @enderror
                     </div>
+                    <div class="mb-4">
+                        {!! Form::label('time_start', 'Hora del aula disponible a partir de las:') !!}
+                        {{ Form::time('time_start', Carbon\Carbon::now()->format('H:i'),['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
+                        ($errors->has('time_start')?
+                        'border-red-600': '')]) }}
+                    </div>
+
                 </div>
-                <div class="grid grid-cols-2 gap-2 mb-4">
+
+              <!--  <div class="grid grid-cols-2 gap-2 mb-4">
                     <div>
                         {!! Form::label('academic_id', 'Unidad Académica') !!}
                         {!! Form::select('academic_id', $academica, null, ['class'=>'focus:ring-indigo-500
@@ -78,7 +86,9 @@
                     @error('carrera_id')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
-                </div>
+                </div>-->
+
+                @livewire('form-matriculacion')
 
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Modelo Excel de Matriculación</h1>
                 <hr class="mt-2 mb-6">

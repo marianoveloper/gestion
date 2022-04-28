@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\Consulta;
+use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -12,6 +13,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\MatriculacionController;
+use App\Http\Controllers\DesmatriculacionController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -46,3 +48,5 @@ Route::post('apertura', [AperturaController::class, 'store'])->name('carrera.sto
 
 Route::get('propuesta',[PropuestaController::class,'index'])->name('propuesta.index');
 Route::post('propuesta',[PropuestaController::class,'store'])->name('propuesta.index');
+
+Route::get('desmatriculacion',[DesmatriculacionController::class,'index'])->name('desmatriculacion.index');

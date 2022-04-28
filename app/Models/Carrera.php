@@ -31,5 +31,9 @@ public function matriculacions(){
 public function catedras(){
     return $this->hasMany(Catedra::class);
 }
+public function materia(){
+
+    return $this->belongsTo(Materia::class);
+}
 
 }

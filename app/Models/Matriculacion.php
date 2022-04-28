@@ -6,6 +6,7 @@ use App\Models\Sede;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Carrera;
+use App\Models\Materia;
 use App\Models\Academic;
 use App\Models\Resource;
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +42,12 @@ public function scopeAcademic($query,$academic_id){
         return $query->where('academic_id',$academic_id);
     }
 }
+public function scopeMateria($query,$materia_id){
 
+    if($materia_id){
+        return $query->where('materia_id',$materia_id);
+    }
+}
 public function scopeStatus($query,$status){
 
     if($status){
@@ -78,6 +84,10 @@ public function carrera(){
 
 }
 
+public function materia(){
+
+    return $this->belongsTo(Materia::class);
+}
     public function resource(){
 
         return $this->morphOne(Resource::class,'resourceable');

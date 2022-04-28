@@ -34,8 +34,9 @@
                 </tr>
             </thead>
             <tbody>
+                @foreach($desmatriculacion as $desmat)
                 <tr>
-                    @foreach($desmatriculacion as $desmat)
+
 
                              <td class="px-4 py-2 text-center">{{$desmat->name}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->dni}}</td>
@@ -43,11 +44,11 @@
                              <td class="px-4 py-2 text-center">{{$desmat->academic->name}}</td>
                               <td class="px-4 py-2 text-center">{{$desmat->carrera->name}}</td>
 
-                    @endforeach
+
 
 
                 </tr>
-
+                @endforeach
 
             </tbody>
         </table>

@@ -53,11 +53,10 @@ class MatriculacionController extends Controller
         'carrera_id'=>'required',
         'materia_id'=>'required',
         'date_start'=>'required|date',
-        'time_start'=>'required|time',
+        'time_start'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 
        ]);
-
 
 
        $matriculacion=Matriculacion::create($request->all());

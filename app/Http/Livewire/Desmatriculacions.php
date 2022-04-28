@@ -69,7 +69,7 @@ class Desmatriculacions extends Component
         $desmat->name=$this->name;
         $desmat->dni=$this->dni;
         $desmat->email=$this->email;
-        $desmat->user_id=$this->user_id;
+        $desmat->user_id=auth()->user()->id;
         $desmat->academic_id=$this->academic_id;
         $desmat->carrera_id=$this->carrera_id;
 

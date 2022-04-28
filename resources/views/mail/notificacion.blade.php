@@ -14,11 +14,7 @@
       <div class="container">
         <div class="container"><h2 class="font-semibold text-gray-600">Estimado(a), la siguiente solicitud se ha generado desde Sistema de Gestión Virtual</h2></div>
       </div>
-      <div class="container">
-        <div class="container"><h3 class="font-semibold text-gray-600">Unidad Académica: {{$contacto['name']}}</h3></div>
-        <div class="container"><h3 class="font-semibold text-gray-600">Carrera: {{$contacto['email']}}</h3></div>
 
-      </div>
     <section style="background-image: url({{asset('images/homes/barra-verde.png')}})" >
         <footer class="text-gray-600 body-font">
             <div class="container flex flex-col items-center px-5 py-8 mx-auto sm:flex-row">
@@ -26,7 +22,7 @@
 
                 <img  class="block w-auto h-9" src={{asset('images/logos/icono4.png')}}>
               </a>
-              <p class="mt-4 text-sm text-white sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0">© 2021 Universidad Católica de Cuyo
+              <p class="mt-4 text-sm text-white sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-200 sm:py-2 sm:mt-0">© 2022 Universidad Católica de Cuyo
 
               </p>
 

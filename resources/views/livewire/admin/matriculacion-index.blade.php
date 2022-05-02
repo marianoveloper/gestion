@@ -86,13 +86,14 @@
                             </td>
                             <td>{{$mat->academic->name}}</td>
                             <td>{{$mat->carrera->name}}</td>
-                            @if($mat->materia->count())
+                            @if(@isset($mat->materia))
                               <td>{{$mat->materia->name}}</td>
                               <td>{{$mat->materia->year}}</td>
                               <td>{{$mat->materia->code}}</td>
-                             @else
-                                <td> </td>
-                                <td> </td>
+                            @else
+                             <td> </td>
+                             <td> </td>
+                             <td> </td>
                             @endif
                             <td width="10px">
                                 <button wire:click="download({{$mat->id}})" class="btn btn-info">

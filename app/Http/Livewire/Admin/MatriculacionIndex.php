@@ -30,7 +30,7 @@ class MatriculacionIndex extends Component
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
         ->latest('id')
-        ->paginate(4);
+        ->paginate(16);
 
 
 

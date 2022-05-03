@@ -88,12 +88,12 @@ class MatriculacionController extends Controller
     else{
         $tipo="Profesores";
     }
-    $subject="Matriculación de ".$tipo;
+    $subject="Matriculación de ".$matriculacion->academic->name;
 
    $mail=new Notificacion($subject,$correo);
 
 
-    Mail::to($correo)->send($mail);
+    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
 
     return redirect()->route('matriculacion.index',$matriculacion)
     ->with('info','Archivo fue enviado');

@@ -2,10 +2,13 @@
 
 namespace App\Http\Livewire;
 
+use Carbon\Carbon;
 use App\Models\Carrera;
 use Livewire\Component;
 use App\Models\Academic;
+use App\Mail\Notificacion;
 use App\Models\Desmatriculacion;
+use Illuminate\Support\Facades\Mail;
 
 
 class Desmatriculacions extends Component
@@ -28,7 +31,9 @@ class Desmatriculacions extends Component
     {
         //$desmatriculacion=Desmatriculacion::all();
         return view('livewire.desmatriculacions',[
-            'desmatriculacion'=>Desmatriculacion::all(),
+            'desmatriculacion'=>Desmatriculacion::whereDate('created_at',Carbon::now()->format('Y-m-d'))
+            ->where('user_id',auth()->user()->id)
+            ->get(),
             "academicas"=>Academic::all(),
             "carrera"=>$this->carrera,
         ]);
@@ -60,9 +65,9 @@ class Desmatriculacions extends Component
     }
     public function guardar(){
 
-        /*$rules = $this->rules;
+        $rules = $this->rules;
 
-        $this->validate($rules);*/
+        $this->validate($rules);
 
         $desmat= new Desmatriculacion();
 
@@ -79,6 +84,7 @@ class Desmatriculacions extends Component
         session()->flash('message','info'?
         '¡Actualización exitosa!' : '¡Alta Exitosa!');
 
+    $this->enviarMail($desmat);
      $this->cerrarModal();
      $this->limpiarCampos();
     }
@@ -86,6 +92,20 @@ class Desmatriculacions extends Component
     public function listarcarrera($academic_id){
 
         $this->carrera=Carrera::where("academic_id",$academic_id)->get();
+    }
+
+    public function enviarMail(Desmatriculacion $desmat){
+
+        $correo=auth()->user()->email;
+        $subject="Desmatriculación ".$desmat->academic->name;
+
+        $mail=new Notificacion($subject,$correo);
+
+
+         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+
+         return redirect()->route('desmatriculacion.index',$desmat)
+         ->with('info','La Desmatriculación fue enviada');
     }
 
 }

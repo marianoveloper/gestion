@@ -1,20 +1,26 @@
 <div class="py-12">
 
 <div class="mx-auto max-w-7xl sm:px6 lg:px8">
+    <section class="py-8 " style="background-image: url({{asset('images/homes/barra-verde.png')}})">
+        <h1 class="text-3xl text-center text-white">Desmatriculación</h1>
+
+
+    </section>
     <div class="px-4 py-4 overflow-hidden bg-white shadow-xl sm:rounded-lg">
 
-        @if(session()->has('message'))
-        <div class="px-4 py-4 my-3 text-teal-900 bg-teal-100 rounded-b shadow-md" role="alert">
-            <div class="flex">
-                <div>
-                    <h4>{{ session('message')}}</h4>
-                </div>
-            </div>
-        </div>
-    @endif
+
+    <div class="text-center">
+        @if (session('info'))
+        <a href="/"
+            class="items-center w-full px-4 py-3 text-sm font-bold text-center text-white bg-yellow-500 rounded hover:bg-yellow-700">{{session('info')}}!
+            Volver al Menu</a>
+
+        @endif
+
+    </div>
 
 
-        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-green-500">Agregar Desmatriculación</button>
+        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-green-500 hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Agregar Desmatriculación</button>
        @if($modal)
         @include('livewire.modal')
     @endif

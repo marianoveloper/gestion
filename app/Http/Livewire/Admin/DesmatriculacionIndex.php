@@ -16,13 +16,12 @@ class DesmatriculacionIndex extends Component
 
     public $search;
 
-    public $mat,$file;
+    public $desmat;
     public $carrera_id;
     public $academic_id;
 
     public function render()
     {
-
         $academic= Academic::all();
         $carrera= Carrera::all();
 
@@ -30,9 +29,14 @@ class DesmatriculacionIndex extends Component
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
         ->latest('id')
-        ->paginate(4);
+        ->paginate(10);
+
 
         return view('livewire.admin.desmatriculacion-index',compact('desmatriculacion','academic','carrera'));
+    }
+
+    public function limpiar_page(){
+        $this->reset('page');
     }
 
     public function status(Desmatriculacion $mat){
@@ -40,6 +44,7 @@ class DesmatriculacionIndex extends Component
         if($mat->status==1){
             $mat->status=2;
             $mat->status_name=auth()->user()->name;
+            dd( $mat->status_name);
             $mat->save();
         }elseif($mat->status==2){
             $mat->status=3;
@@ -55,5 +60,7 @@ class DesmatriculacionIndex extends Component
 
 
     }
+
+
 
 }

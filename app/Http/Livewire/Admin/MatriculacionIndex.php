@@ -54,6 +54,7 @@ class MatriculacionIndex extends Component
             if($mat->status==1){
                 $mat->status=2;
                 $mat->status_name=auth()->user()->name;
+
                 $mat->save();
             }elseif($mat->status==2){
                 $mat->status=3;

@@ -11,14 +11,13 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-
-                        <th>Fecha Envio</th>
+                        <th>Fecha</th>
                         <th>Nombre</th>
                         <th>Dni</th>
                         <th>Email</th>
                         <th>Unidad Académica</th>
                         <th>Carrera</th>
-                        <th>Acciones</th>
+
 
                     </tr>
                 </thead>
@@ -35,6 +34,7 @@
 
                         <td>{{$desmat->academic->name}}</td>
                         <td>{{$desmat->carrera->name}}</td>
+
 
 
                         <td width="10px">
@@ -85,10 +85,6 @@
             </div>
 
         @endif
+</div>
 
-
-
-
-
-</div>º
 </div>

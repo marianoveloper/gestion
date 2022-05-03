@@ -16,7 +16,7 @@ class DesmatriculacionIndex extends Component
 
     public $search;
 
-    public $desmat;
+    public $mat;
     public $carrera_id;
     public $academic_id;
 
@@ -24,6 +24,7 @@ class DesmatriculacionIndex extends Component
     {
         $academic= Academic::all();
         $carrera= Carrera::all();
+
 
         $desmatriculacion = Desmatriculacion::whereIn('status',[1,2,3])
         ->carrera($this->carrera_id)
@@ -44,7 +45,6 @@ class DesmatriculacionIndex extends Component
         if($mat->status==1){
             $mat->status=2;
             $mat->status_name=auth()->user()->name;
-            dd( $mat->status_name);
             $mat->save();
         }elseif($mat->status==2){
             $mat->status=3;
@@ -56,11 +56,7 @@ class DesmatriculacionIndex extends Component
             $mat->status=1;
             $mat->status_name=null;
             $mat->save();
-        }
-
-
+           }
     }
-
-
 
 }

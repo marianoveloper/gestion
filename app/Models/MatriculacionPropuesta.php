@@ -1,19 +1,21 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\Sede;
 use App\Models\User;
-
+use App\Models\Image;
 use App\Models\Carrera;
 use App\Models\Materia;
 use App\Models\Academic;
 use App\Models\Resource;
+use App\Models\Propuesta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Desmatriculacion extends Model
+class MatriculacionPropuestas extends Model
 {
     use HasFactory;
+
     protected $guarded=['id','status'];
 
     const Estudiante=1;
@@ -54,12 +56,6 @@ public function scopeStatus($query,$status){
     }
 }
 
-public function scopeId($query,$id){
-    if($id){
-        return $query->where('id',$id);
-    }
-}
-
 public function scopeTipo($query,$tipo){
 
     if($tipo){
@@ -89,6 +85,11 @@ public function carrera(){
 
 }
 
+public function propuesta(){
+    return $this->belongsTo(Propuesta::class);
+
+}
+
 public function materia(){
 
     return $this->belongsTo(Materia::class);
@@ -98,5 +99,8 @@ public function materia(){
         return $this->morphOne(Resource::class,'resourceable');
     }
 
+    public function image(){
 
+        return $this->morphOne(Image::class,'imageable');
+    }
 }

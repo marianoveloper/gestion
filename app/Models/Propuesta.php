@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\MatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +21,9 @@ class Propuesta extends Model
 
         return $this->belongsTo(Academic::class);
 
+    }
+    public function matriculacionpropuestas(){
+        return $this->hasMany(MatriculacionPropuesta::class);
     }
 
         public function resource(){

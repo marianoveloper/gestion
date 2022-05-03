@@ -42,4 +42,4 @@ Route::resource('carrera',CarreraController::class)->names('carrera');
 Route::resource('desmatriculacion',DesmatriculacionController::class)->only('index','update')->names('desmatriculacion');
 
 
-Route::put('desmatriculacion/status/{mat}',[DesmatriculacionController::class,'status'])->name('desmatriculacion.status');
+Route::put('desmatriculacion/status/{desmat}',[DesmatriculacionController::class,'status'])->name('desmatriculacion.status');

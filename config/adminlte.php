@@ -257,7 +257,7 @@ return [
 
         ],
 
-        ['header' => 'OPCIONES DE CURSOS'],
+        ['header' => 'OPCIONES DE CARRERAS'],
         ['text' => 'Matriculación',
             'route' => 'admin.matriculacion.index',
             'icon' => 'fas fa-user-edit',
@@ -274,11 +274,13 @@ return [
             'route' => 'admin.carrera.index',
             'icon' => 'fas fa-tasks',
         ],
+        ['header' => 'OPCIONES DE CURSOS'],
         [
             'text' => 'Pendientes de aprobación',
             'route'  => 'admin.course.index',
             'icon' => 'fas fa-fw fa-cogs',
         ],
+        ['header' => 'OPCIONES'],
         [
             'text' => 'Categorias',
             'route'  => 'admin.categories.index',

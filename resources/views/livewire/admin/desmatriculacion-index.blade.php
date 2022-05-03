@@ -40,6 +40,7 @@
                         <td width="10px">
 
                                 @switch($desmat->status)
+
                                 @case(1)
                                 <button wire:click="status({{$desmat}})" class="btn btn-warning">
                                     <i class="fas fa-exclamation-triangle"></i></button>

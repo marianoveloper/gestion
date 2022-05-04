@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
-use App\Http\Livewire\MatriculacionPropuesta;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+use App\Models\Sede;
+use App\Models\User;
+use App\Models\Image;
+use App\Models\Academic;
+use App\Models\Resource;
+use App\Models\MatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Propuesta extends Model
 {

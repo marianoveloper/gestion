@@ -14,6 +14,7 @@ use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\DesmatriculacionController;
+use App\Http\Controllers\MatriculacionPropuestasController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -50,3 +51,5 @@ Route::get('propuesta',[PropuestaController::class,'index'])->name('propuesta.in
 Route::post('propuesta',[PropuestaController::class,'store'])->name('propuesta.index');
 
 Route::get('desmatriculacion',[DesmatriculacionController::class,'index'])->name('desmatriculacion.index');
+
+Route::resource('matriculacionpropuestas',MatriculacionPropuestasController::class)->only('index','store','update')->names('matriculacion-propuestas');

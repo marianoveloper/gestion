@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrera;
+use App\Models\Academic;
+use App\Mail\Notificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use App\Models\MatriculacionPropuesta;
 
 class MatriculacionPropuestasController extends Controller
 {
@@ -13,7 +19,9 @@ class MatriculacionPropuestasController extends Controller
      */
     public function index()
     {
-        //
+        $academica=Academic::pluck('name','id');
+       // $propuesta=Propuesta::pluck('name','id');
+       return view('propuesta.matriculacion.index',compact('academica'));
     }
 
     /**
@@ -34,7 +42,49 @@ class MatriculacionPropuestasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+
+            'tipo'=>'required',
+            'academic_id'=>'required',
+            'propuesta_id'=>'required',
+            'date_start'=>'required|date',
+            'file'=>'required|mimes:xls,xlsx|max:2048',
+
+           ]);
+
+           $matriculacion=MatriculacionPropuesta::create($request->all());
+
+           if($request->file('file')){
+            $name=$request->file('file')->getClientOriginalName();
+            //$url=Storage::put('matriculaciones', $request->file('file'));
+            $url=Storage::putFileAs('matriculaciones',$request->file('file'),$name);
+            //$name=$request->file('file')->hashName();
+
+        }
+
+    //dd($name);
+
+        $matriculacion->resource()->create([
+            'url'=>$url,
+            'name'=>$name,
+        ]);
+
+
+
+        $correo=auth()->user()->email;
+
+
+        $subject="Matriculación de ".$matriculacion->propuesta->name;
+
+       $mail=new Notificacion($subject,$correo);
+
+
+        Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+
+        return redirect()->route('matriculacion-propuestas.index',$matriculacion)
+        ->with('info','Archivo fue enviado');
+
     }
 
     /**

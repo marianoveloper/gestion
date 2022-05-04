@@ -12,7 +12,7 @@ use App\Models\Propuesta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class MatriculacionPropuestas extends Model
+class MatriculacionPropuesta extends Model
 {
     use HasFactory;
 

@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Academic;
+use App\Models\Propuesta;
 use App\Mail\Notificacion;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
 use App\Models\MatriculacionPropuesta;
+use Illuminate\Support\Facades\Storage;
 
 class MatriculacionPropuestasController extends Controller
 {
@@ -20,7 +21,7 @@ class MatriculacionPropuestasController extends Controller
     public function index()
     {
         $academica=Academic::pluck('name','id');
-       // $propuesta=Propuesta::pluck('name','id');
+        $propuesta=Propuesta::pluck('name','id');
        return view('propuesta.matriculacion.index',compact('academica'));
     }
 

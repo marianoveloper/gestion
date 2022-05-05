@@ -37,6 +37,13 @@ public function scopeCarrera($query,$carrera_id){
         return $query->where('carrera_id',$carrera_id);
     }
 }
+
+public function scopePropuesta($query,$propuesta_id){
+
+    if($propuesta_id){
+        return $query->where('propuesta_id',$propuesta_id);
+    }
+}
 public function scopeAcademic($query,$academic_id){
 
     if($academic_id){

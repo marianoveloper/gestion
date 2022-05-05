@@ -3,6 +3,7 @@
 use App\Models\Matriculacion;
 use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Route;
+use App\Models\MatriculacionPropuesta;
 use App\Http\Controllers\Admin\HomeController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TypeController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Admin\CatedraController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\MatriculacionController;
 use App\Http\Controllers\Admin\DesmatriculacionController;
+use App\Http\Controllers\Admin\MatriculacionPropuestaController;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
 
@@ -43,3 +45,8 @@ Route::resource('desmatriculacion',DesmatriculacionController::class)->only('ind
 
 
 Route::put('desmatriculacion/status/{desmat}',[DesmatriculacionController::class,'status'])->name('desmatriculacion.status');
+
+Route::resource('matriculacionpropuesta',MatriculacionPropuestaController::class)->only('index','store','update')->names('matriculacion-propuesta');
+
+
+Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status'])->name('matriculacion.status');

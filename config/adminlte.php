@@ -275,12 +275,17 @@ return [
             'icon' => 'fas fa-tasks',
         ],
         ['header' => 'OPCIONES DE CURSOS'],
+        ['text' => 'Matriculación Propuestas',
+        'route' => 'admin.matriculacion-propuesta.index',
+        'icon' => 'fas fa-user-edit',
+],
+
+        ['header' => 'OPCIONES'],
         [
             'text' => 'Pendientes de aprobación',
             'route'  => 'admin.course.index',
             'icon' => 'fas fa-fw fa-cogs',
         ],
-        ['header' => 'OPCIONES'],
         [
             'text' => 'Categorias',
             'route'  => 'admin.categories.index',

@@ -20,21 +20,26 @@
     </div>
 
 
-        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-green-500 hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Agregar Desmatriculación</button>
+        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-yellow-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Desmatricular de a uno</button>
        @if($modal)
         @include('livewire.modal')
     @endif
+    <button wire:click="desmatricular2()" class="px-4 py-2 my-3 font-bold text-white bg-green-800 hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Listado de Desmatriculación</button>
+    @if($modal2)
+     @include('livewire.modaldesmatricular')
+ @endif
+
 
         <table class="w-full table-fixed">
             <thead>
                 <tr class="text-white bg-indigo-600">
 
-
-                    <th class="px-4 py-2">Name</th>
-                    <th class="px-4 py-2">Dni</th>
-                    <th class="px-4 py-2">Email</th>
                     <th class="px-4 py-2">Unidad Académica</th>
                     <th class="px-4 py-2">Carrera</th>
+                    <th class="px-4 py-2">Nombre</th>
+                    <th class="px-4 py-2">Dni</th>
+                    <th class="px-4 py-2">Email</th>
+                    <th class="px-4 py-2">Archivo</th>
 
 
                 </tr>
@@ -43,13 +48,13 @@
                 @foreach($desmatriculacion as $desmat)
                 <tr>
 
-
+                             <td class="px-4 py-2 text-center">{{$desmat->academic->name}}</td>
+                             <td class="px-4 py-2 text-center">{{$desmat->carrera->name}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->name}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->dni}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->email}}</td>
-                             <td class="px-4 py-2 text-center">{{$desmat->academic->name}}</td>
-                              <td class="px-4 py-2 text-center">{{$desmat->carrera->name}}</td>
 
+                             <td class="px-4 py-2 text-center">{{$desmat->resource->name}}</td>
 
 
 

@@ -12,11 +12,12 @@
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Unidad Académica</th>
+                        <th>Carrera</th>
                         <th>Nombre</th>
                         <th>Dni</th>
                         <th>Email</th>
-                        <th>Unidad Académica</th>
-                        <th>Carrera</th>
+                        <th span=2>Acciones</th>
 
 
                     </tr>
@@ -28,14 +29,25 @@
 
                         <td>{{ \Carbon\Carbon::parse($desmat->created_at)->format('d/m/Y')}}</td>
 
+                        <td>{{$desmat->academic->name}}</td>
+                        <td>{{$desmat->carrera->name}}</td>
                         <td>{{$desmat->name}}</td>
                         <td>{{$desmat->dni}}</td>
                         <td>{{$desmat->email}}</td>
 
-                        <td>{{$desmat->academic->name}}</td>
-                        <td>{{$desmat->carrera->name}}</td>
 
 
+                        <td width="10px">
+                            @if(isset($desmat->resource->id))
+                            <button wire:click="download({{$desmat->id}})" class="btn btn-info">
+                                <i class="fas fa-download"></i>
+                            </button>
+                            @else
+                            <button  class="btn btn-info">
+                                <i class="fas fa-ellipsis-h"></i>
+                            </button>
+                            @endif
+                        </td>
 
                         <td width="10px">
 

@@ -39,7 +39,14 @@ class DesmatriculacionIndex extends Component
     public function limpiar_page(){
         $this->reset('page');
     }
+    public function download($id) {
+dd("llego");
+        $this->mat=Desmatriculacion::find($id);
 
+        return response()->download(
+            storage_path('app/public/desmatriculaciones/') . $this->mat->resource->name
+        );
+    }
     public function status(Desmatriculacion $mat){
 
         if($mat->status==1){

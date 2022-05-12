@@ -12,27 +12,36 @@
                 <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id}}" wire:model="user_id">
 
                 <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
-                    <div class="mb-4">
-                        <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Nombre Y Apellido:</label>
-                        <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="name" wire:model="name" required>
-                    </div>
+                    <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Modelo Excel Desmatriculación</h1>
+                    <hr class="mt-2 mb-6">
+                    <span>
 
-                    <div class="mb-4">
-                        <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Dni:</label>
-                        <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="dni" wire:model="dni">
-                    </div>
+                        Los datos planilla debe contener los campos correctamente ordenados y completados obtenidos del SIUCC
+                    </span>
 
-                    <div class="mb-4">
-                        <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Email:</label>
-                        <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="email" wire:model="email">
-                    </div>
 
+                    <div class="mt-4 mb-4">
+                        <figure>
+                            @isset($course->image)
+                            <img id="picture" class="object-cover object-center w-full h-64" src="#">
+                            @else
+                            <img id="picture" class="object-cover object-center w-full h-20"
+                                src="{{asset('images/homes/desmat.png')}}">
+                            @endisset
+                        </figure>
+
+                    </div>
+                    <div class="mb-4">
+                        <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700"> Cargar de archivo en Formato Excel:</label>
+                        <input class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="file" name="file" type="file" accept="xls/*"  wire:model="file"/>
+
+                    </div>
 
                     <div class="form-group">
                         <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Academica </label>
                         <div class="mb-4">
                             <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="academic_id" id="academic_id" wire:model="academic_id" wire:change='listarcarrera($event.target.value)'>
-                                <option value="">Seleccione Unidad Académica...</option>
+                                <option value="">Seleccione Unidad Academica...</option>
                                 @foreach($academicas as $academic)
                                 <option value="{{$academic->id}}">{{$academic->name}}</option>
 
@@ -56,11 +65,11 @@
                     </div>
                     <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
                         <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                            <button wire:click.prevent="guardar()" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5">Guardar</button>
+                            <button wire:click.prevent="save()" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5">Guardar</button>
                         </span>
 
                         <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
-                            <button wire:click="cerrarModal()" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5">Cancelar</button>
+                            <button wire:click="cerrarModal2()" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5">Cancelar</button>
                         </span>
                     </div>
 

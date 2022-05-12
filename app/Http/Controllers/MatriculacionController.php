@@ -67,7 +67,7 @@ class MatriculacionController extends Controller
         $url=Storage::putFileAs('matriculaciones',$request->file('file'),$name);
         //$name=$request->file('file')->hashName();
 
-    }
+      }
 
 //dd($name);
 

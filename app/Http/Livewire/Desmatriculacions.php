@@ -3,29 +3,41 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
+use Livewire\WithFileUploads;
 use App\Models\Carrera;
 use Livewire\Component;
 use App\Models\Academic;
 use App\Mail\Notificacion;
 use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 
 
 class Desmatriculacions extends Component
 {
-    public $name,$dni,$email,$carrera_id,$academic_id,$user_id;
+    use WithFileUploads;
+    public $name,$dni,$email,$carrera_id,$academic_id,$user_id,$file;
     public $carrera="";
     public $modal=0;
+    public $modal2=0;
 
     protected $rules =[
 
-        'name'=>'required',
+       'name'=>'required',
         'dni'=>'required',
         'email'=>'required',
         'carrera_id'=>'required',
         'academic_id'=>'required'
 
     ];
+    protected $rules2 =[
+
+
+         'file'=>'required|mimes:xls,xlsx|max:2048',
+         'carrera_id'=>'required',
+         'academic_id'=>'required'
+
+     ];
 
     public function render()
     {
@@ -38,7 +50,21 @@ class Desmatriculacions extends Component
             "carrera"=>$this->carrera,
         ]);
     }
+    public function desmatricular2(){
 
+        $this->limpiarCampos();
+        $this->abrirModal2();
+    }
+
+    public function abrirModal2(){
+        $this->modal2=true;
+
+    }
+
+    public function cerrarModal2(){
+        $this->modal2=false;
+
+    }
     public function desmatricular(){
 
         $this->limpiarCampos();
@@ -63,6 +89,46 @@ class Desmatriculacions extends Component
 
 
     }
+
+    public function save(){
+
+        $rules2 = $this->rules2;
+
+        $this->validate($rules2);
+
+        $desmat= new Desmatriculacion();
+
+        $desmat->user_id=auth()->user()->id;
+        $desmat->academic_id=$this->academic_id;
+        $desmat->carrera_id=$this->carrera_id;
+
+        $desmat->save();
+
+
+        if($this->file){
+            $name=$this->file->getClientOriginalName();
+
+            $url=Storage::putFileAs('desmatriculaciones',$this->file,$name);
+
+
+          }
+
+
+
+        $desmat->resource()->create([
+            'url'=>$url,
+            'name'=>$name,
+        ]);
+
+        session()->flash('message','info'?
+        '¡Actualización exitosa!' : '¡Alta Exitosa!');
+
+    $this->enviarMail($desmat);
+     $this->cerrarModal();
+
+
+    }
+
     public function guardar(){
 
         $rules = $this->rules;

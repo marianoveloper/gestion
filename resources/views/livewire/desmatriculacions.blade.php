@@ -54,9 +54,10 @@
                              <td class="px-4 py-2 text-center">{{$desmat->dni}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->email}}</td>
 
+                             @if(isset($desmat->resource->name))
                              <td class="px-4 py-2 text-center">{{$desmat->resource->name}}</td>
 
-
+                            @endif
 
                 </tr>
                 @endforeach

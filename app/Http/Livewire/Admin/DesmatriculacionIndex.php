@@ -40,7 +40,7 @@ class DesmatriculacionIndex extends Component
         $this->reset('page');
     }
     public function download($id) {
-dd("llego");
+
         $this->mat=Desmatriculacion::find($id);
 
         return response()->download(

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Carrera;
 use App\Models\Academic;
+use App\Mail\Notificacion;
 use Illuminate\Http\Request;
 use App\Models\Matriculacion;
 use Illuminate\Support\Carbon;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-use App\Mail\Notificacion;
 
 class MatriculacionController extends Controller
 {
@@ -78,25 +80,21 @@ class MatriculacionController extends Controller
 
 
 
-    $correo=auth()->user()->email;
+     $correo=auth()->user()->email;
+        $academic=$matriculacion->academic->name;
 
+        $subject="Matriculación de ".$matriculacion->academic->name;
 
-    $tipo="";
-    if($request->tipo==1){
-        $tipo="Estudiante";
-    }
-    else{
-        $tipo="Profesores";
-    }
-    $subject="Matriculación de ".$matriculacion->academic->name;
+        $mail=new EmailNotification($subject,$correo,$academic);
+       //$mail=new Notificacion($subject,$correo);
+        $confirmation=new EmailConfirmation($subject,$correo,$academic);
 
-   $mail=new Notificacion($subject,$correo);
+        Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+        Mail::to($correo)->send($confirmation);
 
-
-    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
 
     return redirect()->route('matriculacion.index',$matriculacion)
-    ->with('info','Archivo fue enviado');
+    ->with('info','La solicitud fue enviada');
     }
 
     /**

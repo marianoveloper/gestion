@@ -3,11 +3,13 @@
 namespace App\Http\Livewire;
 
 use Carbon\Carbon;
-use Livewire\WithFileUploads;
 use App\Models\Carrera;
 use Livewire\Component;
 use App\Models\Academic;
 use App\Mail\Notificacion;
+use Livewire\WithFileUploads;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -163,12 +165,17 @@ class Desmatriculacions extends Component
     public function enviarMail(Desmatriculacion $desmat){
 
         $correo=auth()->user()->email;
+        $academic=$matriculacion->academic->name;
+
         $subject="Desmatriculación ".$desmat->academic->name;
 
-        $mail=new Notificacion($subject,$correo);
+        $mail=new EmailNotification($subject,$correo,$academic);
+       //$mail=new Notificacion($subject,$correo,$academic);
+        $confirmation=new EmailConfirmation($subject,$correo,$academic);
 
+        Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+        Mail::to($correo)->send($confirmation);
 
-         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
 
          return redirect()->route('desmatriculacion.index',$desmat)
          ->with('info','La Desmatriculación fue enviada');

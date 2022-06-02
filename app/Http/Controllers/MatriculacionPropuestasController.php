@@ -7,6 +7,8 @@ use App\Models\Academic;
 use App\Models\Propuesta;
 use App\Mail\Notificacion;
 use Illuminate\Http\Request;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Mail;
 use App\Models\MatriculacionPropuesta;
 use Illuminate\Support\Facades\Storage;
@@ -74,17 +76,19 @@ class MatriculacionPropuestasController extends Controller
 
 
         $correo=auth()->user()->email;
-
+        $academic=$matriculacion->academic->name;
 
         $subject="Matriculación de ".$matriculacion->propuesta->name;
 
-       $mail=new Notificacion($subject,$correo);
-
+        $mail=new EmailNotification($subject,$correo,$academic);
+       //$mail=new Notificacion($subject,$correo,$academic);
+        $confirmation=new EmailConfirmation($subject,$correo,$academic);
 
         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+        Mail::to($correo)->send($confirmation);
 
         return redirect()->route('matriculacion-propuestas.index',$matriculacion)
-        ->with('info','Archivo fue enviado');
+        ->with('info','La solicitud fue enviado');
 
     }
 

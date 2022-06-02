@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class Notificacion extends Mailable
+class EmailConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
     public $subject;
@@ -18,11 +18,11 @@ class Notificacion extends Mailable
      *
      * @return void
      */
-    public function __construct($subject,$contacto)
+    public function __construct($subject,$contacto,$academica)
     {
         $this->subject=$subject;
         $this->contacto=$contacto;
-
+        $this->academica=$academica;
     }
 
     /**
@@ -32,6 +32,6 @@ class Notificacion extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.notificacion');
+        return $this->markdown('mail.confirmation');
     }
 }

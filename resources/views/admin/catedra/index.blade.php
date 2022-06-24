@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Solicitud de Apertura de Cátedra</h1>
+    <h1>Solicitud de Apertura de Materia</h1>
 @stop
 
 @section('content')

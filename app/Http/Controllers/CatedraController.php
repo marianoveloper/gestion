@@ -7,6 +7,8 @@ use App\Models\Catedra;
 use App\Models\Academic;
 use App\Mail\Notificacion;
 use Illuminate\Http\Request;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -57,24 +59,32 @@ class CatedraController extends Controller
 
        $catedra=Catedra::create($request->all());
 
-       if($request->file('file')){
-        $url=Storage::put('catedra', $request->file('file'));
-        $name=$request->file('file')->hashName();
 
-    }
 
+    if($request->file('file')){
+        $name=$request->file('file')->getClientOriginalName();
+        //$url=Storage::put('matriculaciones', $request->file('file'));
+        $url=Storage::putFileAs('catedra',$request->file('file'),$name);
+        //$name=$request->file('file')->hashName();
+
+      }
     $catedra->resource()->create([
         'url'=>$url,
         'name'=>$name,
     ]);
 
     $correo=auth()->user()->email;
-    $subject="Solicitud de Apertura de Cátedra";
+    $subject="Solicitud de Apertura de Materia ".$catedra->carrera->name;
+    $academic=$catedra->academic->name;
 
-   $mail=new Notificacion($subject,$correo);
+    $mail=new EmailNotification($subject,$correo,$academic);
+    //$mail=new Notificacion($subject,$correo);
+     $confirmation=new EmailConfirmation($subject,$correo,$academic);
+
+     Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+     Mail::to($correo)->send($confirmation);
 
 
-    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
     return redirect()->route('catedra.index',$catedra)
     ->with('info','La solicitud fue enviada');
     }

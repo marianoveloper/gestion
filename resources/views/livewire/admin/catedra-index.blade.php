@@ -44,6 +44,11 @@
                                 @break
                                 @case(2)
 
+                                <button wire:click="status({{$cat}})" class="btn btn-primary">
+                                    <i class="fas fa-spinner"></i></button>
+                                @break
+                                @case(3)
+
                                 <button wire:click="status({{$cat}})" class="btn btn-success">
                                     <i class="fas fa-clipboard-check"></i></button>
                                 @break
@@ -51,6 +56,12 @@
 
                                 @endswitch
 
+                        </td>
+                        <td>
+                            <span
+                            class="badge badge-success">
+                           {{$cat->status_name}}
+                        </span>
                         </td>
 
                         </tr>
@@ -62,9 +73,9 @@
 
 
 
-                <div class="card-footer">
-
-                </div>
+            <div class="card-footer">
+                {{$catedra->links()}}
+            </div>
             @else
 
 

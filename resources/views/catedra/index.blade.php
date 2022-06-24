@@ -19,7 +19,7 @@
     <div class="container py-8">
 
         <section class="py-8 " style="background-image: url({{asset('images/homes/barra-verde.png')}})">
-            <h1 class="text-3xl text-center text-white">Solicitud de Apertura de Cátedra</h1>
+            <h1 class="text-3xl text-center text-white">Solicitud de Apertura de Materia</h1>
 
 
         </section>
@@ -34,35 +34,13 @@
 
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
-                <div class="grid grid-cols-2 gap-2 mb-4">
-                    <div>
-                        {!! Form::label('academic_id', 'Unidad Académica') !!}
-                        {!! Form::select('academic_id', $academica, null, ['class'=>'focus:ring-indigo-500
-                        focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
-                    @error('academic_id')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                    <div>
-                        {!! Form::label('carrera_id', 'Seleccione la Carrera') !!}
-                        {!! Form::select('carrera_id', $carrera, null, ['class'=>'focus:ring-indigo-500
-                        focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-
-                    </div>
-
-                    @error('carrera_id')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
+               @livewire('catedra')
 
 
 
                 <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Contacto del Coordinador o
-                        Director de la carrera: Apellido, Nombre, DNI, Mail de coordinador o director, Teléfono de
-                        contacto (para uso interno)</label>
+                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Mail del Coordinador o
+                        Director de la carrera (para uso interno)</label>
                     {!! Form::text('contacto', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
                     w-full
                     pl-7 pr-12

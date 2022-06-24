@@ -266,7 +266,7 @@ return [
     'route' => 'admin.desmatriculacion.index',
     'icon' => 'fas fa-user-edit',
 ],
-    ['text' => 'Apertura de Cátedra',
+    ['text' => 'Apertura de Materia',
     'route' => 'admin.catedra.index',
     'icon' => 'fas fa-clipboard-list',
     ],

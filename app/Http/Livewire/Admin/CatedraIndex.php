@@ -27,7 +27,7 @@ class CatedraIndex extends Component
 
 
 
-        $catedra=Catedra::whereIn('status',[1,2])
+        $catedra=Catedra::whereIn('status',[1,2,3])
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
         ->latest('id')
@@ -49,13 +49,18 @@ class CatedraIndex extends Component
 
         if($mat->status==1){
             $mat->status=2;
+            $mat->status_name=auth()->user()->name;
 
+            $mat->save();
+        }elseif($mat->status==2){
+            $mat->status=3;
+            $mat->status_name=auth()->user()->name;
             $mat->save();
         }
         else{
 
             $mat->status=1;
-
+            $mat->status_name=null;
             $mat->save();
         }
 

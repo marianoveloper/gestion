@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\Http\Request;
 
-class ExamenAulaController extends Controller
+class ExamenController extends Controller
 {
     public function index(){
 
-        return view('examen.aula.index');
+        return view('examen.index');
 
     }
 }

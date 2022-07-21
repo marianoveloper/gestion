@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\ExamenController;
 use App\Http\Controllers\CatedraController;
 use App\Http\Controllers\AperturaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PropuestaController;
+use App\Http\Controllers\ExamenAulaController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\DesmatriculacionController;
+use App\Http\Controllers\MatriculacionExamenController;
 use App\Http\Controllers\MatriculacionPropuestasController;
 
 Route::get('/', HomeController::class)->name('home');
@@ -53,3 +56,10 @@ Route::post('propuesta',[PropuestaController::class,'store'])->name('propuesta.i
 Route::get('desmatriculacion',[DesmatriculacionController::class,'index'])->name('desmatriculacion.index');
 
 Route::resource('matriculacionpropuestas',MatriculacionPropuestasController::class)->only('index','store','update')->names('matriculacion-propuestas');
+
+Route::get('examen',[ExamenController::class,'index'])->name('examen.index');
+Route::get('examenaula',[ExamenAulaController::class,'index'])->name('examen.index');
+//Route::get('examenaula',[ExamenAulaController::class,'store'])->name('examen.store');
+
+Route::get('matriculacionexamen',[MatriculacionExamenController::class,'index'])->name('matriculacionexamen.index');
+//Route::get('matriculacionexamen',[MatriculacionExamenController::class,'store'])->name('matriculacionexamen.store');

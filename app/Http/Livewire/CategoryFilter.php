@@ -33,13 +33,13 @@ class CategoryFilter extends Component
         if($this->subcategoria){
 
             $coursesQuery= $coursesQuery->whereHas('type',function(Builder $query){
-                $query->where('name',$this->subcategoria);
+                $query->where('name','LIKE','%' . $this->subcategoria . '%');
             });
         }
 
         $courses=$coursesQuery->where('status',1)
        ->paginate(10);
-
+      // dd($courses);
 
         return view('livewire.category-filter',compact('courses'));
     }

@@ -50,3 +50,7 @@ Route::resource('matriculacionpropuesta',MatriculacionPropuestaController::class
 
 
 Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status'])->name('matriculacion.status');
+
+Route::resource('matriculacionexamen',MatriculacionExamenController::class)->only('index','store','update')->names('matriculacion-examen');
+
+Route::put('matriculacionexamen/status/{mat}',[MatriculacionExamen::class,'status'])->name('matriculacion.status');

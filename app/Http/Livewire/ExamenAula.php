@@ -32,4 +32,11 @@ class ExamenAula extends Component
 
         $this->materias=Materia::where("carrera_id",$carrera_id)->get();
     }
+
+    public function download() {
+
+              return response()->download(
+            storage_path('app/public/carreras/ExamenFinal-DOCENTES.xlsx')
+        );
+    }
 }

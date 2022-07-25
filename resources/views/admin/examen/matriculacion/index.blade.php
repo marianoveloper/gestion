@@ -3,11 +3,11 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Examen Final</h1>
+    <h1>Matriculación Examen Final</h1>
 @stop
 
 @section('content')
-   @livewire('admin.matriculacion-index')
+   @livewire('admin.matriculacion-examen-index')
 @stop
 
 @section('css')

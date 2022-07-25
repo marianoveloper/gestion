@@ -12,8 +12,10 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CarreraController;
 use App\Http\Controllers\Admin\CatedraController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ExamenAulaController;
 use App\Http\Controllers\Admin\MatriculacionController;
 use App\Http\Controllers\Admin\DesmatriculacionController;
+use App\Http\Controllers\Admin\MatriculacionExamenController;
 use App\Http\Controllers\Admin\MatriculacionPropuestaController;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
@@ -54,3 +56,7 @@ Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status']
 Route::resource('matriculacionexamen',MatriculacionExamenController::class)->only('index','store','update')->names('matriculacion-examen');
 
 Route::put('matriculacionexamen/status/{mat}',[MatriculacionExamen::class,'status'])->name('matriculacion.status');
+
+Route::resource('examenaula',ExamenAulaController::class)->only('index','store','update')->names('examen-aula');
+
+Route::put('examenaula/status/{mat}',[ExamenAula::class,'status'])->name('examen-aula.status');

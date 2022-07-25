@@ -58,8 +58,8 @@ Route::get('desmatriculacion',[DesmatriculacionController::class,'index'])->name
 Route::resource('matriculacionpropuestas',MatriculacionPropuestasController::class)->only('index','store','update')->names('matriculacion-propuestas');
 
 Route::get('examen',[ExamenController::class,'index'])->name('examen.index');
-Route::get('examenaula',[ExamenAulaController::class,'index'])->name('examen.index');
-//Route::get('examenaula',[ExamenAulaController::class,'store'])->name('examen.store');
+Route::get('examenaula',[ExamenAulaController::class,'index'])->name('examenaula.index');
+Route::post('examenaula',[ExamenAulaController::class,'store'])->name('examenaula.store');
 
 Route::get('matriculacionexamen',[MatriculacionExamenController::class,'index'])->name('matriculacionexamen.index');
-//Route::get('matriculacionexamen',[MatriculacionExamenController::class,'store'])->name('matriculacionexamen.store');
+Route::post('matriculacionexamen',[MatriculacionExamenController::class,'store'])->name('matriculacionexamen.store');

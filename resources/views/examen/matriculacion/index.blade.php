@@ -30,40 +30,32 @@
                 <h1 class="mt-6 text-2xl font-bold text-center bg-green-200">Información del Examen</h1>
                 <hr class="mt-2 mb-6">
 
-                {!! Form::open(['route'=> 'matriculacion.store','files'=>true, 'autocomplete'=>'off']) !!}
+                {!! Form::open(['route'=> 'matriculacionexamen.store','files'=>true, 'autocomplete'=>'off']) !!}
 
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                <div class="mb-4">
+                    {!! Form::label('date_start', 'Fecha de Examen:') !!}
+                    {!! Form::date('date_start',null, ['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
+                    ($errors->has('date_start')?
+                    'border-red-600': '')]) !!}
 
-
-                <div class="grid grid-cols-3 gap-3 mb-4">
-                    <div class="mb-4">
-                        {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
-                        {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
-                        null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
-
-                    @error('tipo')
+                    @error('date_start')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
-                    <div class="mb-4">
-                        {!! Form::label('date_start', 'Aula disponible a partir del:') !!}
-                        {!! Form::date('date_start',null, ['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
-                        ($errors->has('date_start')?
-                        'border-red-600': '')]) !!}
-
-                        @error('date_start')
-                        <strong class="text-xs text-red-600">{{$message}}</strong>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        {!! Form::label('time_start', 'Hora del aula disponible a partir de las:') !!}
-                        {{ Form::time('time_start', Carbon\Carbon::now()->format('H:i'),['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
-                        ($errors->has('time_start')?
-                        'border-red-600': '')]) }}
-                    </div>
-
                 </div>
+                <div class="mb-4">
+                    {!! Form::label('time_start', 'Hora del aula disponible para los alumnos:') !!}
+                    {{ Form::time('time_start', null,['class'=>'class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm'.
+                    ($errors->has('time_start')?
+                    'border-red-600': '')]) }}
+
+                    @error('date_start')
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
+                </div>
+
+            </div>
 
 
 
@@ -74,8 +66,7 @@
                 <span>
                     El o los archivo/s debe/n ser obtenido/s de SIUCC o Guaraní.
                     La planilla debe contener los campos correctamente ordenados y completados: el DNI no debe contener
-                    puntos ni comas, el email no debe repetirse en la planilla. En el caso de matriculación de Docentes
-                    se debe indicar el Rol que va tener en la cátedra.
+                    puntos ni comas, el email no debe repetirse en la planilla.
                     Después que realicemos la matriculación lo notificaremos al correo utilizado en el Sistema de
                     Gestión.
                 </span>
@@ -87,7 +78,7 @@
                         <img id="picture" class="object-cover object-center w-full h-64" src="#">
                         @else
                         <img id="picture" class="object-cover object-center w-full h-58"
-                            src="{{asset('images/homes/matriculacion.png')}}">
+                            src="{{asset('images/homes/matri.png')}}">
                         @endisset
                     </figure>
 

@@ -1,10 +1,10 @@
 <div class="grid grid-cols-3 mb-4 gap 2">
 
 <div class="form-group">
-    <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Academica </label>
+    <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Académica </label>
     <div class="mb-4">
         <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="academic_id" id="academic_id" wire:change='listarcarrera($event.target.value)'>
-            <option value="">Seleccione Unidad Acedemica...</option>
+            <option value="">Seleccione Unidad Académica...</option>
             @foreach($academicas as $academic)
             <option value="{{$academic->id}}">{{$academic->name}}</option>
 

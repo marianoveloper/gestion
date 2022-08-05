@@ -16,6 +16,9 @@ class Propuesta extends Model
 {
     use HasFactory;
 
+    const Cerrado=1;//habilitado inscripcion o pre-inscripcion
+    const Activo=2;//visible sin inscripcion o pre-inscripcion con fecha proxima abrir
+
     protected $guarded=['id'];
 
     //relacion uno a muchos trae los usuarios en los cursos

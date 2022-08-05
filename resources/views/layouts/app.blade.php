@@ -48,7 +48,7 @@
 
     <script src="https://unpkg.com/swiper/swiper-bundle.js"></script>
     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body class="font-sans antialiased">
@@ -77,6 +77,26 @@
 
     @livewireScripts
 
+    <script>
+        Livewire.on('alert',function(message){
+             Swal.fire(
+                'Uccuyo Virtual',
+
+                 message,
+                 'success'
+                 )
+         });
+     </script>
+     <script>
+        Livewire.on('alert2',function(message){
+             Swal.fire(
+                'Uccuyo Virtual',
+
+                 message,
+                 'error'
+                 )
+         });
+     </script>
     @stack('js')
     @isset($js)
     {{$js}}

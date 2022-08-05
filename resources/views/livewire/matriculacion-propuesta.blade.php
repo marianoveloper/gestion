@@ -15,7 +15,7 @@
     <div class="form-group row ">
         <label for="carrera" class="col-md-4 col-form-label text-md-right" id="">Propuestas</label>
         <div class="px-1 mb-4">
-            <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="propuesta_id" id="propuesta_id" >
+            <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="propuesta_id" id="propuesta_id" wire:change='activo($event.target.value)' >
                 <option value="">Seleccione Propuesta...</option>
                 @if($propuestas)
                     @foreach($propuestas as $propuesta)

@@ -20,7 +20,7 @@
     </div>
 
 
-        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-yellow-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Desmatricular de a uno</button>
+        <button wire:click="desmatricular()" class="px-4 py-2 my-3 font-bold text-white bg-yellow-600 hover:bg-green-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Desmatricular por carrera</button>
        @if($modal)
         @include('livewire.modal')
     @endif
@@ -28,6 +28,10 @@
     @if($modal2)
      @include('livewire.modaldesmatricular')
  @endif
+ <button wire:click="desmatricular3()" class="px-4 py-2 my-3 font-bold text-white bg-red-800 hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green">Desmatricular por materia</button>
+ @if($modal3)
+  @include('livewire.modaldesmatricularmateria')
+@endif
 
 
         <table class="w-full table-fixed">

@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Carbon\Carbon;
 use App\Models\Carrera;
+use App\Models\Materia;
 use Livewire\Component;
 use App\Models\Academic;
 use App\Mail\Notificacion;
@@ -18,10 +19,12 @@ use Illuminate\Support\Facades\Storage;
 class Desmatriculacions extends Component
 {
     use WithFileUploads;
-    public $name,$dni,$email,$carrera_id,$academic_id,$user_id,$file;
+    public $name,$dni,$email,$carrera_id,$academic_id,$materia_id,$user_id,$file;
     public $carrera="";
+    public $materias="";
     public $modal=0;
     public $modal2=0;
+    public $modal3=0;
 
     protected $rules =[
 
@@ -41,6 +44,17 @@ class Desmatriculacions extends Component
 
      ];
 
+     protected $rules3 =[
+
+        'name'=>'required',
+         'dni'=>'required',
+         'email'=>'required',
+         'carrera_id'=>'required',
+         'academic_id'=>'required',
+         'materia_id'=>'required'
+
+     ];
+
     public function render()
     {
         //$desmatriculacion=Desmatriculacion::all();
@@ -50,47 +64,10 @@ class Desmatriculacions extends Component
             ->get(),
             "academicas"=>Academic::all(),
             "carrera"=>$this->carrera,
+
         ]);
     }
-    public function desmatricular2(){
 
-        $this->limpiarCampos();
-        $this->abrirModal2();
-    }
-
-    public function abrirModal2(){
-        $this->modal2=true;
-
-    }
-
-    public function cerrarModal2(){
-        $this->modal2=false;
-
-    }
-    public function desmatricular(){
-
-        $this->limpiarCampos();
-        $this->abrirModal();
-    }
-
-    public function abrirModal(){
-        $this->modal=true;
-
-    }
-
-    public function cerrarModal(){
-        $this->modal=false;
-
-    }
-
-    public function limpiarCampos(){
-
-        $this->name="";
-        $this->dni="";
-        $this->email="";
-
-
-    }
 
     public function save(){
 
@@ -157,15 +134,54 @@ class Desmatriculacions extends Component
      $this->limpiarCampos();
     }
 
+    public function crear(){
+
+
+
+        $this->validate([
+
+            'name'=>'required',
+         'dni'=>'required',
+         'email'=>'required',
+
+        ]);
+
+        $desmat= new Desmatriculacion();
+
+        $desmat->name=$this->name;
+        $desmat->dni=$this->dni;
+        $desmat->email=$this->email;
+        $desmat->user_id=auth()->user()->id;
+        $desmat->academic_id=$this->academic_id;
+        $desmat->carrera_id=$this->carrera_id;
+        $desmat->materia_id=$this->materia_id;
+        $desmat->save();
+
+
+        session()->flash('message','info'?
+        '¡Actualización exitosa!' : '¡Alta Exitosa!');
+
+    $this->enviarMail($desmat);
+     $this->cerrarModal();
+     $this->limpiarCampos();
+
+
+    }
+
     public function listarcarrera($academic_id){
 
         $this->carrera=Carrera::where("academic_id",$academic_id)->get();
     }
 
+    public function listarmateria($carrera_id){
+
+        $this->materias=Materia::where("carrera_id",$carrera_id)->get();
+    }
+
     public function enviarMail(Desmatriculacion $desmat){
 
         $correo=auth()->user()->email;
-        $academic=$matriculacion->academic->name;
+        $academic=$desmat->academic->name;
 
         $subject="Desmatriculación ".$desmat->academic->name;
 
@@ -179,6 +195,61 @@ class Desmatriculacions extends Component
 
          return redirect()->route('desmatriculacion.index',$desmat)
          ->with('info','La Desmatriculación fue enviada');
+    }
+
+    public function desmatricular2(){
+
+        $this->limpiarCampos();
+        $this->abrirModal2();
+    }
+    public function desmatricular3(){
+
+        $this->limpiarCampos();
+        $this->abrirModal3();
+    }
+
+    public function abrirModal2(){
+        $this->modal2=true;
+
+    }
+
+    public function cerrarModal2(){
+        $this->modal2=false;
+
+    }
+
+    public function abrirModal3(){
+        $this->modal3=true;
+
+    }
+
+    public function cerrarModal3(){
+        $this->modal3=false;
+
+    }
+    public function desmatricular(){
+
+        $this->limpiarCampos();
+        $this->abrirModal();
+    }
+
+    public function abrirModal(){
+        $this->modal=true;
+
+    }
+
+    public function cerrarModal(){
+        $this->modal=false;
+
+    }
+
+    public function limpiarCampos(){
+
+        $this->name="";
+        $this->dni="";
+        $this->email="";
+
+
     }
 
 }

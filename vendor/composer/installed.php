@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f170fb4f4496d5734352a4f8aca287fb7783e485',
+        'reference' => '071e6f52e4fcf70320d83b791cb9a950ce0da76f',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -526,7 +526,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f170fb4f4496d5734352a4f8aca287fb7783e485',
+            'reference' => '071e6f52e4fcf70320d83b791cb9a950ce0da76f',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -680,12 +680,12 @@
             'dev_requirement' => true,
         ),
         'nesbot/carbon' => array(
-            'pretty_version' => '2.62.0',
-            'version' => '2.62.0.0',
+            'pretty_version' => '2.62.1',
+            'version' => '2.62.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nesbot/carbon',
             'aliases' => array(),
-            'reference' => '7507aec3d626797ce2123cf6c6556683be22b5f8',
+            'reference' => '01bc4cdefe98ef58d1f9cb31bdbbddddf2a88f7a',
             'dev_requirement' => false,
         ),
         'nette/schema' => array(
@@ -707,12 +707,12 @@
             'dev_requirement' => false,
         ),
         'nikic/php-parser' => array(
-            'pretty_version' => 'v4.14.0',
-            'version' => '4.14.0.0',
+            'pretty_version' => 'v4.15.1',
+            'version' => '4.15.1.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../nikic/php-parser',
             'aliases' => array(),
-            'reference' => '34bea19b6e03d8153165d8f30bba4c3be86184c1',
+            'reference' => '0ef6c55a3f47f89d7a374e6f835197a0b5fcf900',
             'dev_requirement' => false,
         ),
         'nunomaduro/collision' => array(
@@ -919,8 +919,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0',
             ),
         ),
         'psr/simple-cache' => array(

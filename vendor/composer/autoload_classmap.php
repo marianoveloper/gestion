@@ -72,6 +72,7 @@ return array(
     'App\\Http\\Livewire\\MatriculacionPropuesta' => $baseDir . '/app/Http/Livewire/MatriculacionPropuesta.php',
     'App\\Http\\Livewire\\Modal' => $baseDir . '/app/Http/Livewire/Modal.php',
     'App\\Http\\Livewire\\Modaldesmatricular' => $baseDir . '/app/Http/Livewire/Modaldesmatricular.php',
+    'App\\Http\\Livewire\\Modaldesmatricularmateria' => $baseDir . '/app/Http/Livewire/Modaldesmatricularmateria.php',
     'App\\Http\\Livewire\\Navigation' => $baseDir . '/app/Http/Livewire/Navigation.php',
     'App\\Http\\Livewire\\NextCourses' => $baseDir . '/app/Http/Livewire/NextCourses.php',
     'App\\Http\\Livewire\\Search' => $baseDir . '/app/Http/Livewire/Search.php',

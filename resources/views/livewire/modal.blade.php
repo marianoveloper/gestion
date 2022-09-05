@@ -12,21 +12,37 @@
                 <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id}}" wire:model="user_id">
 
                 <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+                    <div class="form-group">
+                        {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
+                        {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
+                        null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
+                    </div>
+
+                    @error('tipo')
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
                     <div class="mb-4">
                         <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Nombre Y Apellido:</label>
                         <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="name" wire:model="name" required>
                     </div>
-
+                    @error('name')
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
                     <div class="mb-4">
                         <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Dni:</label>
                         <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="dni" wire:model="dni">
                     </div>
-
+                    @error('dni')
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
                     <div class="mb-4">
                         <label for="descripcion" class="block mb-2 text-sm font-bold text-gray-700">Email:</label>
                         <input type="text" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="email" wire:model="email">
                     </div>
-
+                    @error('email')
+                    <strong class="text-xs text-red-600">{{$message}}</strong>
+                    @enderror
 
                     <div class="form-group">
                         <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Academica </label>

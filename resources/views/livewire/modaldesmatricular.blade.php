@@ -37,6 +37,7 @@
 
                     </div>
 
+                </div>
                     <div class="form-group">
                         <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Academica </label>
                         <div class="mb-4">

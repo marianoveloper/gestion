@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
 class Desmatriculacions extends Component
 {
     use WithFileUploads;
-    public $name,$dni,$email,$carrera_id,$academic_id,$materia_id,$user_id,$file;
+    public $name,$dni,$email,$carrera_id,$academic_id,$materia_id,$user_id,$file,$tipo;
     public $carrera="";
     public $materias="";
     public $modal=0;
@@ -28,6 +28,7 @@ class Desmatriculacions extends Component
 
     protected $rules =[
 
+        'tipo'=>'required',
        'name'=>'required',
         'dni'=>'required',
         'email'=>'required',
@@ -45,7 +46,7 @@ class Desmatriculacions extends Component
      ];
 
      protected $rules3 =[
-
+        'tipo'=>'required',
         'name'=>'required',
          'dni'=>'required',
          'email'=>'required',
@@ -146,6 +147,7 @@ class Desmatriculacions extends Component
 
         ]);
 
+        sleep(2);
         $desmat= new Desmatriculacion();
 
         $desmat->name=$this->name;

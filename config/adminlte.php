@@ -266,7 +266,10 @@ return [
     'route' => 'admin.desmatriculacion.index',
     'icon' => 'fas fa-user-edit',
 ],
-
+['text' => 'Desmatriculación por Materia',
+'route' => 'admin.desmatriculacion.index',
+'icon' => 'fas fa-user-edit',
+],
     ['text' => 'Apertura de Materia',
     'route' => 'admin.catedra.index',
     'icon' => 'fas fa-clipboard-list',

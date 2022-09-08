@@ -13,7 +13,7 @@
 
                 <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                     <div class="mb-4">
-                        {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
+                        {!! Form::label('Tipo de Matriculación', 'Tipo de Desmatriculación') !!}
                         {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
                         null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}

@@ -12,12 +12,23 @@
                 <input type="hidden" id="user_id" name="user_id" value="{{auth()->user()->id}}" wire:model="user_id">
 
                 <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
-                    <div class="mb-4">
+                    <!--<div class="mb-4">
                         {!! Form::label('Tipo de Matriculación', 'Tipo de Desmatriculación') !!}
                         {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
                         null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
+                    </div>-->
+                    <div class="form-group">
+                        <label for="tipo" class="col-md-4 col-form-label text-md-right" id="">Tipo de Desmatriculación </label>
+                        <div class="mb-4">
+                            <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="tipo" id="tipo" wire:model="tipo">
+                                <option value="">Seleccione Tipo...</option>
+                                <option value="1">Estudiante</option>
+                                <option value="2">Profesor</option>
+
+
+                            </select>
+                        </div>
 
                     @error('tipo')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
@@ -76,11 +87,11 @@
                     <div class="form-group row ">
                         <label for="carrera" class="col-md-4 col-form-label text-md-right" id="">Materias</label>
                         <div class="col-md-4">
-                            <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="materia_id" id="materia_id">
+                            <select class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" name="materia_id" id="materia_id" wire:model="materia_id">
                                 <option value="">Seleccione Materia...</option>
-                                @if($materias)
-                                    @foreach($materias as $materia)
-                                        <option value="{{$materia->id}}">{{$materia->name}}</option>
+                                @if($materia)
+                                    @foreach($materia as $mat)
+                                        <option value="{{$mat->id}}">{{$mat->name}}</option>
 
                                     @endforeach
                                 @endif
@@ -88,8 +99,8 @@
                         </div>
                     </div>
                     <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
-                        <x-button-enlace class="mt-4 ml-3">
-                        <svg wire:loading wire:target="crear" class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        <x-button class="mt-4 ml-3">
+                        <svg wire:loading wire:target="crear()" class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none"
                         viewBox="0 0 24 24">
                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                         <path class="opacity-75" fill="currentColor"
@@ -100,7 +111,7 @@
                             <!--<button wire:click.prevent="crear()" type="button" class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-white transition duration-150 ease-in-out bg-green-600 border border-transparent rounded-md shadow-sm hover:bg-yellow-500 focus:outline-none focus:border-green-700 focus:shadow-outline-green sm:text-sm sm:leading-5">Guardar</button>-->
                             {{ __('Guardar') }}
                         </span>
-                    </x-button-enlace>
+                    </x-button>
                         <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
                             <button wire:click="cerrarModal3()" type="button" class="inline-flex justify-center w-full px-4 py-2 mt-4 ml-3 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-gray-200 border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue sm:text-sm sm:leading-5">Cancelar</button>
                         </span>

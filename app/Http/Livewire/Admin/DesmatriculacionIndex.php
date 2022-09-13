@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Carrera;
+use App\Models\Materia;
 use Livewire\Component;
 use App\Models\Academic;
 use Livewire\WithPagination;
@@ -19,21 +20,24 @@ class DesmatriculacionIndex extends Component
     public $mat;
     public $carrera_id;
     public $academic_id;
+    public $materia_id;
 
     public function render()
     {
         $academic= Academic::all();
         $carrera= Carrera::all();
+        $materia=Materia::all();
 
 
         $desmatriculacion = Desmatriculacion::whereIn('status',[1,2,3])
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
+        ->materia($this->materia_id)
         ->latest('id')
         ->paginate(10);
 
 
-        return view('livewire.admin.desmatriculacion-index',compact('desmatriculacion','academic','carrera'));
+        return view('livewire.admin.desmatriculacion-index',compact('desmatriculacion','academic','carrera','materia'));
     }
 
     public function limpiar_page(){

@@ -76,7 +76,7 @@ class Desmatriculacions extends Component
         $rules2 = $this->rules2;
 
         $this->validate($rules2);
-
+        sleep(2);
         $desmat= new Desmatriculacion();
 
         $desmat->user_id=auth()->user()->id;
@@ -116,6 +116,7 @@ class Desmatriculacions extends Component
 
         $this->validate($rules);
 
+        sleep(2);
         $desmat= new Desmatriculacion();
 
         $desmat->name=$this->name;

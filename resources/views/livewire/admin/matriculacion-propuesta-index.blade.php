@@ -15,8 +15,9 @@
 
                             <th>Fecha Envio</th>
                             <th>Aula disponible</th>
+                            <th>Usuario</th>
+                            <th>email</th>
                             <th>Rol</th>
-                            <th>Unidad Académica</th>
                             <th>Propuesta</th>
 
 
@@ -29,7 +30,8 @@
 
                             <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
                             <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
-
+                            <td>{{$mat->user->name}}</td>
+                            <td>{{$mat->user->email}}</td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 @switch($mat->tipo)
                                 @case(1)
@@ -80,7 +82,7 @@
 
 
                             </td>
-                            <td>{{$mat->academic->name}}</td>
+
                             <td>{{$mat->propuesta->name}}</td>
 
                             <td width="10px">

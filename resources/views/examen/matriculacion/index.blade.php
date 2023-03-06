@@ -50,7 +50,7 @@
                     ($errors->has('time_start')?
                     'border-red-600': '')]) }}
 
-                    @error('date_start')
+                    @error('time_start')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>

@@ -33,12 +33,13 @@ class MatriculacionExamenController extends Controller
 
        $request->validate([
 
-        'date_start'=>'required|date',
+        'date_start'=>'required',
         'time_start'=>'required',
         'academic_id'=>'required',
         'carrera_id'=>'required',
         'materia_id'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
+
 
        ]);
 

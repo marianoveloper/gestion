@@ -12,12 +12,14 @@
                 <thead>
                     <tr>
                         <th>Fecha</th>
+                        <th>Rol</th>
                         <th>Unidad Académica</th>
                         <th>Carrera</th>
+                        <th>Materia</th>
                         <th>Nombre</th>
                         <th>Dni</th>
                         <th>Email</th>
-                        <th span=2>Acciones</th>
+                        <th>Acciones</th>
 
 
                     </tr>
@@ -28,9 +30,65 @@
                     <tr>
 
                         <td>{{ \Carbon\Carbon::parse($desmat->created_at)->format('d/m/Y')}}</td>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            @switch($desmat->tipo)
+                            @case(1)
+                            <span
+                                class="badge badge-success">
+                               Estudiante
+                            </span>
+                            @break
+                            @case(2)
+                            <span
+                                class="badge badge-primary">
+                                Profesor
+                            </span>
+                            @break
+                            @case(3)
+                            <span
+                                class="badge badge-info">
+                               Tutor
+                            </span>
+                            @break
+                            @case(4)
+                            <span
+                                class="badge badge-info">
+                                Asesor Pedagógico
+                            </span>
+                            @break
+                            @case(5)
+                            <span
+                                class="badge badge-info">
+                               Referente Virtual
+                            </span>
+                            @break
+                            @case(6)
+                            <span
+                                class="badge badge-info">
+                                Coordinador
+                            </span>
+                            @break
+                            @case(7)
+                            <span
+                                class="badge badge-info">
+                                Director
+                            </span>
+                            @break
+                            @default
+
+                            @endswitch
+
+
+                        </td>
 
                         <td>{{$desmat->academic->name}}</td>
                         <td>{{$desmat->carrera->name}}</td>
+                        @if(@isset($desmat->materia))
+                        <td>{{$desmat->materia->name}}</td>
+
+                      @else
+                       <td> </td>
+                      @endif
                         <td>{{$desmat->name}}</td>
                         <td>{{$desmat->dni}}</td>
                         <td>{{$desmat->email}}</td>

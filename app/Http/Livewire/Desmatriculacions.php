@@ -21,7 +21,7 @@ class Desmatriculacions extends Component
     use WithFileUploads;
     public $name,$dni,$email,$carrera_id,$academic_id,$materia_id,$user_id,$file,$tipo;
     public $carrera="";
-    public $materias="";
+    public $materia="";
     public $modal=0;
     public $modal2=0;
     public $modal3=0;
@@ -52,7 +52,7 @@ class Desmatriculacions extends Component
          'email'=>'required',
          'carrera_id'=>'required',
          'academic_id'=>'required',
-         'materia_id'=>'required'
+         'materia_id'=>'required',
 
      ];
 
@@ -65,6 +65,7 @@ class Desmatriculacions extends Component
             ->get(),
             "academicas"=>Academic::all(),
             "carrera"=>$this->carrera,
+            "materia"=>$this->materia,
 
         ]);
     }
@@ -75,7 +76,7 @@ class Desmatriculacions extends Component
         $rules2 = $this->rules2;
 
         $this->validate($rules2);
-
+        sleep(2);
         $desmat= new Desmatriculacion();
 
         $desmat->user_id=auth()->user()->id;
@@ -115,6 +116,7 @@ class Desmatriculacions extends Component
 
         $this->validate($rules);
 
+        sleep(2);
         $desmat= new Desmatriculacion();
 
         $desmat->name=$this->name;
@@ -138,18 +140,15 @@ class Desmatriculacions extends Component
     public function crear(){
 
 
+        $rules3 = $this->rules3;
 
-        $this->validate([
+        $this->validate($rules3);
 
-            'name'=>'required',
-         'dni'=>'required',
-         'email'=>'required',
-
-        ]);
 
         sleep(2);
         $desmat= new Desmatriculacion();
 
+        $desmat->tipo=$this->tipo;
         $desmat->name=$this->name;
         $desmat->dni=$this->dni;
         $desmat->email=$this->email;
@@ -177,7 +176,7 @@ class Desmatriculacions extends Component
 
     public function listarmateria($carrera_id){
 
-        $this->materias=Materia::where("carrera_id",$carrera_id)->get();
+        $this->materia=Materia::where("carrera_id",$carrera_id)->get();
     }
 
     public function enviarMail(Desmatriculacion $desmat){

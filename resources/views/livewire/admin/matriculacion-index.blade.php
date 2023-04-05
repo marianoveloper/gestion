@@ -6,7 +6,16 @@
             <div class="card-header">
                <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
             </div>
+<div class="pb-4 col-3">
+    <label for="Carrera"></label>
+    <select class="form-select" name="bcarrera" id="bcarrera" wire:model='ebcarrera'>
+        <option value="%%">Todas</option>
+        @foreach($carrera as $car)
+            <option value="{{$car->id}}">{{$car->name}}</option>
 
+        @endforeach
+    </select>
+</div>
             @if ($matriculacion->count())
             <div class="card-body">
                 <table class="table table-striped">

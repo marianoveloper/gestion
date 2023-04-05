@@ -3,7 +3,7 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Formularios de Matriculación</h1>
+    <h1>Solicitudes de Matriculación</h1>
 @stop
 
 @section('content')

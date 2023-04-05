@@ -83,7 +83,7 @@ class MatriculacionController extends Controller
      $correo=auth()->user()->email;
         $academic=$matriculacion->academic->name;
 
-        $subject="Matriculación de ".$matriculacion->academic->name;
+        $subject="Matriculación en ".$matriculacion->carrera->name;
 
         $mail=new EmailNotification($subject,$correo,$academic);
        //$mail=new Notificacion($subject,$correo);

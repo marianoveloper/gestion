@@ -16,7 +16,7 @@ class MatriculacionIndex extends Component
     protected $paginationTheme ="bootstrap";
 
     public $search;
-
+    public $ebcarrera;
     public $mat,$file;
     public $carrera_id;
     public $academic_id;

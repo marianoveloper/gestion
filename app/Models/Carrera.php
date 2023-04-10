@@ -36,4 +36,31 @@ public function materia(){
     return $this->belongsTo(Materia::class);
 }
 
+
+/***query scopes********************* */
+public function scopeCarrera($query,$carrera_id){
+
+    if($carrera_id){
+        return $query->where('carrera_id',$carrera_id);
+    }
+}
+public function scopeAcademic($query,$academic_id){
+
+    if($academic_id){
+        return $query->where('academic_id',$academic_id);
+    }
+}
+public function scopeMateria($query,$materia_id){
+
+    if($materia_id){
+        return $query->where('materia_id',$materia_id);
+    }
+}
+public function scopeStatus($query,$status){
+
+    if($status){
+        return $query->where('status',$status);
+    }
+}
+
 }

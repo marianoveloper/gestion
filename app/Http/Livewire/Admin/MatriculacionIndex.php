@@ -3,10 +3,13 @@
 namespace App\Http\Livewire\Admin;
 
 use App\Models\Carrera;
+use App\Models\Materia;
 use Livewire\Component;
 use App\Models\Academic;
 use Livewire\WithPagination;
+
 use App\Models\Matriculacion;
+use Illuminate\Support\Facades\DB;
 
 
 class MatriculacionIndex extends Component
@@ -15,22 +18,61 @@ class MatriculacionIndex extends Component
 
     protected $paginationTheme ="bootstrap";
 
-    public $search;
-    public $ebcarrera;
+    public $bpaginacion=16;
+    public $buscar;
+    public $escarrera='like';
+    public $ebcarrera= '%%';
+
     public $mat,$file;
     public $carrera_id;
     public $academic_id;
-
+    public $numero;
     public function render()
     {
+
+        //buscar carrera
+        if($this->ebcarrera=='%%'){
+            $this->ebcarrera='%%';
+            $this->escarrera='like';
+        }
+        else{$this->escarrera= '=';}
+
+
+
+
+        //buscar paginacion
+        if($this->bpaginacion=='all'){
+            $numero=Matriculacion::all()->latest('id')->count();
+
+        }
+        else{
+            $numero=$this->bpaginacion;
+        }
+
+        $matriculacion=Matriculacion::whereExists(function ($query){
+
+            $query->select()
+                  ->from(DB::raw('carreras'))
+
+                  ->whereColumn('carreras.id','matriculacions.carrera_id')
+
+                  ->where('carreras.id',$this->escarrera,$this->ebcarrera);
+
+
+
+        }) ->latest('id')->paginate($numero);
+
+
+
+
         $academic= Academic::all();
         $carrera= Carrera::all();
 
-        $matriculacion = Matriculacion::whereIn('status',[1,2,3])
+      /*  $matriculacion = Matriculacion::whereIn('status',[1,2,3])
         ->carrera($this->carrera_id)
         ->academic($this->academic_id)
         ->latest('id')
-        ->paginate(16);
+        ->paginate(16);*/
 
 
 

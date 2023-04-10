@@ -12,27 +12,34 @@
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
+
                             <th>Fecha</th>
                             <th>Sede</th>
-                            <th>UA</th>
-                            <th>Carrera</th>
+                            <th>Unidad Académica</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($carrera as $cat)
 
                         <tr>
-                            <td>{{$cat->id}}</td>
-                            <td>{{$cat->created_at}}</td>
+                            <td>{{ \Carbon\Carbon::parse($cat->created_at)->format('d/m/Y')}}</td>
+
 
                             <td>{{$cat->sede->name}}</td>
                             <td>{{$cat->academic->name}}</td>
-                            <td>{{$cat->carrera->name}}</td>
-                            <td width="10px">
-                                <button wire:click="download({{$cat->id}})" class="p-1 text-gray-400 rounded hover:text-blue-500 focus:text-blue-500 focus:ring-2 ring-blue-300 focus:outline-none">
 
+
+                            <td width="10px">
+                                <button wire:click="download({{$cat->id}})" class="btn btn-info">
+                                    <i class="fas fa-download"></i>
                                 </button>
+                            </td>
+                            <td>
+                                <span
+                                class="badge badge-success">
+                               {{$cat->status_name}}
+                            </span>
                             </td>
                         </tr>
                         @endforeach

@@ -9,6 +9,8 @@ use App\Models\Apertura;
 use App\Mail\Notificacion;
 use App\Models\Subcategory;
 use Illuminate\Http\Request;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -60,7 +62,7 @@ class AperturaController extends Controller
             'destinatarios'=>'required',
             'requisitos'=>'required',
             'duracion'=>'required',
-            'file'=>'required|mimes:pdf|max:2048',
+            'file'=>'required|mimes:pdf,xls,xlsx',
             'resol'=>'required|mimes:pdf|max:2048',
 
 
@@ -73,8 +75,11 @@ class AperturaController extends Controller
 
            //plan de estudio
            if($request->file('file')){
-            $url=Storage::put('carrera', $request->file('file'));
-            $name=$request->file('file')->hashName();
+
+            $name=$request->file('file')->getClientOriginalName();
+            //$url=Storage::put('matriculaciones', $request->file('file'));
+            $url=Storage::putFileAs('carrera',$request->file('file'),$name);
+            //$name=$request->file('file')->hashName();
         }
 
         $carrera->resource()->create([
@@ -84,8 +89,12 @@ class AperturaController extends Controller
 
         //resolucion
         if($request->file('resol')){
-            $url=Storage::put('carrera', $request->file('resol'));
-            $name=$request->file('file')->hashName();
+           // $url=Storage::put('carrera', $request->file('resol'));
+           // $name=$request->file('file')->hashName();
+            $name=$request->file('resol')->getClientOriginalName();
+            //$url=Storage::put('matriculaciones', $request->file('file'));
+            $url=Storage::putFileAs('carrera',$request->file('resol'),$name);
+            //$name=$request->file('file')->hashName();
         }
 
         $carrera->resource()->create([
@@ -95,14 +104,20 @@ class AperturaController extends Controller
 
 
         $correo=auth()->user()->email;
+        $academic=$carrera->academic->name;
         $subject="Solicitud de Apertura de Carrera Virtual";
 
-       $mail=new Notificacion($subject,$correo);
+       //$mail=new Notificacion($subject,$correo);
+
+       $mail=new EmailNotification($subject,$correo,$academic);
+       //$mail=new Notificacion($subject,$correo);
+        $confirmation=new EmailConfirmation($subject,$correo,$academic);
 
 
         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+        Mail::to($correo)->send($confirmation);
 
-        return redirect()->route('carrera.index')
+        return redirect()->route('carrera.index',$carrera)
         ->with('info','La solicitud fue enviada');
     }
 

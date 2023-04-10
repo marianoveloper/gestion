@@ -35,4 +35,26 @@ class CarreraIndex extends Component
             storage_path('app/public/carrera/') . $this->car->resource->name
         );
     }
+
+    public function status(Carrera $mat){
+
+        if($mat->status==1){
+            $mat->status=2;
+            $mat->status_name=auth()->user()->name;
+
+            $mat->save();
+        }elseif($mat->status==2){
+            $mat->status=3;
+            $mat->status_name=auth()->user()->name;
+            $mat->save();
+        }
+        else{
+
+            $mat->status=1;
+            $mat->status_name=null;
+            $mat->save();
+        }
+
+
+    }
 }

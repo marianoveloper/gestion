@@ -106,7 +106,7 @@
                              <td> </td>
                              <td> </td>
                             @endif
-                            <td width="10px">
+                           <td width="10px">
                                 <button wire:click="download({{$mat->id}})" class="btn btn-info">
                                     <i class="fas fa-download"></i>
                                 </button>
@@ -127,6 +127,11 @@
 
                                     <button wire:click="status({{$mat}})" class="btn btn-success">
                                         <i class="fas fa-clipboard-check"></i></button>
+                                    @break
+                                    @case(4)
+
+                                    <button wire:click="status({{$mat}})" class="btn btn-danger">
+                                        <i class="fas fa-times"></i></button>
                                     @break
                                     @default
 

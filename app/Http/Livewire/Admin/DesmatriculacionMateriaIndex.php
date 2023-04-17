@@ -10,7 +10,7 @@ use Livewire\WithPagination;
 use App\Models\Desmatriculacion;
 
 
-class DesmatriculacionIndex extends Component
+class DesmatriculacionMateriaIndex extends Component
 {
     use WithPagination;
 

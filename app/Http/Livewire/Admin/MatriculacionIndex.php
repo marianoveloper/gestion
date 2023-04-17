@@ -22,7 +22,7 @@ class MatriculacionIndex extends Component
     public $buscar;
     public $escarrera='like';
     public $ebcarrera= '%%';
-
+    public $modal=0;
     public $mat,$file;
     public $carrera_id;
     public $academic_id;
@@ -102,6 +102,10 @@ class MatriculacionIndex extends Component
                 $mat->status=3;
                 $mat->status_name=auth()->user()->name;
                 $mat->save();
+            }elseif($mat->status==3){
+                $mat->status=4;
+                $mat->status_name=auth()->user()->name;
+                $mat->save();
             }
             else{
 
@@ -110,6 +114,22 @@ class MatriculacionIndex extends Component
                 $mat->save();
             }
 
+
+        }
+
+        public function modalInfo(){
+
+            //$this->limpiarCampos();
+            $this->abrirModal();
+        }
+
+        public function abrirModal(){
+            $this->modal=true;
+
+        }
+
+        public function cerrarModal(){
+            $this->modal=false;
 
         }
 

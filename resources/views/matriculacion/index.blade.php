@@ -33,7 +33,7 @@
                 {!! Form::open(['route'=> 'matriculacion.store','files'=>true, 'autocomplete'=>'off']) !!}
 
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
-
+                {!! Form::hidden('hora',Carbon\Carbon::now()->format('H:i') )!!}
 
                 <div class="grid grid-cols-3 gap-3 mb-4">
                     <div class="mb-4">

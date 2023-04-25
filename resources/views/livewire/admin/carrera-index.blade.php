@@ -16,7 +16,9 @@
                             <th>Fecha</th>
                             <th>Sede</th>
                             <th>Unidad Académica</th>
-                            <th>Acciones</th>
+                            <th>Categoría</th>
+                            <th>Plan de Estudio</th>
+                            <th>Resolución</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,10 +30,15 @@
 
                             <td>{{$cat->sede->name}}</td>
                             <td>{{$cat->academic->name}}</td>
-
+                            <td>{{$cat->subcategory->name}}</td>
 
                             <td width="10px">
                                 <button wire:click="download({{$cat->id}})" class="btn btn-info">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </td>
+                            <td width="10px">
+                                <button wire:click="descarga({{$cat->id}})" class="btn btn-info">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>

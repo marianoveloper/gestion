@@ -7,6 +7,7 @@ use App\Models\Carrera;
 use Livewire\Component;
 use App\Models\Academic;
 use App\Models\Apertura;
+use Illuminate\Support\Facades\DB;
 
 class CarreraIndex extends Component
 {
@@ -15,7 +16,7 @@ class CarreraIndex extends Component
 
     public $search;
 
-    public $car,$file;
+    public $car,$file,$down;
 
     public function render()
     {
@@ -35,6 +36,21 @@ class CarreraIndex extends Component
             storage_path('app/public/carrera/') . $this->car->resource->name
         );
     }
+
+   public function descarga($id){
+
+    $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\Apertura")->get();
+  // dd($this->car);
+
+   foreach($this->car as $item){
+    if($item->url=="resolucion/".$item->name)
+        $this->down=$item->name;
+   }
+    return response()->download(
+        storage_path('app/public/resolucion/') . $this->down
+    );
+   }
+
 
     public function status(Carrera $mat){
 

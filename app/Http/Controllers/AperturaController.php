@@ -93,7 +93,7 @@ class AperturaController extends Controller
            // $name=$request->file('file')->hashName();
             $name=$request->file('resol')->getClientOriginalName();
             //$url=Storage::put('matriculaciones', $request->file('file'));
-            $url=Storage::putFileAs('carrera',$request->file('resol'),$name);
+            $url=Storage::putFileAs('resolucion',$request->file('resol'),$name);
             //$name=$request->file('file')->hashName();
         }
 

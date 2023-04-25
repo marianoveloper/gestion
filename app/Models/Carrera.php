@@ -35,7 +35,15 @@ public function materia(){
 
     return $this->belongsTo(Materia::class);
 }
+public function scopeSubcategory($query,$subcategory_id){
 
+    if($subacategory_id){
+        return $query->where('subcategory_id',$subcategory_id);
+    }
+}
+public function subcategory(){
+    return $this->belongsTo(Subcategory::class);
+}
 
 /***query scopes********************* */
 public function scopeCarrera($query,$carrera_id){

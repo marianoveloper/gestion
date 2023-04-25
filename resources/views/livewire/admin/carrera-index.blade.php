@@ -17,6 +17,7 @@
                             <th>Sede</th>
                             <th>Unidad Académica</th>
                             <th>Categoría</th>
+                            <th>Información</th>
                             <th>Plan de Estudio</th>
                             <th>Resolución</th>
                         </tr>
@@ -31,17 +32,21 @@
                             <td>{{$cat->sede->name}}</td>
                             <td>{{$cat->academic->name}}</td>
                             <td>{{$cat->subcategory->name}}</td>
+                            <td width="10px">
+                                <a href="{{route('admin.carrera.show',$cat)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
 
+                            </td>
                             <td width="10px">
-                                <button wire:click="download({{$cat->id}})" class="btn btn-info">
+                                <button wire:click="download({{$cat->id}})" class="btn btn-outline-primary">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
                             <td width="10px">
-                                <button wire:click="descarga({{$cat->id}})" class="btn btn-info">
+                                <button wire:click="descarga({{$cat->id}})" class="btn btn-outline-danger">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
+
                             <td>
                                 <span
                                 class="badge badge-success">

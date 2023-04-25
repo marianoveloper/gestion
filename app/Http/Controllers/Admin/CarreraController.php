@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Carrera;
+use App\Models\Apertura;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CarreraController extends Controller
 {
@@ -44,9 +46,10 @@ class CarreraController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Apertura $carrera)
     {
-        //
+
+        return view('admin.carrera.show',compact('carrera'));
     }
 
     /**

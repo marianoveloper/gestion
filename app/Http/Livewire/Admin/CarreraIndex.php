@@ -47,7 +47,7 @@ class CarreraIndex extends Component
         $this->down=$item->name;
    }
     return response()->download(
-        storage_path('app/public/resolucion/') . $this->down
+        storage_path('app/public/resolucion/') .$this->down
     );
    }
 

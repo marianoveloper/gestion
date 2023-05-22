@@ -10,4 +10,8 @@ class ModalInfo extends Component
     {
         return view('livewire.admin.modal-info');
     }
+
+   /*modal para mostrar informacion de la carrera*/
+
+
 }

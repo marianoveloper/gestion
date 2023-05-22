@@ -16,6 +16,7 @@ use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\ExamenAulaController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\DesmatriculacionController;
+use App\Http\Controllers\AperturaPropuestaController;
 use App\Http\Controllers\MatriculacionExamenController;
 use App\Http\Controllers\MatriculacionPropuestasController;
 
@@ -50,8 +51,8 @@ Route::post('catedra', [CatedraController::class, 'store'])->name('catedra.store
 Route::get('apertura', [AperturaController::class, 'index'])->name('carrera.index');
 Route::post('apertura', [AperturaController::class, 'store'])->name('carrera.store');
 
-Route::get('propuesta',[PropuestaController::class,'index'])->name('propuesta.index');
-Route::post('propuesta',[PropuestaController::class,'store'])->name('propuesta.index');
+Route::get('propuesta',[AperturaPropuestaController::class,'index'])->name('propuesta.index');
+Route::post('propuesta',[AperturaPropuestaController::class,'store'])->name('propuesta.store');
 
 Route::get('desmatriculacion',[DesmatriculacionController::class,'index'])->name('desmatriculacion.index');
 

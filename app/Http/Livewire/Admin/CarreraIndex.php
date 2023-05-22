@@ -52,7 +52,7 @@ class CarreraIndex extends Component
    }
 
 
-    public function status(Carrera $mat){
+    public function status(Apertura $mat){
 
         if($mat->status==1){
             $mat->status=2;
@@ -61,6 +61,10 @@ class CarreraIndex extends Component
             $mat->save();
         }elseif($mat->status==2){
             $mat->status=3;
+            $mat->status_name=auth()->user()->name;
+            $mat->save();
+        }elseif($mat->status==3){
+            $mat->status=4;
             $mat->status_name=auth()->user()->name;
             $mat->save();
         }

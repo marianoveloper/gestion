@@ -20,6 +20,7 @@
                             <th>Información</th>
                             <th>Plan de Estudio</th>
                             <th>Resolución</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,33 @@
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
+                            <td width="10px">
 
+                                @switch($cat->status)
+                                @case(1)
+                                <button wire:click="status({{$cat}})" class="btn btn-warning">
+                                    <i class="fas fa-exclamation-triangle"></i></button>
+                                @break
+                                @case(2)
+
+                                <button wire:click="status({{$cat}})" class="btn btn-primary">
+                                    <i class="fas fa-spinner"></i></button>
+                                @break
+                                @case(3)
+
+                                <button wire:click="status({{$cat}})" class="btn btn-success">
+                                    <i class="fas fa-clipboard-check"></i></button>
+                                @break
+                                @case(4)
+
+                                <button wire:click="status({{$cat}})" class="btn btn-danger">
+                                    <i class="fas fa-times"></i></button>
+                                @break
+                                @default
+
+                                @endswitch
+
+                        </td>
                             <td>
                                 <span
                                 class="badge badge-success">

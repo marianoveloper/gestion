@@ -26,7 +26,6 @@
         <div class="card">
             <div class="card-body">
 
-
                 <h1 class="mt-6 text-2xl font-bold text-center bg-green-200">Información del Examen</h1>
                 <hr class="mt-2 mb-6">
 

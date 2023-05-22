@@ -54,11 +54,23 @@ class MatriculacionController extends Controller
         'academic_id'=>'required',
         'carrera_id'=>'required',
         'materia_id'=>'required',
-        'date_start'=>'required|date',
+        'date_start'=>'required|date|before:Carbon::now()',
         'time_start'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 
-       ]);
+       ],
+    [
+        'tipo.required'=>'El campo tipo es obligatorio',
+        'academic_id.required'=>'El campo académica es obligatorio',
+        'carrera_id.required'=>'El campo carrera es obligatorio',
+        'materia_id.required'=>'El campo materia es obligatorio',
+        'date_start.required'=>'El campo fecha de inicio debe ser posterior a la fecha actual',
+        'time_start.required'=>'El campo hora de inicio es obligatorio',
+        'file.required'=>'El campo archivo es obligatorio',
+        'file.mimes'=>'El archivo debe ser de tipo xls o xlsx',
+        'file.max'=>'El archivo no debe superar los 2MB',
+    ]
+    );
 
 
        $matriculacion=Matriculacion::create($request->all());

@@ -188,6 +188,6 @@ return [
         'date_start'            => 'fecha ingresada',
         'date_limit'            => 'fecha limite',
         'destination'           => 'destinatario',
-
+        'yesterday'             => 'ayer',
     ],
 ];

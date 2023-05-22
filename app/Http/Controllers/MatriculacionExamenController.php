@@ -33,7 +33,7 @@ class MatriculacionExamenController extends Controller
 
        $request->validate([
 
-        'date_start'=>'required',
+        'date_start'=>'required|date|after:tomorrow',
         'time_start'=>'required',
         'academic_id'=>'required',
         'carrera_id'=>'required',
@@ -41,7 +41,20 @@ class MatriculacionExamenController extends Controller
         'file'=>'required|mimes:xls,xlsx|max:2048',
 
 
-       ]);
+       ],
+
+    [
+        'date_start.after'=>'La fecha ingresada debe ser 48hs antes de la fecha del examen',
+        'date_start.required'=>'La fecha es obligatoria',
+        'time_start.required'=>'La hora es obligatoria',
+        'academic_id.required'=>'La unidad académica es obligatoria',
+        'carrera_id.required'=>'La carrera es obligatoria',
+        'materia_id.required'=>'La materia es obligatoria',
+        'file.required'=>'El archivo es obligatorio',
+        'file.mimes'=>'El archivo debe ser de tipo xls o xlsx',
+        'file.max'=>'El archivo no debe superar los 2MB',
+    ]
+    );
 
 
        $matriculacion=MatriculacionExamen::create($request->all());

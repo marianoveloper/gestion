@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AperturaPropuesta;
 use App\Models\Sede;
 use App\Models\Carrera;
 use App\Models\Academic;
-use App\Models\Propuesta;
-use App\Mail\Notificacion;
-use App\Models\Subcategoria;
 use App\Models\Subcategory;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Mail\EmailConfirmation;
+use App\Mail\EmailNotification;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
-
-class PropuestaController extends Controller
+class AperturaPropuestaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -47,10 +47,9 @@ class PropuestaController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
 
-
-            'sede_id'=>'required',
             'academic_id'=>'required',
             'subcategory'=>'required',
             'title'=>'required',
@@ -63,10 +62,10 @@ class PropuestaController extends Controller
             'date_start'=>'required|date|after:tomorrow',
             'costo'=>'required',
             'link_pago'=>'required',
-            'descripcion'=>'required|mimes:pdf|max:2048',
-            'programa'=>'required|mimes:pdf|max:2048',
-            'resol'=>'required|mimes:pdf|max:2048',
-            'cv'=>'required|mimes:pdf|max:2048',
+            'descripcion'=>'required|mimes:pdf',
+            'programa'=>'required|mimes:pdf',
+            'resol'=>'required|mimes:pdf',
+            'cv'=>'required|mimes:pdf',
             'flyer'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
 
 
@@ -94,18 +93,18 @@ class PropuestaController extends Controller
             'descripcion.max'=>'El archivo no debe superar los 2MB',
             'programa.required'=>'El campo programa es obligatorio',
             'programa.mimes'=>'El archivo debe ser de tipo pdf',
-            'programa.max'=>'El archivo no debe superar los 2MB',
+
             'resol.required'=>'El campo resolución es obligatorio',
             'resol.mimes'=>'El archivo debe ser de tipo pdf',
-            'resol.max'=>'El archivo no debe superar los 2MB',
+
             'cv.required'=>'El campo cv es obligatorio',
             'cv.mimes'=>'El archivo debe ser de tipo pdf',
-            'cv.max'=>'El archivo no debe superar los 2MB',
+
         ]);
 
 
 
-           $propuesta=Propuesta::create($request->all());
+           $propuesta=AperturaPropuesta::create($request->all());
 
             //descripcion puccv
             if($request->file('descripcion')){
@@ -135,7 +134,7 @@ class PropuestaController extends Controller
 
 
         //resolucion puccv
-        if($request->file('resol')){
+        if($request->file('resolucion')){
             $name=$request->file('resolucion')->getClientOriginalName();
 
            $url=Storage::putFileAs('propuesta',$request->file('resolucion'),$name);
@@ -164,7 +163,7 @@ class PropuestaController extends Controller
 
 
         $correo=auth()->user()->email;
-        $academic=$carrera->academic->name;
+        $academic=$propuesta->academic->name;
         $subject="Solicitud de Apertura de Propuesta Virtual";
 
         $mail=new EmailNotification($subject,$correo,$academic);
@@ -183,10 +182,10 @@ class PropuestaController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Propuesta  $propuesta
+     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function show(Propuesta $propuesta)
+    public function show(r $r)
     {
         //
     }
@@ -194,10 +193,10 @@ class PropuestaController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Propuesta  $propuesta
+     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function edit(Propuesta $propuesta)
+    public function edit(r $r)
     {
         //
     }
@@ -206,10 +205,10 @@ class PropuestaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Propuesta  $propuesta
+     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Propuesta $propuesta)
+    public function update(Request $request, r $r)
     {
         //
     }
@@ -217,10 +216,10 @@ class PropuestaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Propuesta  $propuesta
+     * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Propuesta $propuesta)
+    public function destroy(r $r)
     {
         //
     }

@@ -293,6 +293,10 @@ return [
         'route' => 'admin.matriculacion-propuesta.index',
         'icon' => 'fas fa-user-edit',
 ],
+    ['text' => 'Apertura de Propuestas',
+            'route' => 'admin.apertura-propuesta.index',
+            'icon' => 'fas fa-user-edit',
+    ],
 
         ['header' => 'OPCIONES'],
         [

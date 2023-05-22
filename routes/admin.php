@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ExamenAulaController;
 use App\Http\Controllers\Admin\MatriculacionController;
 use App\Http\Controllers\Admin\DesmatriculacionController;
+use App\Http\Controllers\Admin\AperturaPropuestaController;
 use App\Http\Controllers\Admin\MatriculacionExamenController;
 use App\Http\Controllers\Admin\MatriculacionPropuestaController;
 
@@ -50,6 +51,7 @@ Route::put('desmatriculacion/status/{desmat}',[DesmatriculacionController::class
 
 Route::resource('matriculacionpropuesta',MatriculacionPropuestaController::class)->only('index','store','update')->names('matriculacion-propuesta');
 
+Route::resource('aperturapropuesta',AperturaPropuestaController::class)->only('index','store','update')->names('apertura-propuesta');
 
 Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status'])->name('matriculacion.status');
 

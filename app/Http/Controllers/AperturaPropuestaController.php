@@ -110,7 +110,7 @@ class AperturaPropuestaController extends Controller
             if($request->file('descripcion')){
                 $name=$request->file('descripcion')->getClientOriginalName();
 
-            $url=Storage::putFileAs('propuesta',$request->file('descripcion'),$name);
+            $url=Storage::putFileAs('descripcionpuccv',$request->file('descripcion'),$name);
             }
 
             $propuesta->resource()->create([
@@ -124,7 +124,7 @@ class AperturaPropuestaController extends Controller
             if($request->file('programa')){
                 $name=$request->file('programa')->getClientOriginalName();
 
-                $url=Storage::putFileAs('propuesta',$request->file('programa'),$name);
+                $url=Storage::putFileAs('programapuccv',$request->file('programa'),$name);
             }
 
             $propuesta->resource()->create([
@@ -137,7 +137,7 @@ class AperturaPropuestaController extends Controller
         if($request->file('resolucion')){
             $name=$request->file('resolucion')->getClientOriginalName();
 
-           $url=Storage::putFileAs('propuesta',$request->file('resolucion'),$name);
+           $url=Storage::putFileAs('resolucionpuccv',$request->file('resolucion'),$name);
         }
 
         $propuesta->resource()->create([
@@ -150,7 +150,7 @@ class AperturaPropuestaController extends Controller
 
         $name=$request->file('cv')->getClientOriginalName();
 
-        $url=Storage::putFileAs('propuesta',$request->file('cv'),$name);
+        $url=Storage::putFileAs('cvpuccv',$request->file('cv'),$name);
 
      }
 

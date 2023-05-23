@@ -54,7 +54,7 @@ class MatriculacionController extends Controller
         'academic_id'=>'required',
         'carrera_id'=>'required',
         'materia_id'=>'required',
-        'date_start'=>'required|date|before:Carbon::now()',
+        'date_start'=>'required',
         'time_start'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 

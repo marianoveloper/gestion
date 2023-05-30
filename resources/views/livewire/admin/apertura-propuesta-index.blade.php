@@ -35,8 +35,9 @@
                             <td>{{$cat->sede->name}}</td>
                             <td>{{$cat->academic->name}}</td>
 
+
                             <td width="10px">
-                                <a href="{{route('admin.propuesta.apertura.show',$cat)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
+                                <a href="{{route('admin.apertura-propuesta.show',$cat)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
 
                             </td>
                             <td width="10px">

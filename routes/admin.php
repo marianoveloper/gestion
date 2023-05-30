@@ -51,7 +51,7 @@ Route::put('desmatriculacion/status/{desmat}',[DesmatriculacionController::class
 
 Route::resource('matriculacionpropuesta',MatriculacionPropuestaController::class)->only('index','store','update')->names('matriculacion-propuesta');
 
-Route::resource('aperturapropuesta',AperturaPropuestaController::class)->only('index','store','update')->names('apertura-propuesta');
+Route::resource('aperturapropuesta',AperturaPropuestaController::class)->names('apertura-propuesta');
 
 Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status'])->name('matriculacion.status');
 

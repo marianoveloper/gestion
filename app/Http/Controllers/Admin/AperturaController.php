@@ -10,7 +10,7 @@ class AperturaController extends Controller
 {
     public function show(Apertura $carrera)
     {
-
+        dd($carrera);
         return view('admin.carrera.show',compact('carrera'));
     }
 }

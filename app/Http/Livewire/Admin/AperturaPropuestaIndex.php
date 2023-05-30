@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 
+
 use App\Models\Sede;
 use Livewire\Component;
 use App\Models\Academic;
@@ -21,6 +22,8 @@ class AperturaPropuestaIndex extends Component
         $academic= Academic::all();
         $sede=Sede::all();
         $propuesta=AperturaPropuesta::all();
+
+
         return view('livewire.admin.apertura-propuesta-index',compact('academic','sede','propuesta'));
     }
 

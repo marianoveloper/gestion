@@ -8,6 +8,7 @@ class CarreraShow extends Component
 {
     public function render()
     {
+
         return view('livewire.admin.carrera-show');
     }
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-use App\Models\AperturaPropuesta;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class AperturaPropuestaController extends Controller
     public function show(Aperturapropuesta $propuesta)
     {
 
-        dd($propuesta);
+       // dd($propuesta);
         return view('admin.propuesta.apertura.show',compact('propuesta'));
     }
 

@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use App\Models\Sede;
+use App\Models\User;
+use App\Models\Image;
+use App\Models\Academic;
 use App\Models\Resource;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +14,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class AperturaPropuesta extends Model
 {
     use HasFactory;
+
     protected $guarded=['id'];
 
     public function scopeSubcategory($query,$subcategory_id){
@@ -24,11 +28,11 @@ class AperturaPropuesta extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function academic(){
+  //relacion academica con curso
+public function academic(){
+    return $this->belongsTo(Academic::class);
 
-        return $this->belongsTo(Academic::class);
-
-    }
+}
     public function subcategory(){
         return $this->belongsTo(Subcategory::class);
     }
@@ -53,4 +57,20 @@ class AperturaPropuesta extends Model
             return $query->where('status',$status);
         }
     }
+
+    /***query scopes********************* */
+public function scopeCarrera($query,$carrera_id){
+
+    if($carrera_id){
+        return $query->where('carrera_id',$carrera_id);
+    }
+}
+public function scopeAcademic($query,$academic_id){
+
+    if($academic_id){
+        return $query->where('academic_id',$academic_id);
+    }
+}
+
+
 }

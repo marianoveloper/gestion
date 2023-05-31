@@ -6,6 +6,8 @@ namespace App\Http\Livewire\Admin;
 use App\Models\Sede;
 use Livewire\Component;
 use App\Models\Academic;
+
+
 use App\Models\AperturaPropuesta;
 use Illuminate\Support\Facades\DB;
 
@@ -42,11 +44,11 @@ class AperturaPropuestaIndex extends Component
       // dd($this->car);
 
        foreach($this->car as $item){
-        if($item->url=="resolucion/".$item->name)
+        if($item->url=="descripcionpuccv/".$item->name)
             $this->down=$item->name;
        }
         return response()->download(
-            storage_path('app/public/resolucion/') .$this->down
+            storage_path('app/public/descripcionpuccv/') .$this->down
         );
        }
 

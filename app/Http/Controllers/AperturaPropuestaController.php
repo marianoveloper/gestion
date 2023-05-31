@@ -61,20 +61,19 @@ class AperturaPropuestaController extends Controller
             'cupo'=>'required',
             'date_start'=>'required|date|after:tomorrow',
             'costo'=>'required',
-            'link_pago'=>'required',
+
             'descripcion'=>'required|mimes:pdf',
             'programa'=>'required|mimes:pdf',
             'resol'=>'required|mimes:pdf',
             'cv'=>'required|mimes:pdf',
-            'flyer'=>['required','regex:/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i'],
+
 
 
 
            ],
         [
             'date_start.after'=>'La fecha de inicio debe ser posterior a la fecha actual',
-            'flyer.regex'=>'El campo flyer debe ser una url valida',
-            'date_start.required'=>'El campo fecha de inicio es obligatorio',
+
             'sede_id.required'=>'El campo sede es obligatorio',
             'academic_id.required'=>'El campo académica es obligatorio',
             'subcategory.required'=>'El campo subcategoría es obligatorio',
@@ -87,7 +86,7 @@ class AperturaPropuestaController extends Controller
             'cupo.required'=>'El campo cupo es obligatorio',
             'costo.required'=>'El campo costo es obligatorio',
             'tipo_resol.required'=>'El campo tipo de resolución es obligatorio',
-            'link_pago.required'=>'El campo link de pago es obligatorio',
+
             'descripcion.required'=>'El campo descripción es obligatorio',
             'descripcion.mimes'=>'El archivo debe ser de tipo pdf',
             'descripcion.max'=>'El archivo no debe superar los 2MB',
@@ -185,10 +184,11 @@ class AperturaPropuestaController extends Controller
      * @param  \App\Models\r  $r
      * @return \Illuminate\Http\Response
      */
-    public function show(r $r)
+    public function show(Aperturapropuesta $propuesta)
     {
-        //
+        return view('aperturapropuesta.show',compact('propuesta'));
     }
+
 
     /**
      * Show the form for editing the specified resource.

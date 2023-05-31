@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\AperturaPropuesta;
+use App\Http\Controllers\Controller;
 
 class AperturaPropuestaController extends Controller
 {
@@ -24,10 +25,11 @@ class AperturaPropuestaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Aperturapropuesta $propuesta)
+    public function show(int $id)
     {
+        $propuesta=AperturaPropuesta::find($id);
+        //dd($propuesta);
 
-       // dd($propuesta);
         return view('admin.propuesta.apertura.show',compact('propuesta'));
     }
 

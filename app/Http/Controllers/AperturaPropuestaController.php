@@ -133,10 +133,10 @@ class AperturaPropuestaController extends Controller
 
 
         //resolucion puccv
-        if($request->file('resolucion')){
-            $name=$request->file('resolucion')->getClientOriginalName();
+        if($request->file('resol')){
+            $name=$request->file('resol')->getClientOriginalName();
 
-           $url=Storage::putFileAs('resolucionpuccv',$request->file('resolucion'),$name);
+            $url=Storage::putFileAs('resolpuccv',$request->file('resol'),$name);
         }
 
         $propuesta->resource()->create([

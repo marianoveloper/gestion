@@ -38,7 +38,7 @@ class AperturaPropuestaIndex extends Component
         );
     }
 
-    public function descarga($id){
+    public function descargaDescripcion($id){
 
         $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\AperturaPropuesta")->get();
       // dd($this->car);
@@ -49,6 +49,49 @@ class AperturaPropuestaIndex extends Component
        }
         return response()->download(
             storage_path('app/public/descripcionpuccv/') .$this->down
+        );
+       }
+
+
+    public function descargaPrograma($id){
+
+        $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\AperturaPropuesta")->get();
+      // dd($this->car);
+
+       foreach($this->car as $item){
+        if($item->url=="programapuccv/".$item->name)
+            $this->down=$item->name;
+       }
+        return response()->download(
+            storage_path('app/public/programapuccv/') .$this->down
+        );
+       }
+
+       public function descargaResolucion($id){
+
+        $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\AperturaPropuesta")->get();
+      // dd($this->car);
+
+       foreach($this->car as $item){
+        if($item->url=="resolpuccv/".$item->name)
+            $this->down=$item->name;
+       }
+        return response()->download(
+            storage_path('app/public/resolpuccv/') .$this->down
+        );
+       }
+
+       public function descargaCv($id){
+
+        $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\AperturaPropuesta")->get();
+      // dd($this->car);
+
+       foreach($this->car as $item){
+        if($item->url=="cvpuccv/".$item->name)
+            $this->down=$item->name;
+       }
+        return response()->download(
+            storage_path('app/public/cvpuccv/') .$this->down
         );
        }
 

@@ -49,4 +49,43 @@ class Propuesta extends Model
        return $this->belongsTo(Sede::class);
 
     }
+
+
+
+ public function scopeStatus($query,$status){
+
+     if($status){
+         return $query->where('status',$status);
+     }
+ }
+
+ /***query scopes********************* */
+public function scopeCarrera($query,$carrera_id){
+
+ if($carrera_id){
+     return $query->where('carrera_id',$carrera_id);
+ }
+}
+public function scopeAcademic($query,$academic_id){
+
+ if($academic_id){
+     return $query->where('academic_id',$academic_id);
+ }
+}
+
+public function scopeSede($query,$sede_id){
+
+ if($sede_id){
+     return $query->where('sede_id',$sede_id);
+ }
+}
+
+public function scopePropuesta($query,$propuesta_id){
+
+ if($propuesta_id){
+     return $query->where('propuesta_id',$propuesta_id);
+ }
+
+}
+
 }

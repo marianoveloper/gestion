@@ -8,7 +8,7 @@ use Livewire\Component;
 use App\Models\Academic;
 use Livewire\WithPagination;
 use App\Models\Desmatriculacion;
-
+use Illuminate\Support\Facades\DB;
 
 class DesmatriculacionMateriaIndex extends Component
 {
@@ -16,29 +16,56 @@ class DesmatriculacionMateriaIndex extends Component
 
     protected $paginationTheme ="bootstrap";
 
-    public $search;
-
-    public $mat;
+    public $bpaginacion=16;
+    public $buscar;
+    public $escarrera='like';
+    public $ebcarrera= '%%';
+    public $modal=0;
+    public $mat,$file;
     public $carrera_id;
     public $academic_id;
-    public $materia_id;
+    public $numero;
 
     public function render()
     {
+
+
+        //buscar carrera
+        if($this->ebcarrera=='%%'){
+            $this->ebcarrera='%%';
+            $this->escarrera='like';
+        }
+        else{$this->escarrera= '=';}
+
         $academic= Academic::all();
         $carrera= Carrera::all();
-        $materia=Materia::all();
 
 
-        $desmatriculacion = Desmatriculacion::whereIn('status',[1,2,3])
-        ->carrera($this->carrera_id)
-        ->academic($this->academic_id)
-        ->materia($this->materia_id)
-        ->latest('id')
-        ->paginate(10);
+
+      //buscar paginacion
+      if($this->bpaginacion=='all'){
+        $numero=Desmatriculacion::all()->latest('id')->count();
+
+    }
+    else{
+        $numero=$this->bpaginacion;
+    }
+
+    $matriculacion=Desmatriculacion::whereExists(function ($query){
+
+        $query->select()
+              ->from(DB::raw('carreras'))
+
+              ->whereColumn('carreras.id','desmatriculacions.carrera_id')
+
+              ->where('carreras.id',$this->escarrera,$this->ebcarrera);
 
 
-        return view('livewire.admin.desmatriculacion-materia-index',compact('desmatriculacion','academic','carrera','materia'));
+
+    }) ->latest('id')->paginate($numero);
+
+
+        return view('livewire.admin.desmatriculacion-materia-index',compact('desmatriculacion','academic','carrera'));
     }
 
     public function limpiar_page(){

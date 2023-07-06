@@ -141,17 +141,17 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="headingSix">
+        <div class="card-header" id="headingSeven">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
                 Link de Pago Generado por el Departamento de Sistemas
             </button>
           </h5>
         </div>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+        <div id="collapseSeven" class="collapse" aria-labelledby="headingSeven" data-parent="#accordion">
           <div class="card-body">
-            @if(@isset($propuesta->link))
-                {{$propuesta->link}}
+            @if(@isset($propuesta->link_pago))
+                {{$propuesta->link_pago}}
             @else
                 <span class="badge badge-danger">No hay link de pago</span>
             @endif
@@ -159,14 +159,14 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="headingSix">
+        <div class="card-header" id="headingEight">
           <h5 class="mb-0">
-            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+            <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
                 Link de Google Drive para los logos del Flyer
             </button>
           </h5>
         </div>
-        <div id="collapseSix" class="collapse" aria-labelledby="headingSix" data-parent="#accordion">
+        <div id="collapseEight" class="collapse" aria-labelledby="headingEight" data-parent="#accordion">
           <div class="card-body">
             @if(@isset($propuesta->flyer))
                     {{$propuesta->flyer}}

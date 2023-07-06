@@ -14,6 +14,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
 use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\ExamenAulaController;
+use App\Http\Controllers\CertificadoController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\DesmatriculacionController;
 use App\Http\Controllers\AperturaPropuestaController;
@@ -64,3 +65,6 @@ Route::post('examenaula',[ExamenAulaController::class,'store'])->name('examenaul
 
 Route::get('matriculacionexamen',[MatriculacionExamenController::class,'index'])->name('matriculacionexamen.index');
 Route::post('matriculacionexamen',[MatriculacionExamenController::class,'store'])->name('matriculacionexamen.store');
+
+Route::get('certificado',[CertificadoController::class,'index'])->name('certificado.index');
+Route::post('certificado',[CertificadoController::class,'store'])->name('certificado.store');

@@ -44,6 +44,8 @@ Route::resource('catedra',CatedraController::class)->names('catedra');
 
 Route::resource('carrera',CarreraController::class)->names('carrera');
 
+Route::resource('aperturapropuesta',AperturaPropuestaController::class)->only('index','show')->names('apertura-propuesta');
+
 Route::resource('desmatriculacion',DesmatriculacionController::class)->only('index','update')->names('desmatriculacion');
 
 
@@ -51,7 +53,7 @@ Route::put('desmatriculacion/status/{desmat}',[DesmatriculacionController::class
 
 Route::resource('matriculacionpropuesta',MatriculacionPropuestaController::class)->only('index','store','update')->names('matriculacion-propuesta');
 
-Route::resource('aperturapropuesta',AperturaPropuestaController::class)->names('apertura-propuesta');
+
 
 Route::put('matriculacion/status/{mat}',[MatriculacionPropuesta::class,'status'])->name('matriculacion.status');
 

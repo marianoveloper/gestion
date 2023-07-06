@@ -37,26 +37,26 @@
 
 
                             <td width="10px">
-                                <a href="{{route('admin.apertura-propuesta.show',$cat)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
+                                <a href="{{route('admin.apertura-propuesta.show',$cat->id)}}" class="btn btn-success"><i class="fas fa-info"></i></a>
 
                             </td>
                             <td width="10px">
-                                <button wire:click="descarga({{$cat->id}})" class="btn btn-outline-primary">
+                                <button wire:click="descargaDescripcion({{$cat->id}})" class="btn btn-outline-primary">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
                             <td width="10px">
-                                <button wire:click="descarga({{$cat->id}})" class="btn btn-outline-danger">
+                                <button wire:click="descargaPrograma({{$cat->id}})" class="btn btn-outline-warning">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
                             <td width="10px">
-                                <button wire:click="descarga({{$cat->id}})" class="btn btn-outline-danger">
+                                <button wire:click="descargaResolucion({{$cat->id}})" class="btn btn-outline-dark">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
                             <td width="10px">
-                                <button wire:click="descarga({{$cat->id}})" class="btn btn-outline-danger">
+                                <button wire:click="descargaCv({{$cat->id}})" class="btn btn-outline-danger">
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>

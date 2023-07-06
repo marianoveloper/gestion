@@ -16,7 +16,7 @@
     <div class="container py-8">
 
         <section class="py-8 " style="background-image: url({{asset('images/homes/barra-verde.png')}})">
-            <h1 class="text-3xl text-center text-white">Solicitud de Apertura de Propuesta</h1>
+            <h1 class="text-3xl text-center text-white">Solicitud de Certificado</h1>
 
 
         </section>
@@ -45,27 +45,7 @@
                     @enderror
 
 
-                    <div>
-                        {!! Form::label('academic_id', 'Unidad Académica') !!}
-                        {!! Form::select('academic_id', $academica, null, ['class'=>'focus:ring-indigo-500
-                        focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
-                    @error('academic_id')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                    <div>
-                        {!! Form::label('subcategory', 'Seleccione la Categoría') !!}
-
-                        {!! Form::select('subcategory',['1'=>'Curso de Capacitación','2'=>'Curso de
-                        Actualización','3'=>'Curso de Posgrado','4'=>'Diplomatura','5'=>'Maestría','6'=>'Doctorado'],
-                        null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
-
-                    @error('subcategory')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
+                    @livewire('certificado')
                 </div>
 
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Datos de la Propuesta</h1>

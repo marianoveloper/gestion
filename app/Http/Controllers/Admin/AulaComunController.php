@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Sede;
-use App\Models\Academic;
-use App\Models\Propuesta;
+use App\Models\AulaComun;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CertificadoController extends Controller
+class AulaComunController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +15,9 @@ class CertificadoController extends Controller
      */
     public function index()
     {
-        $academicas=Academic::pluck('name','id');
-        $propuesta=Propuesta::pluck('name','id');
-        return view("certificado.index",compact('academicas','propuesta'));
+
+        $aulacomun=AulaComun::all();
+        return view('admin.aulacomun.index',compact('aulacomun'));
     }
 
     /**

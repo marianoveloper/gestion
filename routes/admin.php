@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CarreraController;
 use App\Http\Controllers\Admin\CatedraController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\AulaComunController;
 use App\Http\Controllers\Admin\ExamenAulaController;
 use App\Http\Controllers\Admin\MatriculacionController;
 use App\Http\Controllers\Admin\DesmatriculacionController;
@@ -64,3 +65,5 @@ Route::put('matriculacionexamen/status/{mat}',[MatriculacionExamen::class,'statu
 Route::resource('examenaula',ExamenAulaController::class)->only('index','store','update')->names('examen-aula');
 
 Route::put('examenaula/status/{mat}',[ExamenAula::class,'status'])->name('examen-aula.status');
+
+Route::resource('aulacomun',AulaComunController::class)->only('index','store','update')->names('aula-comun');

@@ -50,7 +50,10 @@ class Propuesta extends Model
 
     }
 
+public function certificados(){
 
+    return $this->hasMany(Certificados::class);
+}
 
  public function scopeStatus($query,$status){
 

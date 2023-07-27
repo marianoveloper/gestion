@@ -29,6 +29,7 @@ class MatriculacionPropuesta extends Model
     const Activo=1;
     const Proceso=2;
     const Hecho=3;
+    const Error=4;
 
 /***query scopes********************* */
 public function scopeCarrera($query,$carrera_id){

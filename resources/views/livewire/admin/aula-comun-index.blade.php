@@ -7,42 +7,32 @@
                <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
             </div>
 
-            @if ($matriculacion->count())
+            @if ($aulacomun->count())
             <div class="card-body">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th>Fecha de Envio</th>
-                            <th>Fecha Examen</th>
-                            <th>Hora disponible del aula para alumnos</th>
+
+                            <th>Fecha Envio</th>
                             <th>Unidad Académica</th>
                             <th>Carrera</th>
-                            <th>Materia</th>
 
                             <th span=2>Acciones</th>
 
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($matriculacion as $mat)
+                        @foreach ($aulacomun as $mat)
 
                         <tr>
-                            <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
-                            <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
 
-                            <td>{{ \Carbon\Carbon::parse($mat->time_start)->format('H:i')}}</td>
+                            <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
+
+
 
                             <td>{{$mat->academic->name}}</td>
                             <td>{{$mat->carrera->name}}</td>
-                            @if(@isset($mat->materia))
-                            <td>{{$mat->materia->name}}</td>
 
-
-                          @else
-                           <td> </td>
-
-
-                           @endif
 
 
                             <td width="10px">
@@ -93,7 +83,7 @@
 
 
                 <div class="card-footer">
-                    {{$matriculacion->links()}}
+                    {{$aulacomun->links()}}
                 </div>
             @else
 

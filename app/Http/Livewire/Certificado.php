@@ -4,18 +4,20 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\Academic;
+use App\Models\Propuesta;
 
 class Certificado extends Component
 {
-    public $academicas="";
+
     public $propuestas="";
 
     public function render()
     {
+
         return view('livewire.certificado',[
             "academicas"=>Academic::all(),
+            "propuestas"=>""
 
-             "propuestas"=>$this->propuestas,
             ]);
     }
 

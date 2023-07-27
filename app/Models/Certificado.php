@@ -1,24 +1,23 @@
 <?php
 
 namespace App\Models;
-use App\Models\User;
-use App\Models\Image;
-use App\Models\Carrera;
-use App\Models\Materia;
-use App\Models\Academic;
-use App\Models\Resource;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class MatriculacionExamen extends Model
+use App\Models\Propuesta;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
+class Certificado extends Model
 {
     use HasFactory;
-
     protected $guarded=['id','status'];
 
-    const Regular=1;
-    const Libre=2;
-    const RegularLibre=3;
+    const Estudiante=1;
+    const Profesor=2;
+    const Tutor=3;
+    const AsesorPedagógico=4;
+    const ReferenteVirtual=5;
+    const Coordinador=6;
+    const Director=7;
 
 
     const Activo=1;
@@ -26,7 +25,7 @@ class MatriculacionExamen extends Model
     const Hecho=3;
     const Error=4;
 
-    /***query scopes********************* */
+/***query scopes********************* */
 public function scopeCarrera($query,$carrera_id){
 
     if($carrera_id){
@@ -59,6 +58,14 @@ public function scopeTipo($query,$tipo){
     }
 }
 
+public function scopePropuesta($query,$propuesta_id){
+
+    if($propuesta_id){
+        return $query->where('propuesta_id',$propuesta_id);
+    }
+
+   }
+
   //relacion uno a muchos trae los usuarios en los cursos
   public function user(){
     return $this->belongsTo(User::class);
@@ -79,6 +86,11 @@ public function academic(){
 public function carrera(){
     return $this->belongsTo(Carrera::class);
 
+}
+
+public function propuesta(){
+
+    return $this->belongsTo(Propuesta::class);
 }
 
 public function materia(){

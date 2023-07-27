@@ -2,18 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Carrera;
-use App\Models\Academic;
-use App\Mail\Notificacion;
+use App\Models\AulaComun;
 use Illuminate\Http\Request;
-use App\Models\Matriculacion;
-use Illuminate\Support\Carbon;
 use App\Mail\EmailConfirmation;
 use App\Mail\EmailNotification;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
-class MatriculacionController extends Controller
+class AulaComunController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +19,7 @@ class MatriculacionController extends Controller
      */
     public function index()
     {
-
-        $academica=Academic::pluck('name','id');
-        $carrera=Carrera::pluck('name','id');
-        return view('matriculacion.index',compact('academica','carrera'));
+        return view('aulacomun.index');
     }
 
     /**
@@ -47,45 +41,30 @@ class MatriculacionController extends Controller
     public function store(Request $request)
     {
 
-
        $request->validate([
 
-        'tipo'=>'required',
+
         'academic_id'=>'required',
         'carrera_id'=>'required',
-        'materia_id'=>'required',
-        'date_start'=>'required|date|after:tomorrow',
-        'time_start'=>'required',
+        'descripcion'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 
-       ],
-    [
-        'tipo.required'=>'El campo tipo es obligatorio',
-        'academic_id.required'=>'El campo académica es obligatorio',
-        'carrera_id.required'=>'El campo carrera es obligatorio',
-        'materia_id.required'=>'El campo materia es obligatorio',
-        'date_start.after'=>'La fecha ingresada debe ser 48hs posterior al día de hoy',
-        'time_start.required'=>'El campo hora de inicio es obligatorio',
-        'file.required'=>'El campo archivo es obligatorio',
-        'file.mimes'=>'El archivo debe ser de tipo xls o xlsx',
-        'file.max'=>'El archivo no debe superar los 2MB',
-    ]
-    );
+       ]);
 
 
-       $matriculacion=Matriculacion::create($request->all());
+       $aulacomun=AulaComun::create($request->all());
 
        if($request->file('file')){
         $name=$request->file('file')->getClientOriginalName();
         //$url=Storage::put('matriculaciones', $request->file('file'));
-        $url=Storage::putFileAs('matriculaciones',$request->file('file'),$name);
+        $url=Storage::putFileAs('aulacomun',$request->file('file'),$name);
         //$name=$request->file('file')->hashName();
 
       }
 
 //dd($name);
 
-    $matriculacion->resource()->create([
+    $aulacomun->resource()->create([
         'url'=>$url,
         'name'=>$name,
     ]);
@@ -93,9 +72,9 @@ class MatriculacionController extends Controller
 
 
      $correo=auth()->user()->email;
-        $academic=$matriculacion->academic->name;
+        $academic=$aulacomun->academic->name;
 
-        $subject="Matriculación en ".$matriculacion->carrera->name;
+        $subject="Aula Común ".$aulacomun->academic->name." de la Carrera ".$aulacomun->carrera->name;
 
         $mail=new EmailNotification($subject,$correo,$academic);
        //$mail=new Notificacion($subject,$correo);
@@ -105,20 +84,53 @@ class MatriculacionController extends Controller
         Mail::to($correo)->send($confirmation);
 
 
-    return redirect()->route('matriculacion.index',$matriculacion)
+    return redirect()->route('aulacomun.index',$aulacomun)
     ->with('info','La solicitud fue enviada');
     }
+
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Matriculacion  $matriculacion
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Matriculacion $matriculacion)
+    public function show($id)
     {
-       return;
+        //
     }
 
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
 
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
 }

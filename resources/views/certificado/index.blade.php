@@ -32,157 +32,20 @@
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
 
-                <div class="grid grid-cols-3 gap-4 mb-4">
-                    <div>
-                        {!! Form::label('sede_id', 'Sede') !!}
-                        {!! Form::select('sede_id', $sede, null, ['class'=>'focus:ring-indigo-500
-                        focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
+                <div class="grid grid-cols-2 gap-4 mb-4">
 
-                    @error('sede_id')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
 
 
                     @livewire('certificado')
                 </div>
 
-                <h1 class="mt-8 text-2xl font-bold text-center bg-green-200">Datos de la Propuesta</h1>
-                <hr class="mt-2 mb-6">
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Título de la Propuesta </label>
-                    {!! Form::text('title', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full
-                    pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('title')? 'border-red-600':
-                    '')]) !!}
-
-                    @error('title')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
 
 
 
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Objetivos de la
-                        Propuesta</label>
-                    {!! Form::textarea('objetivos', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                    w-full pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('objetivos')?
-                    'border-red-600': '')]) !!}
 
 
-                    @error('objetivos')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Destinatarios</label>
-                    {!! Form::textarea('destinatarios', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500
-                    block w-full pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('destinatarios')?
-                    'border-red-600': '')]) !!}
-                    @error('destinatarios')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
-
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Requisitos de
-                        Inscripción</label>
-                        <span>Requisitos que debe cumplir el público objetivo para poder cursar el PUCCV</span>
-                    {!! Form::textarea('modalidad', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500
-                    block w-full pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('requisitos')?
-                    'border-red-600': '')]) !!}
 
 
-                    @error('modalidad')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Indique la Modalidad de Cursado y Herramientas a utilizar</label>
-                    <span>En este apartado se debe describir si las clases serán sincrónicas o asincrónicas. Es decir, si se hará uso de la plataforma del Campus Virtual y/o se usará alguna plataforma de videoconferencia (Zoom, Google Meet, BBB, otras). De usar videoconferencia, también, especifique si las clases quedarán grabadas para que los alumnos puedan verlas luego.</span>
-                    {!! Form::textarea('requisitos', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500
-                    block w-full pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('modalidad')?
-                    'border-red-600': '')]) !!}
-
-
-                    @error('modalidad')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
-                <div class="mb-4">
-                    <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Duración y Horas Acreditadas
-                    </label>
-                    {!! Form::text('duracion', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                    w-full
-                    pl-7 pr-12
-                    sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('duracion')? 'border-red-600':
-                    '')]) !!}
-
-                    @error('duracion')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="mb-4">
-                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Cantidad Mínima de Preinscriptos</label>
-                        <span>Indique el cupo mínimo de alumnos para que la propuesta se pueda dictar</span>
-                        {!! Form::text('cupo', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                        w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('cupo')?
-                        'border-red-600': '')]) !!}
-
-                        @error('cupo')
-                        <strong class="text-xs text-red-600">{{$message}}</strong>
-                        @enderror
-                    </div>
-                    <div class="mb-4">
-                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Fecha de Inicio de Cursado</label>
-                        <span>Indique la fecha estimada de inicio de la propuesta</span>
-                        {!! Form::date('date_start',null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                        w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1'.
-                        ($errors->has('date_start')?
-                        'border-red-600': '')]) !!}
-
-                        @error('date_start')
-                        <strong class="text-xs text-red-600">{{$message}}</strong>
-                        @enderror
-                    </div>
-
-                </div>
-
-                    <div class="mb-4">
-                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Costo y Forma de Pago</label>
-                        <span>Especificar si se debe abonar inscripción, valor de la Propuesta con pago único y/o cantidad de cuotas</span>
-                        {!! Form::text('costo', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                        w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('costo')?
-                        'border-red-600': '')]) !!}
-
-                        @error('costo')
-                        <strong class="text-xs text-red-600">{{$message}}</strong>
-                        @enderror
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Link de Pago (opcional)</label>
-                        <span>En este apartado se debe colocar el link de pago generado por el departamento de sistemas</span>
-                        {!! Form::text('link_pago', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
-                        w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('link_pago')? 'border-red-600': '')])
-                        !!}
-
-                        @error('link_pago')
-                        <strong class="text-xs text-red-600">{{$message}}</strong>
-                        @enderror
-                    </div>
 
                 <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Descripción de la Propuesta</h1>
                 <hr class="mt-1 mb-3">

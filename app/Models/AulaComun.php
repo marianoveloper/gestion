@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Models\Sede;
 use App\Models\User;
 use App\Models\Image;
 use App\Models\Carrera;
@@ -10,15 +11,18 @@ use App\Models\Resource;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MatriculacionExamen extends Model
+class AulaComun extends Model
 {
     use HasFactory;
-
     protected $guarded=['id','status'];
 
-    const Regular=1;
-    const Libre=2;
-    const RegularLibre=3;
+    const Estudiante=1;
+    const Profesor=2;
+    const Tutor=3;
+    const AsesorPedagógico=4;
+    const ReferenteVirtual=5;
+    const Coordinador=6;
+    const Director=7;
 
 
     const Activo=1;
@@ -26,7 +30,7 @@ class MatriculacionExamen extends Model
     const Hecho=3;
     const Error=4;
 
-    /***query scopes********************* */
+/***query scopes********************* */
 public function scopeCarrera($query,$carrera_id){
 
     if($carrera_id){

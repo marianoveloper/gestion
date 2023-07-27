@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Catedra;
+use App\Models\Propuesta;
 use App\Models\Matriculacion;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -24,5 +25,9 @@ class Academic extends Model
  public function sede(){
        return $this->belongsTo(Sede::class);
 
+    }
+
+    public function propuestas(){
+        return $this->hasMany(Propuesta::class);
     }
 }

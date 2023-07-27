@@ -278,6 +278,10 @@ return [
             'route' => 'admin.carrera.index',
             'icon' => 'fas fa-tasks',
         ],
+        ['text' => 'Aula Común',
+    'route' => 'admin.aula-comun.index',
+    'icon' => 'fas fa-user-edit',
+    ],
         ['header' => 'OPCIONES DE EXAMEN FINAL'],
 
     ['text' => 'Matriculacion de Examen',

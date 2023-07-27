@@ -15,7 +15,6 @@
         <strong class="text-xs text-red-600">{{$message}}</strong>
         @enderror
     </div>
-
     <div class="form-group">
         <label for="carrera" class="col-md-4 col-form-label text-md-right" id="">Propuestas</label>
         <div class="col-md-4">
@@ -33,4 +32,5 @@
         <strong class="text-xs text-red-600">{{$message}}</strong>
         @enderror
     </div>
+
     </div>

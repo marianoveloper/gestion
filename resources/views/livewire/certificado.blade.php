@@ -1,4 +1,4 @@
-<div class="grid grid-cols-3 mb-4 gap 2">
+<div class="grid grid-cols-2 mb-4 gap 2">
 
     <div class="form-group">
         <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Académica </label>

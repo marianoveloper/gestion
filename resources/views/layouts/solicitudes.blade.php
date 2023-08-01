@@ -77,24 +77,14 @@
 
         ];
         @endphp
-        <div class="flex" x-data="{ open: false }">
-            <div class="flex-shrink-0 hidden w-64 lg:block">
 
 
-                <!--<button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar"
-                    aria-controls="default-sidebar" type="button"
-                    class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
-                    <span class="sr-only">Open sidebar</span>
-                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path clip-rule="evenodd" fill-rule="evenodd"
-                            d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z">
-                        </path>
-                    </svg>
-                </button>-->
+        <div class="flex" x-data="{ open: false, openSidebar: true }">
+            <div :class="{ 'lg:block': openSidebar, }" class="flex-shrink-0 hidden w-64 lg:block">
+                {{-- aqui se utilizo Alpine.js --}}
 
                 <aside id="default-sidebar"
-                    class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+                    class="{{-- fixed top-0 left-0 z-40 --}} sticky top-0 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
                     aria-label="Sidebar">
                     <div class="h-screen px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
                         <h2 class="mb-6 text-3xl font-semibold text-gray-700"><a href="/">Uccuyo Virtual</a></h2>
@@ -198,151 +188,23 @@
                     </div>
                 </aside>
 
-                <div class="p-4 sm:ml-64">
-                    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">
-                        <div class="grid grid-cols-3 gap-4 mb-4">
-                            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center h-24 rounded bg-gray-50 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                            <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4 mb-4">
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="flex items-center justify-center h-48 mb-4 rounded bg-gray-50 dark:bg-gray-800">
-                            <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 18 18">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="M9 1v16M1 9h16" />
-                                </svg>
-                            </p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                            <div class="flex items-center justify-center rounded bg-gray-50 h-28 dark:bg-gray-800">
-                                <p class="text-2xl text-gray-400 dark:text-gray-500">
-                                    <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                        fill="none" viewBox="0 0 18 18">
-                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                            stroke-width="2" d="M9 1v16M1 9h16" />
-                                    </svg>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
             </div>
             <div class="flex-1">
 
-                <nav  class="bg-green-600 border-b border-green-500 shadow ">
+                <nav class="bg-green-600 border-b border-green-500 shadow ">
                     <!-- Primary Navigation Menu -->
                     <div class="container ">
                         <div class="flex justify-between h-16">
 
 
+                            <!--Hamburger Menu Large Screen-->
                             <div class="items-center hidden -mr-2 lg:flex">
-                                <button @click="open = ! open"
-                                    class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+                                <button @click="openSidebar = ! openSidebar"
+                                    class="inline-flex items-center justify-center p-2 text-gray-400 transition rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                        <path :class="inline-flex" stroke-linecap="round" stroke-linejoin="round"
+                                        <path :class="flex inline -" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-
+                                        {{-- <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /> --}}
                                     </svg>
                                 </button>
                             </div>
@@ -363,62 +225,9 @@
 
 
                             <div class="hidden lg:flex sm:items-center sm:ml-6">
-                                <!-- Teams Dropdown -->
-                                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                                <div class="relative ml-3">
-                                    <x-jet-dropdown align="right" width="60">
-                                        <x-slot name="trigger">
-                                            <span class="inline-flex rounded-md">
-                                                <button type="button"
-                                                    class="inline-flex items-center px-3 py-2 text-sm font-medium leading-4 text-gray-500 transition duration-150 ease-in-out bg-white border border-transparent rounded-md hover:bg-gray-50 hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50">
-                                                    {{ Auth::user()->currentTeam->name }}
 
-                                                    <svg class="ml-2 -mr-0.5 h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                                        viewBox="0 0 20 20" fill="currentColor">
-                                                        <path fill-rule="evenodd"
-                                                            d="M10 3a1 1 0 01.707.293l3 3a1 1 0 01-1.414 1.414L10 5.414 7.707 7.707a1 1 0 01-1.414-1.414l3-3A1 1 0 0110 3zm-3.707 9.293a1 1 0 011.414 0L10 14.586l2.293-2.293a1 1 0 011.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-                                                            clip-rule="evenodd" />
-                                                    </svg>
-                                                </button>
-                                            </span>
-                                        </x-slot>
 
-                                        <x-slot name="content">
-                                            <div class="w-60">
-                                                <!-- Team Management -->
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    {{ __('Manage Team') }}
-                                                </div>
 
-                                                <!-- Team Settings -->
-                                                <x-jet-dropdown-link
-                                                    href="{{ route('teams.show', Auth::user()->currentTeam->id) }}">
-                                                    {{ __('Team Settings') }}
-                                                </x-jet-dropdown-link>
-
-                                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                                <x-jet-dropdown-link href="{{ route('teams.create') }}">
-                                                    {{ __('Create New Team') }}
-                                                </x-jet-dropdown-link>
-                                                @endcan
-
-                                                <div class="border-t border-gray-100"></div>
-
-                                                <!-- Team Switcher -->
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    {{ __('Switch Teams') }}
-                                                </div>
-
-                                                @foreach (Auth::user()->allTeams() as $team)
-                                                <x-jet-switchable-team :team="$team" />
-                                                @endforeach
-                                            </div>
-                                        </x-slot>
-                                    </x-jet-dropdown>
-                                </div>
-                                @endif
-
-                                <!-- Settings Dropdown -->
                                 <div class="relative ml-3">
 
                                     @auth
@@ -473,11 +282,7 @@
                                             @endcan
 
 
-                                            @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                            <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
-                                                {{ __('API Tokens') }}
-                                            </x-jet-dropdown-link>
-                                            @endif
+
 
                                             <div class="border-t border-gray-100"></div>
 
@@ -496,22 +301,18 @@
                                     <a href="{{ route('login') }}" class="text-sm text-gray-700 underline"><i
                                             class="text-base fas fa-users-cog"></i></a>
 
-                                    <!-- <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 underline">Register</a>-->
                                     @endauth
                                 </div>
                             </div>
 
-                            <!-- Hamburger -->
-                            <div class="flex items-center -mr-2 lg:hidden">
-                                <button @click="open = ! open"
-                                    class="inline-flex items-center justify-center p-2 text-gray-400 transition duration-150 ease-in-out rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
+                            <!--Hamburger Menu Large Screen-->
+                            <div class="items-center hidden -mr-2 lg:flex">
+                                <button @click="openSidebar = ! openSidebar"
+                                    class="inline-flex items-center justify-center p-2 text-gray-400 transition rounded-md hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500">
                                     <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M4 6h16M4 12h16M4 18h16" />
-                                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden"
-                                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M6 18L18 6M6 6l12 12" />
+                                        <path :class="flex inline -" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                                        {{-- <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /> --}}
                                     </svg>
                                 </button>
                             </div>
@@ -604,12 +405,7 @@
                                 @endcan
 
 
-                                @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                                <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}"
-                                    :active="request()->routeIs('api-tokens.index')">
-                                    {{ __('API Tokens') }}
-                                </x-jet-responsive-nav-link>
-                                @endif
+
 
                                 <!-- Authentication -->
                                 <form method="POST" action="{{ route('logout') }}">
@@ -621,42 +417,13 @@
                                     </x-jet-responsive-nav-link>
                                 </form>
 
-                                <!-- Team Management -->
-                                @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                                <div class="border-t border-gray-200"></div>
 
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Manage Team') }}
-                                </div>
 
-                                <!-- Team Settings -->
-                                <x-jet-responsive-nav-link
-                                    href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
-                                    :active="request()->routeIs('teams.show')">
-                                    {{ __('Team Settings') }}
-                                </x-jet-responsive-nav-link>
 
-                                @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                                <x-jet-responsive-nav-link href="{{ route('teams.create') }}"
-                                    :active="request()->routeIs('teams.create')">
-                                    {{ __('Create New Team') }}
-                                </x-jet-responsive-nav-link>
-                                @endcan
 
-                                <div class="border-t border-gray-200"></div>
-
-                                <!-- Team Switcher -->
-                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                    {{ __('Switch Teams') }}
-                                </div>
-
-                                @foreach (Auth::user()->allTeams() as $team)
-                                <x-jet-switchable-team :team="$team" component="jet-responsive-nav-link" />
-                                @endforeach
-                                @endif
                             </div>
                         </div>
-                        @else
+
 
                         <div class="py-1 border-t border-gray-200">
                             <x-jet-responsive-nav-link href="{{ route('login') }}"
@@ -664,9 +431,7 @@
                                 <i class="fas fa-users-cog"></i>
                             </x-jet-responsive-nav-link>
 
-                            <!--<x-jet-responsive-nav-link href="{{ route('register') }}" :active="request()->routeIs('register')">
-                        Register
-                    </x-jet-responsive-nav-link>-->
+
                         </div>
                         @endauth
                     </div>

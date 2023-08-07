@@ -69,6 +69,12 @@
         'active' => request()->routeIs('solicitudes.dashboard'),
         'icon' => 'fa-solid fa-gauge-high',
         ],
+        [
+            'title'=>'Matriculación',
+            'url'=> route('solicitudes.matriculacion.index'),
+            'active' => request()->routeIs('solicitudes.matriculacion.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
 
 
 
@@ -96,19 +102,10 @@
 
         <!--------------------------nav---------------------------------->
         <!--Page Heading-->
-        @if (isset($header))
-        <header class="bg-white shadow">
-            <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
-        @endif
+
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
-        @yield('content')
+
     </div>
     <x-footer />
     @stack('modals')

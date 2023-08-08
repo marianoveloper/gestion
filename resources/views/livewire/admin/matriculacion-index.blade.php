@@ -25,6 +25,7 @@
                         <tr>
 
                             <th>Fecha Envio</th>
+                            <th>Hora Envio</th>
                             <th>Aula disponible</th>
                             <th>Hora disponible</th>
                             <th>Rol</th>
@@ -42,6 +43,7 @@
                         <tr>
 
                             <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
+                            <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('H:i')}}</td>
                             <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
                             <td>{{ \Carbon\Carbon::parse($mat->time_start)->format('H:i')}}</td>
 

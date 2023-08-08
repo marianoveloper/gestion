@@ -1,6 +1,7 @@
 <div>
 
-    <div class="card">
+    <div class="px-6 py-3 card">
+
 
 
           <!--  <div class="card-header">
@@ -19,31 +20,36 @@
 
 
             @if ($matriculacion->count())
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
+            <div class="px-6 py-4">
+                <h5 class="font-semibold text">Unidad Academica:  {{$matriculacion[0]->academic->name}} </h5>
+            </div>
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
 
-                            <th>Fecha Envio</th>
-                            <th>Aula Disponible</th>
+                            <th scope="col" class="px-6 py-3">Fecha Envio</th>
+                            <th scope="col" class="px-6 py-3">Hora Envio</th>
+                            <th scope="col" class="px-6 py-3">Aula Disponible</th>
 
-                            <th>Rol</th>
-                            <th>Unidad Académica</th>
+                            <th scope="col" class="px-6 py-3">Rol</th>
+                           <!-- <th>Unidad Académica</th>-->
                             <th>Carrera</th>
+                            <th scope="col" class="px-6 py-3">Materia</th>
+                            <th scope="col" class="px-6 py-3 text-center">Año</th>
 
-                            <th>Año</th>
-                            <th>Materia</th>
-                            <th>Enviado</th>
-                            <th>Estado</th>
-                            <th>Completado</th>
+                            <th scope="col" class="px-6 py-3">Enviado</th>
+                            <th scope="col" class="px-6 py-3">Estado</th>
+                            <th scope="col" class="px-6 py-3">Completado</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($matriculacion as $mat)
 
-                        <tr>
+                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
 
                             <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('d/m/Y')}}</td>
+                            <td>{{ \Carbon\Carbon::parse($mat->created_at)->format('H:i')}}</td>
                             <td>{{ \Carbon\Carbon::parse($mat->date_start)->format('d/m/Y')}}</td>
 
                             <td class="px-6 py-4 whitespace-nowrap">
@@ -96,13 +102,13 @@
 
 
                             </td>
-                            <td>{{$mat->academic->name}}</td>
+                           <!-- <td>{{$mat->academic->name}}</td>-->
                             <td>{{$mat->carrera->name}}</td>
 
                             @if(@isset($mat->materia))
-                            <td>{{$mat->materia->year}}</td>
-                              <td>{{$mat->materia->name}}</td>
 
+                              <td>{{$mat->materia->name}}</td>
+                              <td>{{$mat->materia->year}}</td>
                             @else
                              <td> </td>
                              <td> </td>
@@ -137,12 +143,17 @@
 
                             </td>
                             <td>
-                                <span
-                                class="badge badge-success">
+
                                 @if($mat->status==3)
                                 {{ \Carbon\Carbon::parse($mat->updated_at)->format('d/m/Y')}}
+                                @elseif($mat->status==2)
+                                <span>En Proceso</span>
+                                @elseif($mat->status==4)
+                                <span>Error</span>
+                                @elseif($mat->status==1)
+                                <span>En espera</span>
                                @endif
-                            </span>
+
                             </td>
                         </tr>
                         @endforeach
@@ -153,7 +164,7 @@
 
 
 
-            <div class="card-footer">
+            <div class="pt-4 card-footer">
                 {{$matriculacion->links()}}
             </div>
 

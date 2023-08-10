@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Catedra;
 use App\Models\Propuesta;
 use App\Models\Matriculacion;
@@ -29,5 +30,10 @@ class Academic extends Model
 
     public function propuestas(){
         return $this->hasMany(Propuesta::class);
+    }
+
+    public function users(){
+
+        return $this->hasMany(User::class);
     }
 }

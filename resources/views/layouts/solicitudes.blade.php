@@ -70,12 +70,23 @@
         'icon' => 'fa-solid fa-gauge-high',
         ],
         [
-            'title'=>'Matriculación',
+            'title'=>'Matriculación Carreras',
             'url'=> route('solicitudes.matriculacion.index'),
             'active' => request()->routeIs('solicitudes.matriculacion.index'),
             'icon' => 'fa-solid fa-gauge-high',
         ],
-
+        [
+            'title'=>'Matriculación Propuestas',
+            'url'=> route('solicitudes.propuesta.index'),
+            'active' => request()->routeIs('solicitudes.propuesta.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
+        [
+            'title'=>'Desmatriculación',
+            'url'=> route('solicitudes.desmatriculacion.index'),
+            'active' => request()->routeIs('solicitudes.desmatriculacion.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
 
 
         ];

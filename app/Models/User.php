@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Academic;
 use App\Models\Matriculacion;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Jetstream\HasProfilePhoto;
@@ -75,5 +76,9 @@ class User extends Authenticatable
 
     public function matriculacion(){
         return $this->hasMany(Matriculacion::class);
+    }
+
+    public function academic(){
+        return $this->hasMany(Academic::class);
     }
 }

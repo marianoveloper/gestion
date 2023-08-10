@@ -15,6 +15,7 @@
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Email</th>
+                            <th>Ultimo Ingreso</th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -23,6 +24,11 @@
                             <td>{{$user->id}}</td>
                             <td>{{$user->name}}</td>
                             <td>{{$user->email}}</td>
+                            @if(@isset($user->last_login))
+                            <td>{{ \Carbon\Carbon::parse($user->last_login)}}</td>
+                            @else
+                            <td> </td>
+                            @endif
                             <td width="10px">
                                 <a class="btn btn-primary"  href="{{route('admin.users.edit',$user)}}">Editar</a>
                             </td>

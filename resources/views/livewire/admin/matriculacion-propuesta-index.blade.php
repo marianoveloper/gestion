@@ -1,11 +1,36 @@
 <div>
 
+
+
     <div class="card">
 
+        <div class="row">
+        <div class="mb-3 col-md-6">
 
-            <div class="card-header">
-               <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
-            </div>
+
+            <label for="Carrera">Filtro por usuario</label>
+            <select class="mb-3 text-center form-control form-select form-select-lg" name="bcusuario" id="bcusuario" wire:model='ebusuario'>
+                <option value="%%">Todas los Usuarios</option>
+                @foreach($usuario as $car)
+                    <option value="{{$car->id}}">{{$car->name}}</option>
+
+                @endforeach
+            </select>
+        </div>
+        <div class="py-1 mb-3 col-md-6">
+
+            <label for="Carrera">Filtro por Propuesta</label>
+            <select class="mb-3 text-center form-control form-select form-select-sm" name="bcarrera" id="bcarrera" wire:model='ebpropuesta'>
+                <option value="%%">Todas las Propuestas</option>
+                @foreach($propuesta as $car)
+                    <option value="{{$car->id}}">{{$car->name}}</option>
+
+                @endforeach
+            </select>
+
+
+        </div>
+        </div>
 <?php ($matriculacion);?>
             @if ($matriculacion->count())
             <div class="card-body">
@@ -92,25 +117,29 @@
                             </td>
                             <td width="10px">
 
-                                    @switch($mat->status)
-                                    @case(1)
-                                    <button wire:click="status({{$mat}})" class="btn btn-warning">
-                                        <i class="fas fa-exclamation-triangle"></i></button>
-                                    @break
-                                    @case(2)
+                                @switch($mat->status)
+                                @case(1)
+                                <button wire:click="status({{$mat}})" class="btn btn-warning">
+                                    <i class="fas fa-exclamation-triangle"></i></button>
+                                @break
+                                @case(2)
 
-                                    <button wire:click="status({{$mat}})" class="btn btn-primary">
-                                        <i class="fas fa-spinner"></i></button>
-                                    @break
-                                    @case(3)
+                                <button wire:click="status({{$mat}})" class="btn btn-primary">
+                                    <i class="fas fa-spinner"></i></button>
+                                @break
+                                @case(3)
 
-                                    <button wire:click="status({{$mat}})" class="btn btn-success">
-                                        <i class="fas fa-clipboard-check"></i></button>
-                                    @break
-                                    @default
+                                <button wire:click="status({{$mat}})" class="btn btn-success">
+                                    <i class="fas fa-clipboard-check"></i></button>
+                                @break
+                                @case(4)
 
-                                    @endswitch
+                                <button wire:click="status({{$mat}})" class="btn btn-danger">
+                                    <i class="fas fa-times"></i></button>
+                                @break
+                                @default
 
+                                @endswitch
                             </td>
                             <td>
                                 <span

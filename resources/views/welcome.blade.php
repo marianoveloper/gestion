@@ -7,7 +7,7 @@
         <h2 class="text-2xl font-extrabold text-gray-900"></h2>
         <section class="grid grid-cols-1 mt-6 md:grid-cols-1 lg:grid-cols-4 gap-x-6 gap-y-8">
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url({{asset('images/homes/carrera.png')}});">
+                style="background-image: url({{asset('images/homes/carrera2.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
@@ -18,20 +18,9 @@
                     </h3>
                 </div>
             </article>
+
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-            style="background-image: url({{asset('images/homes/curso.png')}});">
-            <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
-            <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
-                <h3 class="text-center">
-                    <a class="text-3xl font-bold text-center text-white" href="{{route('solicitudes.matriculacion.index',$category[3])}}">
-                        <span class="absolute inset-0"></span>
-                        {{$category[3]->name}}
-                    </a>
-                </h3>
-            </div>
-        </article>
-            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url({{asset('images/homes/curso.png')}});">
+                style="background-image: url({{asset('images/homes/curso2.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">
@@ -43,7 +32,19 @@
                 </div>
             </article>
             <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
-                style="background-image: url({{asset('images/homes/diplomatura.png')}});">
+            style="background-image: url({{asset('images/homes/solicitudes.png')}});">
+            <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
+            <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
+                <h3 class="text-center">
+                    <a class="text-3xl font-bold text-center text-white" href="{{route('solicitudes.matriculacion.index',$category[3])}}">
+                        <span class="absolute inset-0"></span>
+                        {{$category[3]->name}}
+                    </a>
+                </h3>
+            </div>
+        </article>
+            <article class="relative w-full h-64 overflow-hidden transition duration-300 ease-in-out bg-center bg-cover rounded-lg shadow-lg group hover:shadow-2xl"
+                style="background-image: url({{asset('images/homes/diplomatura2.png')}});">
                 <div class="absolute inset-0 transition duration-300 ease-in-out bg-black bg-opacity-50 group-hover:opacity-75"></div>
                 <div class="relative flex items-center justify-center w-full h-full px-4 sm:px-6 lg:px-4">
                     <h3 class="text-center">

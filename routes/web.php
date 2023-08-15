@@ -9,6 +9,7 @@ use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ExamenController;
 use App\Http\Controllers\CatedraController;
+use App\Http\Controllers\InformeController;
 use App\Http\Controllers\AperturaController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ConsultaController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\AulaComunController;
 use App\Http\Controllers\PropuestaController;
 use App\Http\Controllers\ExamenAulaController;
 use App\Http\Controllers\CertificadoController;
+use App\Http\Controllers\NotificacionController;
 use App\Http\Controllers\MatriculacionController;
 use App\Http\Controllers\DesmatriculacionController;
 use App\Http\Controllers\AperturaPropuestaController;
@@ -73,3 +75,9 @@ Route::post('aulacomun', [AulaComunController::class, 'store'])->name('aulacomun
 
 Route::get('certificado', [CertificadoController::class, 'index'])->name('certificado.index');
 Route::post('certificado', [CertificadoController::class, 'store'])->name('certificado.store');
+
+Route::get('informe', [InformeController::class, 'index'])->name('informe.index');
+Route::post('informe', [InformeController::class, 'store'])->name('informe.store');
+
+Route::get('notificacion', [NotificacionController::class, 'index'])->name('notificacion.index');
+Route::post('notificacion', [NotificacionController::class, 'store'])->name('notificacion.store');

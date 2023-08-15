@@ -27,6 +27,7 @@ class MatriculacionIndex extends Component
     public $carrera_id;
     public $academic_id;
     public $numero;
+
     public function render()
     {
 

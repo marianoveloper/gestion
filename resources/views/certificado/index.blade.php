@@ -65,7 +65,7 @@
                     <div class="mt-4 mb-4">
                         <div>
                             <span>
-                                Se deberá adjuntar una imagen en formato Png la firma</span>
+                                Se deberá adjuntar una imagen en formato PNG la firma</span>
                                 <hr class="mt-1 mb-3">
                             {!! Form::file('firma1', ['class'=> 'form-input w-full'. ($errors->has('firma1')?
                             'border-red-600':
@@ -105,7 +105,7 @@
                         <div class="mt-4 mb-4">
                             <div>
                                 <span>
-                                    Se deberá adjuntar una imagen en formato Png la firma</span>
+                                    Se deberá adjuntar una imagen en formato PNG la firma</span>
                                     <hr class="mt-1 mb-3">
                                 {!! Form::file('firma2', ['class'=> 'form-input w-full'. ($errors->has('firma2')?
                                 'border-red-600':
@@ -115,7 +115,7 @@
                                 @enderror
                             </div>
                         </div>
-                    <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Firma 3</h1>
+                    <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Firma 3 (opcional)</h1>
                     <hr class="mt-2 mb-6">
                     <div class="mb-4">
                         <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Indique Nombre y Apellido del Responsable</label>
@@ -145,7 +145,7 @@
                         <div class="mt-4 mb-4">
                             <div>
                                 <span>
-                                    Se deberá adjuntar una imagen en formato Png la firma</span>
+                                    Se deberá adjuntar una imagen en formato PNG la firma</span>
                                     <hr class="mt-1 mb-3">
                                 {!! Form::file('firma3', ['class'=> 'form-input w-full'. ($errors->has('firma3')?
                                 'border-red-600':
@@ -159,6 +159,8 @@
 
 
                     <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Requisitos de obtención del Certificado </h1>
+                    <hr class="mt-2 mb-6">
+                    <span class="font-semibold"> En caso de requerir el cumplimiento/realización de una actividad o recurso dentro del curso para la obtención del certificado detallar nombre de la actividad, tal cual se encuentra en curso (Detallar calificación o solo realización de la misma)</span>
                     <hr class="mt-2 mb-6">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Descripción general </label>
 

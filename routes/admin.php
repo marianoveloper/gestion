@@ -11,9 +11,11 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CourseController;
 use App\Http\Controllers\Admin\CarreraController;
 use App\Http\Controllers\Admin\CatedraController;
+use App\Http\Controllers\Admin\InformeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\AulaComunController;
 use App\Http\Controllers\Admin\ExamenAulaController;
+use App\Http\Controllers\Admin\NotificacionController;
 use App\Http\Controllers\Admin\MatriculacionController;
 use App\Http\Controllers\Admin\DesmatriculacionController;
 use App\Http\Controllers\Admin\AperturaPropuestaController;
@@ -67,3 +69,6 @@ Route::resource('examenaula',ExamenAulaController::class)->only('index','store',
 Route::put('examenaula/status/{mat}',[ExamenAula::class,'status'])->name('examen-aula.status');
 
 Route::resource('aulacomun',AulaComunController::class)->only('index','store','update')->names('aula-comun');
+
+Route::resource('notificacion',NotificacionController::class)->only('index','store','update')->names('notificacion');
+Route::resource('informe',InformeController::class)->only('index','store','update')->names('informe');

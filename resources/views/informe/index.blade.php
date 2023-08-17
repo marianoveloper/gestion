@@ -50,13 +50,13 @@
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                     <div class="mb-4">
-                        {!! Form::label('autoridad', 'Informe destinado a:') !!}
-                        {!! Form::select('autoridad',['1'=>'Decano','2'=>'Secretario Académico','3'=>'Decano y Secretario Académico'],
+                        {!! Form::label('destinado', 'Informe destinado a:') !!}
+                        {!! Form::select('destinado',['1'=>'Decano','2'=>'Secretario Académico','3'=>'Decano y Secretario Académico'],
                         null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
                     </div>
 
-                    @error('semestre')
+                    @error('destinado')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
                 </div>
@@ -64,7 +64,7 @@
 
                 <div class="mb-4">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Especificar las materias que deben incluir en el informe (escribir todas si son las que se van a tener en cuenta) </label>
-                    {!! Form::textarea('descripcion', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
+                    {!! Form::textarea('materias', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
     sm:text-sm border-gray-300 rounded-md mt-1'. ($errors->has('descripcion')?
     'border-red-600': '')]) !!}
 

@@ -30,25 +30,11 @@
                 <h1 class="mt-6 text-2xl font-bold text-center bg-green-200"></h1>
                 <hr class="mt-2 mb-6">
 
-                {!! Form::open(['route'=> 'informe.store','files'=>true, 'autocomplete'=>'off']) !!}
+                {!! Form::open(['route'=> 'notificacion.store','files'=>true, 'autocomplete'=>'off']) !!}
 
                 {!! Form::hidden('user_id',auth()->user()->id) !!}
 
                 @livewire('notificacion')
-                <!--<div class="grid grid-cols-2 gap-3 mb-4">
-                    <div class="mb-4">
-                        {!! Form::label('Tipo', 'Matriculación para:') !!}
-                        {!! Form::select('tipo',['1'=>'Cursada','2'=>'Mesa de Exámen'],
-                        null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
-                        sm:text-sm border-gray-300 rounded-md mt-1']) !!}
-                    </div>
-
-                    @error('tipo')
-                    <strong class="text-xs text-red-600">{{$message}}</strong>
-                    @enderror
-
-                </div>-->
-
 
 
                 <h1 class="mt-8 text-2xl font-bold text-center bg-green-200"> Cargar archivo</h1>

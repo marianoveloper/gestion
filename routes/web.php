@@ -23,6 +23,7 @@ use App\Http\Controllers\DesmatriculacionController;
 use App\Http\Controllers\AperturaPropuestaController;
 use App\Http\Controllers\MatriculacionExamenController;
 use App\Http\Controllers\MatriculacionPropuestasController;
+use App\Http\Controllers\DesmatriculacionPropuestaController;
 
 Route::get('/', HomeController::class)->name('home');
 
@@ -81,3 +82,5 @@ Route::post('informe', [InformeController::class, 'store'])->name('informe.store
 
 Route::get('notificacion', [NotificacionController::class, 'index'])->name('notificacion.index');
 Route::post('notificacion', [NotificacionController::class, 'store'])->name('notificacion.store');
+
+Route::resource('desmatriculacionpropuestas',DesmatriculacionPropuestaController::class)->only('index','store','update')->names('desmatriculacion-propuestas');

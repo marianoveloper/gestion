@@ -7,6 +7,7 @@ use App\Models\Catedra;
 use App\Models\Propuesta;
 use App\Models\Matriculacion;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\DesmatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Academic extends Model
@@ -35,5 +36,9 @@ class Academic extends Model
     public function users(){
 
         return $this->hasMany(User::class);
+    }
+
+    public function desmatriculacionpropuestas(){
+        return $this->hasMany(DesmatriculacionPropuesta::class);
     }
 }

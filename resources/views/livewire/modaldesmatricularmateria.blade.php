@@ -25,8 +25,11 @@
                                 <option value="">Seleccione Tipo...</option>
                                 <option value="1">Estudiante</option>
                                 <option value="2">Profesor</option>
-
-
+                                <option value="3">Tutor</option>
+                                <option value="4">Asesor Pedagógico</option>
+                                <option value="5">Referente Virtual</option>
+                                <option value="6">Coordinar</option>
+                                <option value="7">Director</option>
                             </select>
                         </div>
 

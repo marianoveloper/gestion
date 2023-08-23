@@ -87,6 +87,13 @@
             'active' => request()->routeIs('solicitudes.desmatriculacion.index'),
             'icon' => 'fa-solid fa-gauge-high',
         ],
+        [
+            'title'=>'Desmatriculación Propuesta',
+            'url'=> route('solicitudes.desmatriculacionPropuesta.index'),
+            'active' => request()->routeIs('solicitudes.desmatriculacionPropuesta.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
+
 
 
         ];

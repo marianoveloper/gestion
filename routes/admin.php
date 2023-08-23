@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\DesmatriculacionController;
 use App\Http\Controllers\Admin\AperturaPropuestaController;
 use App\Http\Controllers\Admin\MatriculacionExamenController;
 use App\Http\Controllers\Admin\MatriculacionPropuestaController;
+use App\Http\Controllers\Admin\DesmatriculacionPropuestaController;
 
 Route::get('',[HomeController::class,'index'])->middleware('can:Ver dashboard')->name('home');
 
@@ -72,3 +73,6 @@ Route::resource('aulacomun',AulaComunController::class)->only('index','store','u
 
 Route::resource('notificacion',NotificacionController::class)->only('index','store','update')->names('notificacion');
 Route::resource('informe',InformeController::class)->only('index','store','update')->names('informe');
+
+
+Route::resource('desmatriculacionpropuesta',DesmatriculacionPropuestaController::class)->only('index','store')->names('desmatriculacion-propuesta');

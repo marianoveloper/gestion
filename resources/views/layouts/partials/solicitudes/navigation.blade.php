@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-10 bg-white border-b border-gray-100 ">
+<nav x-data="{ open: false }" class="bg-green-600 border-b border-green-500 shadow ">
     <!-- Primary Navigation Menu -->
     <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -81,12 +81,14 @@
                                 <div class="border-t border-gray-100"></div>
 
                                 <!-- Authentication -->
-                                <form method="POST" action="{{ route('logout') }}" x-data>
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
 
-                                    <x-jet-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
+                                    <x-jet-responsive-nav-link href="{{ route('logout') }}"
+                                                   onclick="event.preventDefault();
+                                                    this.closest('form').submit();">
                                         {{ __('Log Out') }}
-                                    </x-jet-dropdown-link>
+                                    </x-jet-responsive-nav-link>
                                 </form>
                             </x-slot>
                         </x-jet-dropdown>

@@ -76,6 +76,12 @@
             'icon' => 'fa-solid fa-gauge-high',
         ],
         [
+            'title'=>'Mesas de Examen',
+            'url'=> route('solicitudes.examen.index'),
+            'active' => request()->routeIs('solicitudes.examen.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
+        [
             'title'=>'Matriculación Propuestas',
             'url'=> route('solicitudes.propuesta.index'),
             'active' => request()->routeIs('solicitudes.propuesta.index'),

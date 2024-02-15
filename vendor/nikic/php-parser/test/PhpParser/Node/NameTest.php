@@ -2,27 +2,28 @@
 
 namespace PhpParser\Node;
 
-class NameTest extends \PHPUnit\Framework\TestCase
-{
+class NameTest extends \PHPUnit\Framework\TestCase {
     public function testConstruct() {
         $name = new Name(['foo', 'bar']);
-        $this->assertSame(['foo', 'bar'], $name->parts);
+        $this->assertSame('foo\bar', $name->name);
 
         $name = new Name('foo\bar');
-        $this->assertSame(['foo', 'bar'], $name->parts);
+        $this->assertSame('foo\bar', $name->name);
 
         $name = new Name($name);
-        $this->assertSame(['foo', 'bar'], $name->parts);
+        $this->assertSame('foo\bar', $name->name);
     }
 
     public function testGet() {
         $name = new Name('foo');
         $this->assertSame('foo', $name->getFirst());
         $this->assertSame('foo', $name->getLast());
+        $this->assertSame(['foo'], $name->getParts());
 
         $name = new Name('foo\bar');
         $this->assertSame('foo', $name->getFirst());
         $this->assertSame('bar', $name->getLast());
+        $this->assertSame(['foo', 'bar'], $name->getParts());
     }
 
     public function testToString() {
@@ -130,7 +131,7 @@ class NameTest extends \PHPUnit\Framework\TestCase
     public function testInvalidArg() {
         $this->expectException(\InvalidArgumentException::class);
         $this->expectExceptionMessage('Expected string, array of parts or Name instance');
-        Name::concat('foo', new \stdClass);
+        Name::concat('foo', new \stdClass());
     }
 
     public function testInvalidEmptyString() {

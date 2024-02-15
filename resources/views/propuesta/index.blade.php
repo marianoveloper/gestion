@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Link de Pago (opcional)</label>
+                        <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Link de Pago </label>
                         <span>En este apartado se debe colocar el link de pago generado por el departamento de sistemas</span>
                         {!! Form::text('link_pago', null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block
                         w-full pl-7 pr-12
@@ -295,7 +295,7 @@
                     </div>
 
 
-                    <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Flyer(opcional) </h1>
+                    <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Flyer</h1>
                     <hr class="mt-2 mb-6">
                     <label class="block mb-2 font-bold text-gray-700 text-md" for="name">Adjuntar link de google drive en donde se adjunten los logos para ser incorporados al FLYER</label>
 

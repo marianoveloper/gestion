@@ -1,13 +1,15 @@
 <?php
 
-namespace test\Mockery;
+namespace Mockery\Tests\PHP81;
 
 use DateTime;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use PDO;
 use ReturnTypeWillChange;
 use RuntimeException;
 use Serializable;
+
 use function pcntl_fork;
 use function pcntl_waitpid;
 use function pcntl_wexitstatus;
@@ -23,7 +25,7 @@ class Php81LanguageFeaturesTest extends MockeryTestCase
      */
     public function canMockClassesThatImplementSerializable()
     {
-        $mock = mock("test\Mockery\ClassThatImplementsSerializable");
+        $mock = mock(ClassThatImplementsSerializable::class);
         $this->assertInstanceOf("Serializable", $mock);
     }
 
@@ -40,9 +42,9 @@ class Php81LanguageFeaturesTest extends MockeryTestCase
      */
     public function it_can_mock_an_internal_class_with_tentative_union_return_types()
     {
-        $mock = Mockery::mock('PDO');
+        $mock = Mockery::mock(PDO::class);
 
-        $this->assertInstanceOf('PDO', $mock);
+        $this->assertInstanceOf(PDO::class, $mock);
 
         $mock->shouldReceive('exec')->once();
 
@@ -80,11 +82,14 @@ class Php81LanguageFeaturesTest extends MockeryTestCase
     /** @test */
     public function it_can_mock_a_class_with_an_intersection_argument_type_hint()
     {
-        $mock = Mockery::mock(ArgumentIntersectionTypeHint::class);
+        $mock = Mockery::spy(ArgumentIntersectionTypeHint::class);
         $object = new IntersectionTypeHelperClass();
         $mock->allows()->foo($object);
 
         $mock->foo($object);
+
+        $this->expectException(\TypeError::class);
+        $mock->foo(Mockery::mock(IntersectionTypeHelper1Interface::class));
     }
 
     /** @test */
@@ -118,6 +123,15 @@ class Php81LanguageFeaturesTest extends MockeryTestCase
         }
 
         $mock->exits();
+    }
+
+    /** @test */
+    public function it_can_parse_enum_as_default_value_correctly()
+    {
+        $mock = Mockery::mock(UsesEnums::class);
+        $mock->shouldReceive('set')->once();
+        $mock->set();
+        $this->assertEquals(SimpleEnum::first, $mock->enum); // check that mock did not set internal variable
     }
 }
 
@@ -184,16 +198,44 @@ class NeverReturningTypehintClass
         exit(123);
     }
 }
-class IntersectionTypeHelperClass
+class IntersectionTypeHelperClass implements IntersectionTypeHelper1Interface, IntersectionTypeHelper2Interface
 {
+    public function foo(): int
+    {
+        return 123;
+    }
+    public function bar(): int
+    {
+        return 123;
+    }
 }
-interface IntersectionTypeHelperInterface
+interface IntersectionTypeHelper2Interface
 {
+    public function foo(): int;
+}
+interface IntersectionTypeHelper1Interface
+{
+    public function bar(): int;
 }
 
 class ArgumentIntersectionTypeHint
 {
-    public function foo(IntersectionTypeHelperClass&IntersectionTypeHelperInterface $foo)
+    public function foo(IntersectionTypeHelper1Interface&IntersectionTypeHelper2Interface $foo)
     {
+    }
+}
+
+enum SimpleEnum
+{
+    case first;
+    case second;
+}
+
+class UsesEnums
+{
+    public SimpleEnum $enum = SimpleEnum::first;
+    public function set(SimpleEnum $enum = SimpleEnum::second)
+    {
+        $this->enum = $enum;
     }
 }

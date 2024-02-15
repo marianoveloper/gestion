@@ -20,12 +20,12 @@ class ContainerLoaderTest extends TestCase
     /**
      * @dataProvider supportsProvider
      */
-    public function testSupports(bool $expected, string $type = null)
+    public function testSupports(bool $expected, ?string $type = null)
     {
         $this->assertSame($expected, (new ContainerLoader(new Container()))->supports('foo', $type));
     }
 
-    public function supportsProvider()
+    public static function supportsProvider()
     {
         return [
             [true, 'service'],

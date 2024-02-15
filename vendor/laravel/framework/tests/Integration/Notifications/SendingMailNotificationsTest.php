@@ -21,6 +21,7 @@ use Orchestra\Testbench\TestCase;
 
 class SendingMailNotificationsTest extends TestCase
 {
+    public $mailFactory;
     public $mailer;
     public $markdown;
 
@@ -98,7 +99,7 @@ class SendingMailNotificationsTest extends TestCase
 
                 $message->shouldReceive('subject')->once()->with('Test Mail Notification');
 
-                $message->shouldReceive('setPriority')->once()->with(1);
+                $message->shouldReceive('priority')->once()->with(1);
 
                 $closure($message);
 
@@ -144,7 +145,7 @@ class SendingMailNotificationsTest extends TestCase
 
                 $message->shouldReceive('subject')->once()->with('Test Mail Notification');
 
-                $message->shouldReceive('setPriority')->once()->with(1);
+                $message->shouldReceive('priority')->once()->with(1);
 
                 $closure($message);
 

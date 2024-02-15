@@ -46,7 +46,7 @@ class DatabaseMySqlConnectionTest extends MySqlTestCase
         );
     }
 
-    public function floatComparisonsDataProvider()
+    public static function floatComparisonsDataProvider()
     {
         return [
             [0.2, '=', true],
@@ -88,7 +88,7 @@ class DatabaseMySqlConnectionTest extends MySqlTestCase
         $this->assertSame(! $expected, DB::table(self::TABLE)->whereNotNull(self::JSON_COL.'->'.$key)->exists());
     }
 
-    public function jsonWhereNullDataProvider()
+    public static function jsonWhereNullDataProvider()
     {
         return [
             'key not exists' => [true, 'invalid'],
@@ -99,6 +99,56 @@ class DatabaseMySqlConnectionTest extends MySqlTestCase
             'nested key exists and null' => [true, 'nested->value', ['nested' => ['value' => null]]],
             'nested key exists and "null"' => [false, 'nested->value', ['nested' => ['value' => 'null']]],
             'nested key exists and not null' => [false, 'nested->value', ['nested' => ['value' => false]]],
+            'array index not exists' => [false, '[0]', [1 => 'invalid']],
+            'array index exists and null' => [true, '[0]', [null]],
+            'array index exists and "null"' => [false, '[0]', ['null']],
+            'array index exists and not null' => [false, '[0]', [false]],
+            'nested array index not exists' => [false, 'nested[0]', ['nested' => [1 => 'nested->invalid']]],
+            'nested array index exists and null' => [true, 'nested->value[1]', ['nested' => ['value' => [0, null]]]],
+            'nested array index exists and "null"' => [false, 'nested->value[1]', ['nested' => ['value' => [0, 'null']]]],
+            'nested array index exists and not null' => [false, 'nested->value[1]', ['nested' => ['value' => [0, false]]]],
+        ];
+    }
+
+    public function testJsonPathUpdate()
+    {
+        DB::table(self::TABLE)->insert([
+            [self::JSON_COL => '{"foo":["bar"]}'],
+            [self::JSON_COL => '{"foo":["baz"]}'],
+        ]);
+        $updatedCount = DB::table(self::TABLE)->where(self::JSON_COL.'->foo[0]', 'baz')->update([
+            self::JSON_COL.'->foo[0]' => 'updated',
+        ]);
+        $this->assertSame(1, $updatedCount);
+    }
+
+    /**
+     * @dataProvider jsonContainsKeyDataProvider
+     */
+    public function testWhereJsonContainsKey($count, $column)
+    {
+        DB::table(self::TABLE)->insert([
+            ['json_col' => '{"foo":{"bar":["baz"]}}'],
+            ['json_col' => '{"foo":{"bar":false}}'],
+            ['json_col' => '{"foo":{}}'],
+            ['json_col' => '{"foo":[{"bar":"bar"},{"baz":"baz"}]}'],
+            ['json_col' => '{"bar":null}'],
+        ]);
+
+        $this->assertSame($count, DB::table(self::TABLE)->whereJsonContainsKey($column)->count());
+    }
+
+    public static function jsonContainsKeyDataProvider()
+    {
+        return [
+            'string key' => [4, 'json_col->foo'],
+            'nested key exists' => [2, 'json_col->foo->bar'],
+            'string key missing' => [0, 'json_col->none'],
+            'integer key with arrow ' => [0, 'json_col->foo->bar->0'],
+            'integer key with braces' => [2, 'json_col->foo->bar[0]'],
+            'integer key missing' => [0, 'json_col->foo->bar[1]'],
+            'mixed keys' => [1, 'json_col->foo[1]->baz'],
+            'null value' => [1, 'json_col->bar'],
         ];
     }
 }

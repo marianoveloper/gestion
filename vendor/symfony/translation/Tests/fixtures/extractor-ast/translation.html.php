@@ -55,4 +55,15 @@ EOF
 
 <?php echo $view['translator']->trans(domain: $domain = 'not_messages', message: $key = 'variable-assignation-inlined-with-named-arguments-in-trans-method', parameters: $parameters = []); ?>
 
+<?php echo $view['translator']->trans('mix-named-arguments', parameters: ['foo' => 'bar']); ?>
+<?php echo $view['translator']->trans('mix-named-arguments-locale', parameters: ['foo' => 'bar'], locale: 'de'); ?>
+<?php echo $view['translator']->trans('mix-named-arguments-without-domain', parameters: ['foo' => 'bar']); ?>
+<?php echo $view['translator']->trans('mix-named-arguments-without-parameters', domain: 'not_messages'); ?>
+<?php echo $view['translator']->trans('mix-named-arguments-disordered', domain: 'not_messages', parameters: []); ?>
+
 <?php echo $view['translator']->trans(...); // should not fail ?>
+
+<?php
+use Symfony\Component\Translation\Tests\Extractor\PhpAstExtractorTest;
+echo $view['translator']->trans('const-domain', [], PhpAstExtractorTest::OTHER_DOMAIN);
+?>

@@ -5,6 +5,7 @@ namespace Laravel\Fortify\Tests;
 use Illuminate\Cache\RateLimiter;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Schema;
 use Laravel\Fortify\Contracts\LoginViewResponse;
 use Laravel\Fortify\Events\TwoFactorAuthenticationChallenged;
 use Laravel\Fortify\Features;
-use Laravel\Fortify\FortifyServiceProvider;
 use Laravel\Fortify\LoginRateLimiter;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Mockery;
@@ -20,6 +20,8 @@ use PragmaRX\Google2FA\Google2FA;
 
 class AuthenticatedSessionControllerTest extends OrchestraTestCase
 {
+    use RefreshDatabase;
+
     public function test_the_login_view_is_returned()
     {
         $this->mock(LoginViewResponse::class)
@@ -34,8 +36,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
 
     public function test_user_can_authenticate()
     {
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
         TestAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -55,12 +55,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
         Event::fake();
 
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
-
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
-        Schema::table('users', function ($table) {
-            $table->text('two_factor_secret')->nullable();
-        });
 
         TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
@@ -89,12 +83,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
             Features::twoFactorAuthentication(['confirm' => true]),
         ]);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
-        Schema::table('users', function ($table) {
-            $table->text('two_factor_secret')->nullable();
-        });
-
         TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -120,10 +108,7 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
             Features::twoFactorAuthentication(['confirm' => true]),
         ]);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
         Schema::table('users', function ($table) {
-            $table->text('two_factor_secret')->nullable();
             $table->timestamp('two_factor_confirmed_at')->nullable();
         });
 
@@ -153,12 +138,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
 
         app('config')->set('fortify.features', $features);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
-        Schema::table('users', function ($table) {
-            $table->text('two_factor_secret')->nullable();
-        });
-
         TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -176,8 +155,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
 
     public function test_validation_exception_returned_on_failure()
     {
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
         TestAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -271,9 +248,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
     {
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
-
         $tfaEngine = app(Google2FA::class);
         $userSecret = $tfaEngine->generateSecretKey();
         $validOtp = $tfaEngine->getCurrentOtp($userSecret);
@@ -302,12 +276,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
 
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-
-        Schema::table('users', function ($table) {
-            $table->text('two_factor_secret')->nullable();
-        });
-
         TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -333,9 +301,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
         app('config')->set('fortify.features', [
             Features::twoFactorAuthentication(['window' => 0]),
         ]);
-
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
 
         $tfaEngine = app(Google2FA::class);
         $userSecret = $tfaEngine->generateSecretKey();
@@ -365,9 +330,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
     {
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
-
         $user = TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
             'email' => 'taylor@laravel.com',
@@ -391,9 +353,6 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
     public function test_two_factor_challenge_can_fail_via_recovery_code()
     {
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
-
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
 
         $user = TestTwoFactorAuthenticationSessionUser::forceCreate([
             'name' => 'Taylor Otwell',
@@ -419,32 +378,36 @@ class AuthenticatedSessionControllerTest extends OrchestraTestCase
     {
         app('config')->set('auth.providers.users.model', TestTwoFactorAuthenticationSessionUser::class);
 
-        $this->loadLaravelMigrations(['--database' => 'testbench']);
-        $this->artisan('migrate', ['--database' => 'testbench'])->run();
-
         $response = $this->withSession([])->withoutExceptionHandling()->get('/two-factor-challenge');
 
         $response->assertRedirect('/login');
         $this->assertNull(Auth::getUser());
     }
 
-    protected function getPackageProviders($app)
+    public function test_case_insensitive_usernames_can_be_used()
     {
-        return [FortifyServiceProvider::class];
+        app('config')->set('fortify.lowercase_usernames', true);
+
+        TestAuthenticationSessionUser::forceCreate([
+            'name' => 'Taylor Otwell',
+            'email' => 'taylor@laravel.com',
+            'password' => bcrypt('secret'),
+        ]);
+
+        $response = $this->withoutExceptionHandling()->post('/login', [
+            'email' => 'TAYLOR@LARAVEL.COM',
+            'password' => 'secret',
+        ]);
+
+        $response->assertRedirect('/home');
     }
 
-    protected function getEnvironmentSetUp($app)
+    protected function defineEnvironment($app)
     {
-        $app['migrator']->path(__DIR__.'/../database/migrations');
+        parent::defineEnvironment($app);
 
-        $app['config']->set('auth.providers.users.model', TestAuthenticationSessionUser::class);
-
-        $app['config']->set('database.default', 'testbench');
-
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
+        $app['config']->set([
+            'auth.providers.users.model' => TestAuthenticationSessionUser::class,
         ]);
     }
 }

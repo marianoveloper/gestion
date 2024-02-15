@@ -28,11 +28,11 @@ class DumpCompletionCommandTest extends TestCase
         $this->assertSame($expectedSuggestions, $suggestions);
     }
 
-    public function provideCompletionSuggestions()
+    public static function provideCompletionSuggestions()
     {
         yield 'shell' => [
             [''],
-            ['bash'],
+            ['bash', 'fish', 'zsh'],
         ];
     }
 }

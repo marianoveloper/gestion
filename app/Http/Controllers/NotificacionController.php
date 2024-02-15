@@ -6,6 +6,7 @@ use App\Models\Notificacion;
 use Illuminate\Http\Request;
 use App\Mail\EmailConfirmation;
 use App\Mail\EmailNotification;
+use App\Mail\EmailMatriculacion;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
@@ -63,11 +64,11 @@ class NotificacionController extends Controller
      $correo=auth()->user()->email;
         $academic=$matriculacion->academic->name;
 
-        $subject="Notificación de Matriculación en ".$matriculacion->carrera->name;
+        $subject="Notificación de Matriculación Manual en ".$matriculacion->carrera->name;
 
-        $mail=new EmailNotification($subject,$correo,$academic);
+        $mail=new EmailMatriculacion($subject,$correo,$academic);
        //$mail=new Notificacion($subject,$correo);
-        $confirmation=new EmailConfirmation($subject,$correo,$academic);
+        $confirmation=new EmailMatriculacion($subject,$correo,$academic);
 
         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
         Mail::to($correo)->send($confirmation);

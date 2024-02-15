@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
 
 
-     public function __invoke()
+    public function __invoke()
     {
         $courses=Course::where('status',1)
 
@@ -21,6 +21,4 @@ class HomeController extends Controller
 
         return view('welcome',compact('courses','types','category'));
     }
-
-
 }

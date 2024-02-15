@@ -2,8 +2,8 @@
 https://github.com/sebastianbergmann/phpunit/issues/1348
 --SKIPIF--
 <?php declare(strict_types=1);
-if (defined('HHVM_VERSION') || defined('PHPDBG_VERSION')) {
-    print 'skip: PHP runtime required';
+if (defined('STDOUT')) {
+    print 'skip: PHP < 8.3 required';
 }
 --FILE--
 <?php declare(strict_types=1);

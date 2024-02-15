@@ -7,6 +7,9 @@ use DebugBar\DataCollector\TimeDataCollector;
 
 class TimeDataCollectorTest extends DebugBarTestCase
 {
+    private $s;
+    private $c;
+
     public function setUp(): void
     {
         $this->s = microtime(true);
@@ -50,6 +53,7 @@ class TimeDataCollectorTest extends DebugBarTestCase
     public function testMeasure()
     {
         $returned = $this->c->measure('bar', function() {
+            usleep(50);
             return 'returnedValue';
         });
         $m = $this->c->getMeasures();

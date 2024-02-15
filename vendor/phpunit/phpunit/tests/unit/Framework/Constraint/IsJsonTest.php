@@ -30,8 +30,8 @@ final class IsJsonTest extends ConstraintTestCase
      *
      * @dataProvider evaluateDataprovider
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
      * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
+     * @throws ExpectationFailedException
      */
     public function testEvaluate($expected, $jsonOther): void
     {
@@ -60,7 +60,7 @@ Failed asserting that an empty string is valid JSON.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
         }
     }

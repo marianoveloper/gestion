@@ -156,7 +156,7 @@ class UploadedFileTest extends TestCase
         $file->move(__DIR__.'/Fixtures/directory');
     }
 
-    public function failedUploadedFile()
+    public static function failedUploadedFile()
     {
         foreach ([\UPLOAD_ERR_INI_SIZE, \UPLOAD_ERR_FORM_SIZE, \UPLOAD_ERR_PARTIAL, \UPLOAD_ERR_NO_FILE, \UPLOAD_ERR_CANT_WRITE, \UPLOAD_ERR_NO_TMP_DIR, \UPLOAD_ERR_EXTENSION, -1] as $error) {
             yield [new UploadedFile(
@@ -173,31 +173,16 @@ class UploadedFileTest extends TestCase
      */
     public function testMoveFailed(UploadedFile $file)
     {
-        switch ($file->getError()) {
-            case \UPLOAD_ERR_INI_SIZE:
-                $exceptionClass = IniSizeFileException::class;
-                break;
-            case \UPLOAD_ERR_FORM_SIZE:
-                $exceptionClass = FormSizeFileException::class;
-                break;
-            case \UPLOAD_ERR_PARTIAL:
-                $exceptionClass = PartialFileException::class;
-                break;
-            case \UPLOAD_ERR_NO_FILE:
-                $exceptionClass = NoFileException::class;
-                break;
-            case \UPLOAD_ERR_CANT_WRITE:
-                $exceptionClass = CannotWriteFileException::class;
-                break;
-            case \UPLOAD_ERR_NO_TMP_DIR:
-                $exceptionClass = NoTmpDirFileException::class;
-                break;
-            case \UPLOAD_ERR_EXTENSION:
-                $exceptionClass = ExtensionFileException::class;
-                break;
-            default:
-                $exceptionClass = FileException::class;
-        }
+        $exceptionClass = match ($file->getError()) {
+            \UPLOAD_ERR_INI_SIZE => IniSizeFileException::class,
+            \UPLOAD_ERR_FORM_SIZE => FormSizeFileException::class,
+            \UPLOAD_ERR_PARTIAL => PartialFileException::class,
+            \UPLOAD_ERR_NO_FILE => NoFileException::class,
+            \UPLOAD_ERR_CANT_WRITE => CannotWriteFileException::class,
+            \UPLOAD_ERR_NO_TMP_DIR => NoTmpDirFileException::class,
+            \UPLOAD_ERR_EXTENSION => ExtensionFileException::class,
+            default => FileException::class,
+        };
 
         $this->expectException($exceptionClass);
 
@@ -298,7 +283,7 @@ class UploadedFileTest extends TestCase
         $this->assertFalse($file->isValid());
     }
 
-    public function uploadedFileErrorProvider()
+    public static function uploadedFileErrorProvider()
     {
         return [
             [\UPLOAD_ERR_INI_SIZE],

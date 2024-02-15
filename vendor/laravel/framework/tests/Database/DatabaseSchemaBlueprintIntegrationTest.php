@@ -42,6 +42,7 @@ class DatabaseSchemaBlueprintIntegrationTest extends TestCase
     {
         Facade::clearResolvedInstances();
         Facade::setFacadeApplication(null);
+        $this->db->connection()->getSchemaBuilder()->useNativeSchemaOperationsIfPossible(false);
     }
 
     public function testRenamingAndChangingColumnsWork()
@@ -98,7 +99,59 @@ class DatabaseSchemaBlueprintIntegrationTest extends TestCase
             ],
         ];
 
-        $this->assertTrue(in_array($queries, $expected));
+        $this->assertContains($queries, $expected);
+    }
+
+    public function testRenamingColumnsWithoutDoctrineWorks()
+    {
+        $connection = $this->db->connection();
+        $schema = $connection->getSchemaBuilder();
+
+        $schema->useNativeSchemaOperationsIfPossible();
+
+        $base = new Blueprint('users', function ($table) {
+            $table->renameColumn('name', 'new_name');
+        });
+
+        $blueprint = clone $base;
+        $this->assertEquals(['alter table `users` rename column `name` to `new_name`'], $blueprint->toSql($connection, new MySqlGrammar));
+
+        $blueprint = clone $base;
+        $this->assertEquals(['alter table "users" rename column "name" to "new_name"'], $blueprint->toSql($connection, new PostgresGrammar));
+
+        $blueprint = clone $base;
+        $this->assertEquals(['alter table "users" rename column "name" to "new_name"'], $blueprint->toSql($connection, new SQLiteGrammar));
+
+        $blueprint = clone $base;
+        $this->assertEquals(['sp_rename \'"users"."name"\', "new_name", \'COLUMN\''], $blueprint->toSql($connection, new SqlServerGrammar));
+
+        $schema->create('test', function (Blueprint $table) {
+            $table->string('foo');
+            $table->string('baz');
+        });
+
+        $schema->table('test', function (Blueprint $table) {
+            $table->renameColumn('foo', 'bar');
+            $table->renameColumn('baz', 'qux');
+        });
+
+        $this->assertFalse($schema->hasColumn('test', 'foo'));
+        $this->assertFalse($schema->hasColumn('test', 'baz'));
+        $this->assertTrue($schema->hasColumns('test', ['bar', 'qux']));
+    }
+
+    public function testDroppingColumnsWithoutDoctrineWorks()
+    {
+        $connection = $this->db->connection();
+        $schema = $connection->getSchemaBuilder();
+
+        $schema->useNativeSchemaOperationsIfPossible();
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->dropColumn('name');
+        });
+
+        $this->assertEquals(['alter table "users" drop column "name"'], $blueprint->toSql($connection, new SQLiteGrammar));
     }
 
     public function testChangingColumnWithCollationWorks()
@@ -156,6 +209,61 @@ class DatabaseSchemaBlueprintIntegrationTest extends TestCase
         ];
 
         $this->assertContains($queries, $expected);
+    }
+
+    public function testChangingCharColumnsWork()
+    {
+        $this->db->connection()->getSchemaBuilder()->create('users', function ($table) {
+            $table->string('name');
+        });
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->char('name', 50)->change();
+        });
+
+        $queries = $blueprint->toSql($this->db->connection(), new SQLiteGrammar);
+
+        $expected = [
+            [
+                'CREATE TEMPORARY TABLE __temp__users AS SELECT name FROM users',
+                'DROP TABLE users',
+                'CREATE TABLE users (name CHAR(50) NOT NULL COLLATE BINARY)',
+                'INSERT INTO users (name) SELECT name FROM __temp__users',
+                'DROP TABLE __temp__users',
+            ],
+            [
+                'CREATE TEMPORARY TABLE __temp__users AS SELECT name FROM users',
+                'DROP TABLE users',
+                'CREATE TABLE users (name CHAR(50) NOT NULL COLLATE "BINARY")',
+                'INSERT INTO users (name) SELECT name FROM __temp__users',
+                'DROP TABLE __temp__users',
+            ],
+        ];
+
+        $this->assertContains($queries, $expected);
+    }
+
+    public function testChangingDoubleColumnsWork()
+    {
+        $this->db->connection()->getSchemaBuilder()->create('products', function ($table) {
+            $table->integer('price');
+        });
+
+        $blueprint = new Blueprint('products', function ($table) {
+            $table->double('price')->change();
+        });
+
+        $queries = $blueprint->toSql($this->db->connection(), new SQLiteGrammar);
+
+        $expected = [
+            'CREATE TEMPORARY TABLE __temp__products AS SELECT price FROM products',
+            'DROP TABLE products',
+            'CREATE TABLE products (price DOUBLE PRECISION NOT NULL)',
+            'INSERT INTO products (price) SELECT price FROM __temp__products',
+            'DROP TABLE __temp__products',
+        ];
+
+        $this->assertEquals($expected, $queries);
     }
 
     public function testRenameIndexWorks()
@@ -405,6 +513,51 @@ class DatabaseSchemaBlueprintIntegrationTest extends TestCase
         ];
 
         $this->assertEquals($expected, $queries);
+    }
+
+    public function testDropIndexOnColumnChangeWorks()
+    {
+        $connection = $this->db->connection();
+
+        $connection->getSchemaBuilder()->create('users', function ($table) {
+            $table->string('name')->nullable();
+        });
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->string('name')->nullable()->unique(false)->change();
+        });
+
+        $this->assertContains(
+            'alter table `users` drop index `users_name_unique`',
+            $blueprint->toSql($connection, new MySqlGrammar)
+        );
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->string('name')->nullable()->unique(false)->change();
+        });
+
+        $this->assertContains(
+            'alter table "users" drop constraint "users_name_unique"',
+            $blueprint->toSql($connection, new PostgresGrammar)
+        );
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->string('name')->nullable()->unique(false)->change();
+        });
+
+        $this->assertContains(
+            'drop index "users_name_unique"',
+            $blueprint->toSql($connection, new SQLiteGrammar)
+        );
+
+        $blueprint = new Blueprint('users', function ($table) {
+            $table->string('name')->nullable()->unique(false)->change();
+        });
+
+        $this->assertContains(
+            'drop index "users_name_unique" on "users"',
+            $blueprint->toSql($connection, new SqlServerGrammar)
+        );
     }
 
     public function testItEnsuresDroppingMultipleColumnsIsAvailable()

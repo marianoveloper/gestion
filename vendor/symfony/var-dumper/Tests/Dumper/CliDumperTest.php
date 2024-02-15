@@ -12,6 +12,9 @@
 namespace Symfony\Component\VarDumper\Tests\Dumper;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\VarDumper\Caster\CutStub;
+use Symfony\Component\VarDumper\Cloner\Data;
+use Symfony\Component\VarDumper\Cloner\Stub;
 use Symfony\Component\VarDumper\Cloner\VarCloner;
 use Symfony\Component\VarDumper\Dumper\AbstractDumper;
 use Symfony\Component\VarDumper\Dumper\CliDumper;
@@ -39,6 +42,11 @@ class CliDumperTest extends TestCase
 
                 return $a;
             },
+            'Symfony\Component\VarDumper\Tests\Fixture\DumbFoo' => function ($foo, $a) {
+                $a['foo'] = new CutStub($a['foo']);
+
+                return $a;
+            },
         ]);
         $data = $cloner->cloneVar($var);
 
@@ -51,7 +59,7 @@ class CliDumperTest extends TestCase
 
         $this->assertStringMatchesFormat(
             <<<EOTXT
-array:24 [
+array:25 [
   "number" => 1
   0 => &1 null
   "const" => 1.1
@@ -66,6 +74,7 @@ array:24 [
     é\\x01test\\t\\n
     ing
     """
+  "bo\\u{FEFF}m" => "te\\u{FEFF}st"
   "[]" => []
   "res" => stream resource {@{$res}
 %A  wrapper_type: "plainfile"
@@ -76,7 +85,7 @@ array:24 [
 %A  options: []
   }
   "obj" => Symfony\Component\VarDumper\Tests\Fixture\DumbFoo {#%d
-    +foo: "foo"
+    +foo: ""…3
     +"bar": "bar"
   }
   "closure" => Closure(\$a, PDO &\$b = null) {#%d
@@ -157,7 +166,7 @@ EOTXT
             , $dump);
     }
 
-    public function provideDumpWithCommaFlagTests()
+    public static function provideDumpWithCommaFlagTests()
     {
         $expected = <<<'EOTXT'
 array:3 [
@@ -196,28 +205,6 @@ array:3 [
 EOTXT;
 
         yield [$expected, CliDumper::DUMP_TRAILING_COMMA];
-    }
-
-    /**
-     * @requires extension xml
-     * @requires PHP < 8.0
-     */
-    public function testXmlResource()
-    {
-        $var = xml_parser_create();
-
-        $this->assertDumpMatchesFormat(
-            <<<'EOTXT'
-xml resource {
-  current_byte_index: %i
-  current_column_number: %i
-  current_line_number: 1
-  error_code: XML_ERROR_NONE
-}
-EOTXT
-            ,
-            $var
-        );
     }
 
     public function testJsonCast()
@@ -315,9 +302,6 @@ EOTXT
         putenv('DUMP_STRING_LENGTH=');
     }
 
-    /**
-     * @requires function Twig\Template::getSourceContext
-     */
     public function testThrowingCaster()
     {
         $out = fopen('php://memory', 'r+');
@@ -408,75 +392,6 @@ EOTXT
         );
     }
 
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @requires PHP < 8.1
-     */
-    public function testSpecialVars56()
-    {
-        $var = $this->getSpecialVars();
-
-        $this->assertDumpEquals(
-            <<<'EOTXT'
-array:3 [
-  0 => array:1 [
-    0 => &1 array:1 [
-      0 => &1 array:1 [&1]
-    ]
-  ]
-  1 => array:1 [
-    "GLOBALS" => & array:1 [ …1]
-  ]
-  2 => &3 array:1 [
-    "GLOBALS" => &3 array:1 [&3]
-  ]
-]
-EOTXT
-            ,
-            $var
-        );
-    }
-
-    /**
-     * @runInSeparateProcess
-     * @preserveGlobalState disabled
-     * @requires PHP < 8.1
-     */
-    public function testGlobals()
-    {
-        $var = $this->getSpecialVars();
-        unset($var[0]);
-        $out = '';
-
-        $dumper = new CliDumper(function ($line, $depth) use (&$out) {
-            if ($depth >= 0) {
-                $out .= str_repeat('  ', $depth).$line."\n";
-            }
-        });
-        $dumper->setColors(false);
-        $cloner = new VarCloner();
-
-        $data = $cloner->cloneVar($var);
-        $dumper->dump($data);
-
-        $this->assertSame(
-            <<<'EOTXT'
-array:2 [
-  1 => array:1 [
-    "GLOBALS" => & array:1 [ …1]
-  ]
-  2 => &2 array:1 [
-    "GLOBALS" => &2 array:1 [&2]
-  ]
-]
-
-EOTXT
-            ,
-            $out
-        );
-    }
-
     public function testIncompleteClass()
     {
         $unserializeCallbackHandler = ini_set('unserialize_callback_func', null);
@@ -492,7 +407,7 @@ EOTXT
         );
     }
 
-    public function provideDumpArrayWithColor()
+    public static function provideDumpArrayWithColor()
     {
         yield [
             ['foo' => 'bar'],
@@ -543,21 +458,45 @@ EOTXT
         $this->assertSame($expectedOut, $out);
     }
 
-    private function getSpecialVars()
+    public function testCollapse()
     {
-        foreach (array_keys($GLOBALS) as $var) {
-            if ('GLOBALS' !== $var) {
-                unset($GLOBALS[$var]);
-            }
+        if ('\\' === \DIRECTORY_SEPARATOR) {
+            $this->markTestSkipped('This test cannot be run on Windows.');
         }
 
-        $var = function &() {
-            $var = [];
-            $var[] = &$var;
+        $stub = new Stub();
+        $stub->type = Stub::TYPE_OBJECT;
+        $stub->class = 'stdClass';
+        $stub->position = 1;
 
-            return $var;
-        };
+        $data = new Data([
+            [
+                $stub,
+            ],
+            [
+                "\0~collapse=1\0foo" => 123,
+                "\0+\0bar" => [1 => 2],
+            ],
+            [
+                'bar' => 123,
+            ]
+        ]);
 
-        return eval('return [$var(), $GLOBALS, &$GLOBALS];');
+        $dumper = new CliDumper();
+        $dump = $dumper->dump($data, true);
+
+        $this->assertSame(
+            <<<'EOTXT'
+{
+  foo: 123
+  +"bar": array:1 [
+    "bar" => 123
+  ]
+}
+
+EOTXT
+            ,
+            $dump
+        );
     }
 }

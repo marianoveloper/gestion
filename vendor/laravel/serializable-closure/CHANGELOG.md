@@ -1,6 +1,27 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/serializable-closure/compare/v1.2.1...master)
+## [Unreleased](https://github.com/laravel/serializable-closure/compare/v1.3.2...master)
+
+## [v1.3.2](https://github.com/laravel/serializable-closure/compare/v1.3.1...v1.3.2) - 2023-10-17
+
+- Fixes FQCN on anonymous classes definition  by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/serializable-closure/pull/75
+
+## [v1.3.1](https://github.com/laravel/serializable-closure/compare/v1.3.0...v1.3.1) - 2023-07-14
+
+- Fixes namespace resolution on named arguments by [@nunomaduro](https://github.com/nunomaduro) in https://github.com/laravel/serializable-closure/pull/69
+
+## [v1.3.0](https://github.com/laravel/serializable-closure/compare/v1.2.2...v1.3.0) - 2023-01-30
+
+### Changed
+
+- Add support for specifying if it should sign by @olivernybroe in https://github.com/laravel/serializable-closure/pull/62
+- Fixes and tests unsigned closures by @nunomaduro in https://github.com/laravel/serializable-closure/pull/64
+
+## [v1.2.2](https://github.com/laravel/serializable-closure/compare/v1.2.1...v1.2.2) - 2022-09-08
+
+### Changed
+
+- Adds PHP 8.2 Support by @driesvints in https://github.com/laravel/serializable-closure/pull/57
 
 ## [v1.2.1](https://github.com/laravel/serializable-closure/compare/v1.2.0...v1.2.1) - 2022-08-26
 

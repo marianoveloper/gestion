@@ -4,14 +4,11 @@ declare(strict_types=1);
 
 use Nette\Schema\Elements\Structure;
 use Nette\Schema\Expect;
+use Nette\Schema\Processor;
 use Tester\Assert;
 
 
 require __DIR__ . '/../bootstrap.php';
-
-if (!class_exists(Nette\Utils\Type::class)) {
-	Tester\Environment::skip('Expect::from() requires nette/utils 3.x');
-}
 
 
 Assert::with(Structure::class, function () {
@@ -19,12 +16,12 @@ Assert::with(Structure::class, function () {
 
 	Assert::type(Structure::class, $schema);
 	Assert::same([], $schema->items);
-	Assert::same(stdClass::class, $schema->castTo);
+	Assert::type(stdClass::class, (new Processor)->process($schema, []));
 });
 
 
 Assert::with(Structure::class, function () {
-	$schema = Expect::from(new class {
+	$schema = Expect::from($obj = new class {
 		/** @var string */
 		public $dsn = 'mysql';
 
@@ -59,7 +56,7 @@ Assert::with(Structure::class, function () {
 		'arr' => Expect::type('array|null')->default(null),
 		'required' => Expect::type('string')->required(),
 	], $schema->items);
-	Assert::type('string', $schema->castTo);
+	Assert::type($obj, (new Processor)->process($schema, ['required' => '']));
 });
 
 

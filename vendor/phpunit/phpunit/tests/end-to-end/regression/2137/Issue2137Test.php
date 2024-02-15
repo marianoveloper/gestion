@@ -12,9 +12,9 @@ class Issue2137Test extends PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideBrandService
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
+     * @throws PHPUnit\Framework\ExpectationFailedException
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testBrandService($provided, $expected): void
     {
@@ -24,7 +24,7 @@ class Issue2137Test extends PHPUnit\Framework\TestCase
     public function provideBrandService()
     {
         return [
-            //[true, true]
+            // [true, true]
             new stdClass, // not valid
         ];
     }
@@ -32,9 +32,9 @@ class Issue2137Test extends PHPUnit\Framework\TestCase
     /**
      * @dataProvider provideBrandService
      *
-     * @throws \PHPUnit\Framework\ExpectationFailedException
-     * @throws \SebastianBergmann\RecursionContext\InvalidArgumentException
      * @throws Exception
+     * @throws PHPUnit\Framework\ExpectationFailedException
+     * @throws SebastianBergmann\RecursionContext\InvalidArgumentException
      */
     public function testSomethingElseInvalid($provided, $expected): void
     {

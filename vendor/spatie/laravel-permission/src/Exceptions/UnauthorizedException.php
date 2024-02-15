@@ -2,6 +2,7 @@
 
 namespace Spatie\Permission\Exceptions;
 
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class UnauthorizedException extends HttpException
@@ -14,9 +15,8 @@ class UnauthorizedException extends HttpException
     {
         $message = 'User does not have the right roles.';
 
-        if (config('permission.display_permission_in_exception')) {
-            $permStr = implode(', ', $roles);
-            $message = 'User does not have the right roles. Necessary roles are '.$permStr;
+        if (config('permission.display_role_in_exception')) {
+            $message .= ' Necessary roles are '.implode(', ', $roles);
         }
 
         $exception = new static(403, $message, null, []);
@@ -30,8 +30,7 @@ class UnauthorizedException extends HttpException
         $message = 'User does not have the right permissions.';
 
         if (config('permission.display_permission_in_exception')) {
-            $permStr = implode(', ', $permissions);
-            $message = 'User does not have the right permissions. Necessary permissions are '.$permStr;
+            $message .= ' Necessary permissions are '.implode(', ', $permissions);
         }
 
         $exception = new static(403, $message, null, []);
@@ -45,14 +44,20 @@ class UnauthorizedException extends HttpException
         $message = 'User does not have any of the necessary access rights.';
 
         if (config('permission.display_permission_in_exception') && config('permission.display_role_in_exception')) {
-            $permStr = implode(', ', $rolesOrPermissions);
-            $message = 'User does not have the right permissions. Necessary permissions are '.$permStr;
+            $message .= ' Necessary roles or permissions are '.implode(', ', $rolesOrPermissions);
         }
 
         $exception = new static(403, $message, null, []);
         $exception->requiredPermissions = $rolesOrPermissions;
 
         return $exception;
+    }
+
+    public static function missingTraitHasRoles(Authorizable $user): self
+    {
+        $class = get_class($user);
+
+        return new static(403, "Authorizable class `{$class}` must use Spatie\Permission\Traits\HasRoles trait.", null, []);
     }
 
     public static function notLoggedIn(): self

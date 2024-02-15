@@ -1,6 +1,53 @@
 # Release Notes
 
-## [Unreleased](https://github.com/laravel/fortify/compare/v1.15.0...1.x)
+## [Unreleased](https://github.com/laravel/fortify/compare/v1.19.0...1.x)
+
+## [v1.19.0](https://github.com/laravel/fortify/compare/v1.18.1...v1.19.0) - 2023-11-27
+
+- Add new event by @taylorotwell in https://github.com/laravel/fortify/commit/2da721fead1f3bc18af983e4903c4e1df67177e7
+
+## [v1.18.1](https://github.com/laravel/fortify/compare/v1.18.0...v1.18.1) - 2023-10-18
+
+- Fix paths in default config using nested arrays by [@sebj54](https://github.com/sebj54) in https://github.com/laravel/fortify/pull/501
+
+## [v1.18.0](https://github.com/laravel/fortify/compare/v1.17.6...v1.18.0) - 2023-09-12
+
+- Added case-sensitivity option for usernames by [@Radiergummi](https://github.com/Radiergummi) in https://github.com/laravel/fortify/pull/485
+- Added response contract for email verification notification by [@m-thalmann](https://github.com/m-thalmann) in https://github.com/laravel/fortify/pull/489
+
+## [v1.17.6](https://github.com/laravel/fortify/compare/v1.17.5...v1.17.6) - 2023-09-04
+
+- Update logout to invalidate and regenerate session only if session is present (Issue #486) by [@karmendra](https://github.com/karmendra) in https://github.com/laravel/fortify/pull/487
+
+## [v1.17.5](https://github.com/laravel/fortify/compare/v1.17.4...v1.17.5) - 2023-08-02
+
+- [1.x] Laravel Pint fixes by [@iruoy](https://github.com/iruoy) in https://github.com/laravel/fortify/pull/480
+
+## [v1.17.4](https://github.com/laravel/fortify/compare/v1.17.3...v1.17.4) - 2023-06-18
+
+- Port security fixes to default login rate limiter by @staudenmeir in https://github.com/laravel/fortify/pull/473
+
+## [v1.17.3](https://github.com/laravel/fortify/compare/v1.17.2...v1.17.3) - 2023-06-02
+
+- Fix contract implementation by @jessarcher in https://github.com/laravel/fortify/pull/472
+
+## [v1.17.2](https://github.com/laravel/fortify/compare/v1.17.1...v1.17.2) - 2023-04-26
+
+- Revert "Add rate limiter for a registration" by @taylorotwell in https://github.com/laravel/fortify/pull/465
+
+## [v1.17.1](https://github.com/laravel/fortify/compare/v1.17.0...v1.17.1) - 2023-04-19
+
+- Add rate limiter for a registration by @trbsi in https://github.com/laravel/fortify/pull/460
+
+## [v1.17.0](https://github.com/laravel/fortify/compare/v1.16.0...v1.17.0) - 2023-04-17
+
+- Add ability to override routes with custom paths by @stephenglass in https://github.com/laravel/fortify/pull/458
+
+## [v1.16.0](https://github.com/laravel/fortify/compare/v1.15.0...v1.16.0) - 2023-01-06
+
+### Added
+
+- Laravel v10 Support by @driesvints in https://github.com/laravel/fortify/pull/435
 
 ## [v1.15.0](https://github.com/laravel/fortify/compare/v1.14.1...v1.15.0) - 2023-01-03
 

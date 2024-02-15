@@ -6,6 +6,10 @@ namespace MyNamespace;
 
 use DateTimeInterface;
 
+use MyOtherNamespace\{ClassA, ClassB, ClassC as C};
+use function MyOtherNamespace\{fn_a, fn_b, fn_c};
+use const MyOtherNamespace\{ConstA, ConstB, ConstC};
+
 // Integer in comments represent the branch index difference
 // relative to the previous line
 
@@ -422,7 +426,10 @@ class MyClass
             (                               // 0
                 $var2                       // 0
                 =                           // 0
-                2                           // 0
+                2,                          // 0
+                $var3                       // 0
+                =                           // 0
+                null                        // 0
             )                               // 0
                 use                         // 0
                 (                           // 0
@@ -559,13 +566,18 @@ LINE_ADDED_IN_TEST;                         // 0
 
 interface MyInterface
 {
+    public const MY_INTERFACE_CONST = 1;
+    public const MY_INTERFACE_COMPLEX_CONST = [
+        1,
+        'string',
+    ];
     public function myMethod();
 }
 
 trait MyTrait
 {
     public function myTrait()
-    {}                                      // +1
+    {}                                      // +3
 }
 
 abstract class MyAbstractClass implements MyInterface

@@ -40,6 +40,7 @@
 
                     <th class="px-4 py-2">Unidad Académica</th>
                     <th class="px-4 py-2">Carrera</th>
+                    <th class="px-4 py-2">Materia</th>
                     <th class="px-4 py-2">Nombre</th>
                     <th class="px-4 py-2">Dni</th>
                     <th class="px-4 py-2">Email</th>
@@ -54,6 +55,12 @@
 
                              <td class="px-4 py-2 text-center">{{$desmat->academic->name}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->carrera->name}}</td>
+                             @if(@isset($desmat->materia))
+                             <td>{{$desmat->materia->name}}</td>
+
+                           @else
+                            <td> </td>
+                           @endif
                              <td class="px-4 py-2 text-center">{{$desmat->name}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->dni}}</td>
                              <td class="px-4 py-2 text-center">{{$desmat->email}}</td>

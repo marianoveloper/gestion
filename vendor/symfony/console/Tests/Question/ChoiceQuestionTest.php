@@ -39,7 +39,7 @@ class ChoiceQuestionTest extends TestCase
         }
     }
 
-    public function selectUseCases()
+    public static function selectUseCases()
     {
         return [
             [
@@ -119,7 +119,7 @@ class ChoiceQuestionTest extends TestCase
         $this->assertSame($expectedValue, $question->getValidator()($providedAnswer));
     }
 
-    public function selectAssociativeChoicesProvider()
+    public static function selectAssociativeChoicesProvider()
     {
         return [
             'select "0" choice by key' => ['0', '0'],
@@ -152,14 +152,14 @@ class ChoiceQuestionTest extends TestCase
 
 class StringChoice
 {
-    private $string;
+    private string $string;
 
     public function __construct(string $string)
     {
         $this->string = $string;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->string;
     }

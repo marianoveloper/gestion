@@ -24,10 +24,7 @@ use Symfony\Component\Routing\RouteCollection;
 
 class CompiledUrlMatcherDumperTest extends TestCase
 {
-    /**
-     * @var string
-     */
-    private $dumpPath;
+    private string $dumpPath;
 
     protected function setUp(): void
     {
@@ -65,7 +62,7 @@ class CompiledUrlMatcherDumperTest extends TestCase
         $this->assertStringEqualsFile($basePath.$fixture, $dumper->dump());
     }
 
-    public function getRouteCollections()
+    public static function getRouteCollections()
     {
         /* test case 1 */
 
@@ -296,6 +293,10 @@ class CompiledUrlMatcherDumperTest extends TestCase
         $route = new Route('/with-condition');
         $route->setCondition('context.getMethod() == "GET"');
         $rootprefixCollection->add('with-condition', $route);
+        $route = new Route('/with-condition/{id}');
+        $route->setRequirement('id', '\d+');
+        $route->setCondition("params['id'] < 100");
+        $rootprefixCollection->add('with-condition-dynamic', $route);
 
         /* test case 4 */
         $headMatchCasesCollection = new RouteCollection();
@@ -486,7 +487,7 @@ class CompiledUrlMatcherDumperTest extends TestCase
 
         return $this->getMockBuilder(TestCompiledUrlMatcher::class)
             ->setConstructorArgs([$compiledRoutes, new RequestContext()])
-            ->setMethods(['redirect'])
+            ->onlyMethods(['redirect'])
             ->getMock();
     }
 
@@ -503,7 +504,7 @@ class CompiledUrlMatcherDumperTest extends TestCase
 
 class TestCompiledUrlMatcher extends CompiledUrlMatcher implements RedirectableUrlMatcherInterface
 {
-    public function redirect(string $path, string $route, string $scheme = null): array
+    public function redirect(string $path, string $route, ?string $scheme = null): array
     {
         return [];
     }

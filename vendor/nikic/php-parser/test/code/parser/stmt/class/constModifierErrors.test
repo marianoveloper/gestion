@@ -5,7 +5,6 @@ class A {
     static const X = 1;
 }
 -----
-!!php7
 Cannot use 'static' as constant modifier from 3:5 to 3:10
 array(
     0: Stmt_Class(
@@ -22,13 +21,14 @@ array(
             0: Stmt_ClassConst(
                 attrGroups: array(
                 )
-                flags: MODIFIER_STATIC (8)
+                flags: STATIC (8)
+                type: null
                 consts: array(
                     0: Const(
                         name: Identifier(
                             name: X
                         )
-                        value: Scalar_LNumber(
+                        value: Scalar_Int(
                             value: 1
                         )
                     )
@@ -43,7 +43,6 @@ class A {
     abstract const X = 1;
 }
 -----
-!!php7
 Cannot use 'abstract' as constant modifier from 3:5 to 3:12
 array(
     0: Stmt_Class(
@@ -60,13 +59,14 @@ array(
             0: Stmt_ClassConst(
                 attrGroups: array(
                 )
-                flags: MODIFIER_ABSTRACT (16)
+                flags: ABSTRACT (16)
+                type: null
                 consts: array(
                     0: Const(
                         name: Identifier(
                             name: X
                         )
-                        value: Scalar_LNumber(
+                        value: Scalar_Int(
                             value: 1
                         )
                     )
@@ -81,7 +81,6 @@ class A {
     readonly const X = 1;
 }
 -----
-!!php7
 Cannot use 'readonly' as constant modifier from 3:5 to 3:12
 array(
     0: Stmt_Class(
@@ -98,13 +97,14 @@ array(
             0: Stmt_ClassConst(
                 attrGroups: array(
                 )
-                flags: MODIFIER_READONLY (64)
+                flags: READONLY (64)
+                type: null
                 consts: array(
                     0: Const(
                         name: Identifier(
                             name: X
                         )
-                        value: Scalar_LNumber(
+                        value: Scalar_Int(
                             value: 1
                         )
                     )
@@ -119,7 +119,6 @@ class A {
     public public const X = 1;
 }
 -----
-!!php7
 Multiple access type modifiers are not allowed from 3:12 to 3:17
 array(
     0: Stmt_Class(
@@ -136,13 +135,14 @@ array(
             0: Stmt_ClassConst(
                 attrGroups: array(
                 )
-                flags: MODIFIER_PUBLIC (1)
+                flags: PUBLIC (1)
+                type: null
                 consts: array(
                     0: Const(
                         name: Identifier(
                             name: X
                         )
-                        value: Scalar_LNumber(
+                        value: Scalar_Int(
                             value: 1
                         )
                     )

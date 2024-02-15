@@ -12,6 +12,8 @@
 use Carbon\Carbon;
 use Carbon\CarbonImmutable;
 use Carbon\CarbonInterface;
+use Carbon\Factory;
+use Carbon\FactoryImmutable;
 use Symfony\Component\Translation\TranslatorInterface;
 
 $tags = [
@@ -45,12 +47,12 @@ $code = '';
 $overrideTyping = [
     $carbon => [
         // 'createFromImmutable' => ['static Carbon', 'DateTimeImmutable $dateTime', 'Create a new Carbon object from an immutable date.'],
-        'createFromFormat' => ['static static|false', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
+        'createFromFormat' => ['static static|false', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new Carbon object according to the specified format.'],
         '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
     $immutable => [
         // 'createFromMutable' => ['static CarbonImmutable', 'DateTime $dateTime', 'Create a new CarbonImmutable object from an immutable date.'],
-        'createFromFormat' => ['static static|false', 'string $format, string $time, string|DateTimeZone $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
+        'createFromFormat' => ['static static|false', 'string $format, string $time, DateTimeZone|string|false|null $timezone = null', 'Parse a string into a new CarbonImmutable object according to the specified format.'],
         '__set_state' => ['static static', 'array $array', 'https://php.net/manual/en/datetime.set-state.php'],
     ],
 ];
@@ -674,22 +676,30 @@ foreach ($carbonMethods as $method) {
         }
 
         $returnType = str_replace('static|CarbonInterface', 'static', $returnType ?: 'static');
-        $staticMethods[] = [
-            '@method',
-            str_replace('static', 'Carbon', $returnType),
-            "$method($parameters)",
-            $doc[0],
-        ];
-        $staticImmutableMethods[] = [
-            '@method',
-            str_replace('static', 'CarbonImmutable', $returnType),
-            "$method($parameters)",
-            $doc[0],
-        ];
+        if (!method_exists(Factory::class, $method)) {
+            $staticMethods[] = [
+                '@method',
+                str_replace('static', 'Carbon', $returnType),
+                "$method($parameters)",
+                $doc[0],
+            ];
 
-        for ($i = 1; $i < \count($doc); $i++) {
-            $staticMethods[] = ['', '', '', $doc[$i]];
-            $staticImmutableMethods[] = ['', '', '', $doc[$i]];
+            for ($i = 1; $i < \count($doc); $i++) {
+                $staticMethods[] = ['', '', '', $doc[$i]];
+            }
+        }
+
+        if (!method_exists(FactoryImmutable::class, $method)) {
+            $staticImmutableMethods[] = [
+                '@method',
+                str_replace('static', 'CarbonImmutable', $returnType),
+                "$method($parameters)",
+                $doc[0],
+            ];
+
+            for ($i = 1; $i < \count($doc); $i++) {
+                $staticImmutableMethods[] = ['', '', '', $doc[$i]];
+            }
         }
     }
 

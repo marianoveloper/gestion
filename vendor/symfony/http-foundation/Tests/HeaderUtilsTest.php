@@ -24,7 +24,7 @@ class HeaderUtilsTest extends TestCase
         $this->assertSame($expected, HeaderUtils::split($header, $separator));
     }
 
-    public function provideHeaderToSplit(): array
+    public static function provideHeaderToSplit(): array
     {
         return [
             [['foo=123', 'bar'], 'foo=123,bar', ','],
@@ -34,7 +34,7 @@ class HeaderUtilsTest extends TestCase
             [['foo', '123, bar'], 'foo=123, bar', '='],
             [['foo', '123, bar'], ' foo = 123, bar ', '='],
             [[['foo', '123'], ['bar']], 'foo=123, bar', ',='],
-            [[[['foo', '123']], [['bar'], ['foo', '456']]], 'foo=123, bar; foo=456', ',;='],
+            [[[['foo', '123']], [['bar'], ['foo', '456']]], 'foo=123, bar;; foo=456', ',;='],
             [[[['foo', 'a,b;c=d']]], 'foo="a,b;c=d"', ',;='],
 
             [['foo', 'bar'], 'foo,,,, bar', ','],
@@ -46,13 +46,15 @@ class HeaderUtilsTest extends TestCase
 
             [[['foo_cookie', 'foo=1&bar=2&baz=3'], ['expires', 'Tue, 22-Sep-2020 06:27:09 GMT'], ['path', '/']], 'foo_cookie=foo=1&bar=2&baz=3; expires=Tue, 22-Sep-2020 06:27:09 GMT; path=/', ';='],
             [[['foo_cookie', 'foo=='], ['expires', 'Tue, 22-Sep-2020 06:27:09 GMT'], ['path', '/']], 'foo_cookie=foo==; expires=Tue, 22-Sep-2020 06:27:09 GMT; path=/', ';='],
+            [[['foo_cookie', 'foo='], ['expires', 'Tue, 22-Sep-2020 06:27:09 GMT'], ['path', '/']], 'foo_cookie=foo=; expires=Tue, 22-Sep-2020 06:27:09 GMT; path=/', ';='],
             [[['foo_cookie', 'foo=a=b'], ['expires', 'Tue, 22-Sep-2020 06:27:09 GMT'], ['path', '/']], 'foo_cookie=foo="a=b"; expires=Tue, 22-Sep-2020 06:27:09 GMT; path=/', ';='],
 
             // These are not a valid header values. We test that they parse anyway,
             // and that both the valid and invalid parts are returned.
             [[], '', ','],
             [[], ',,,', ','],
-            [['foo', 'bar', 'baz'], 'foo, "bar", "baz', ','],
+            [[['', 'foo'], ['bar', '']], '=foo,bar=', ',='],
+            [['foo', 'foobar', 'baz'], 'foo, foo"bar", "baz', ','],
             [['foo', 'bar, baz'], 'foo, "bar, baz', ','],
             [['foo', 'bar, baz\\'], 'foo, "bar, baz\\', ','],
             [['foo', 'bar, baz\\'], 'foo, "bar, baz\\\\', ','],
@@ -111,7 +113,7 @@ class HeaderUtilsTest extends TestCase
         $this->assertEquals($expected, HeaderUtils::makeDisposition($disposition, $filename, $filenameFallback));
     }
 
-    public function provideMakeDisposition()
+    public static function provideMakeDisposition()
     {
         return [
             ['attachment', 'foo.html', 'foo.html', 'attachment; filename=foo.html'],
@@ -132,7 +134,7 @@ class HeaderUtilsTest extends TestCase
         HeaderUtils::makeDisposition($disposition, $filename);
     }
 
-    public function provideMakeDispositionFail()
+    public static function provideMakeDispositionFail()
     {
         return [
             ['attachment', 'foo%20bar.html'],
@@ -147,12 +149,12 @@ class HeaderUtilsTest extends TestCase
     /**
      * @dataProvider provideParseQuery
      */
-    public function testParseQuery(string $query, string $expected = null)
+    public function testParseQuery(string $query, ?string $expected = null)
     {
         $this->assertSame($expected ?? $query, http_build_query(HeaderUtils::parseQuery($query), '', '&'));
     }
 
-    public function provideParseQuery()
+    public static function provideParseQuery()
     {
         return [
             ['a=b&c=d'],

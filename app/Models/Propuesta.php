@@ -10,7 +10,6 @@ use App\Models\Academic;
 use App\Models\Resource;
 use App\Models\MatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\DesmatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Propuesta extends Model
@@ -34,9 +33,6 @@ class Propuesta extends Model
     }
     public function matriculacionpropuestas(){
         return $this->hasMany(MatriculacionPropuesta::class);
-    }
-    public function desmatriculacionpropuestas(){
-        return $this->hasMany(DesmatriculacionPropuesta::class);
     }
 
         public function resource(){

@@ -4,6 +4,7 @@ namespace Illuminate\Tests\Integration\Routing;
 
 use Illuminate\Contracts\Routing\UrlRoutable;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Exceptions\InvalidSignatureException;
 use Illuminate\Routing\Middleware\ValidateSignature;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -13,6 +14,18 @@ use Orchestra\Testbench\TestCase;
 
 class UrlSigningTest extends TestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        Carbon::setTestNow(null);
+    }
+
+    protected function defineEnvironment($app): void
+    {
+        $app['config']->set(['app.key' => 'AckfSECXIvnK5r28GVIWUAxmbBSjTsmF']);
+    }
+
     public function testSigningUrl()
     {
         Route::get('/foo/{id}', function (Request $request, $id) {
@@ -142,6 +155,58 @@ class UrlSigningTest extends TestCase
         $this->assertSame('valid', $this->get($url)->original);
     }
 
+    public function testExceptedParametersCanBeAddedInAnyOrder()
+    {
+        Route::get('/foo/{id}', function (Request $request, $id) {
+            return $request->hasValidSignatureWhileIgnoring(['one', 'two', 'three']) ? 'valid' : 'invalid';
+        })->name('foo');
+
+        $this->assertIsString($url = URL::signedRoute('foo', ['id' => 1,
+            'bar' => 'baz',
+        ]));
+
+        $this->assertSame('valid', $this->get($url.'&one=value&two=another-value')->original);
+        $this->assertSame('valid', $this->get($url.'&two=value&one=&three')->original);
+    }
+
+    public function testUnusualExceptedParametersWorksAsExpexted()
+    {
+        $this->withoutExceptionHandling();
+        Route::get('/foo/{id}', function (Request $request, $id) {
+            return $request->hasValidSignatureWhileIgnoring(['']) ? 'valid' : 'invalid';
+        })->name('foo');
+
+        $this->assertIsString($url = URL::signedRoute('foo', ['id' => 1,
+            'bar' => 'baz',
+        ]));
+
+        $this->assertSame('valid', $this->get($url)->original);
+
+        Route::get('/foo/{id}', function (Request $request, $id) {
+            return $request->hasValidSignatureWhileIgnoring(['*', '[a-z]+']) ? 'valid' : 'invalid';
+        })->name('foo');
+
+        $this->assertIsString($url = URL::signedRoute('foo', ['id' => 1,
+            'bar' => 'baz',
+        ]));
+
+        $this->assertSame('valid', $this->get($url.'&*=value&[a-z]+=value')->original);
+    }
+
+    public function testExceptedParameterCanBeAPrefixOrSuffixOfAnotherParameter()
+    {
+        Route::get('/foo/{id}', function (Request $request, $id) {
+            return $request->hasValidSignatureWhileIgnoring(['pre', 'fix']) ? 'valid' : 'invalid';
+        })->name('foo');
+
+        $this->assertIsString($url = URL::signedRoute('foo', ['id' => 1,
+            'prefix' => 'value',
+            'suffix' => 'value',
+        ]));
+
+        $this->assertSame('valid', $this->get($url.'&pre=fix&fix=suff')->original);
+    }
+
     public function testSignedMiddleware()
     {
         Route::get('/foo/{id}', function (Request $request, $id) {
@@ -192,11 +257,41 @@ class UrlSigningTest extends TestCase
         $response = $this->get('/foo/relative');
         $response->assertStatus(403);
     }
+
+    public function testSignedMiddlewareIgnoringParameter()
+    {
+        Route::get('/foo/{id}}', function (Request $request, $id) {
+        })->name('foo')->middleware('signed:relative');
+
+        $this->assertIsString($url = URL::signedRoute('foo', ['id' => 1]).'&ignore=me');
+        $request = Request::create($url);
+        $middleware = $this->createValidateSignatureMiddleware(['ignore']);
+
+        try {
+            $middleware->handle($request, function ($request) {
+                $this->assertTrue($request->hasValidSignatureWhileIgnoring(['ignore']));
+            });
+        } catch (InvalidSignatureException $exception) {
+            $this->fail($exception->getMessage());
+        }
+    }
+
+    protected function createValidateSignatureMiddleware(array $ignore)
+    {
+        return new class($ignore) extends ValidateSignature
+        {
+            public function __construct(array $ignore)
+            {
+                $this->ignore = $ignore;
+            }
+        };
+    }
 }
 
 class RoutableInterfaceStub implements UrlRoutable
 {
     public $key;
+    public $routable;
     public $slug = 'routable-slug';
 
     public function getRouteKey()

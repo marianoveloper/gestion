@@ -77,6 +77,9 @@ class ShellTest extends TestCase
         $this->fail();
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testIncludesWithScopeVariables()
     {
         $one = 'banana';
@@ -115,6 +118,9 @@ class ShellTest extends TestCase
         $this->assertSame($expected, $actual, $message);
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testNonInteractiveDoesNotUpdateContext()
     {
         $config = $this->getConfig([
@@ -134,6 +140,9 @@ class ShellTest extends TestCase
         $this->assertNotContains('var', $shell->getScopeVariableNames());
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testNonInteractiveRawOutput()
     {
         $config = $this->getConfig([
@@ -216,6 +225,9 @@ class ShellTest extends TestCase
         $this->assertSame([$matcher], $shell->matchers);
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testRenderingExceptions()
     {
         $shell = new Shell($this->getConfig());
@@ -237,18 +249,14 @@ class ShellTest extends TestCase
         \rewind($stream);
         $streamContents = \stream_get_contents($stream);
 
-        $expected = <<<EOF
-
-   PARSE ERROR  PHP Parse error: message in test/ShellTest.php on line 224.
-
-
-EOF;
-
-        $this->assertSame($expected, $streamContents);
+        $expected = 'PARSE ERROR  PHP Parse error: message in test/ShellTest.php on line 236.';
+        $this->assertSame($expected, \trim($streamContents));
     }
 
     /**
      * @dataProvider notSoBadErrors
+     *
+     * @group isolation-fail
      */
     public function testReportsErrors($errno, $label)
     {
@@ -310,6 +318,9 @@ EOF;
         ];
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testVersion()
     {
         $shell = new Shell($this->getConfig());
@@ -391,6 +402,9 @@ EOF;
         $this->assertSame($shell->flushCode(), 'return $test();');
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testWriteStdout()
     {
         $output = $this->getOutput();
@@ -406,6 +420,9 @@ EOF;
         $this->assertSame('{{stdout}}'.\PHP_EOL, $streamContents);
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testWriteStdoutWithoutNewline()
     {
         $this->markTestSkipped('This test won\'t work on CI without overriding pipe detection');
@@ -423,6 +440,9 @@ EOF;
         $this->assertSame('{{stdout}}<aside>⏎</aside>'.\PHP_EOL, $streamContents);
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testWriteStdoutRawOutputWithoutNewline()
     {
         $output = $this->getOutput();
@@ -440,6 +460,8 @@ EOF;
 
     /**
      * @dataProvider getReturnValues
+     *
+     * @group isolation-fail
      */
     public function testWriteReturnValue($input, $expected)
     {
@@ -455,6 +477,8 @@ EOF;
 
     /**
      * @dataProvider getReturnValues
+     *
+     * @group isolation-fail
      */
     public function testDoNotWriteReturnValueWhenQuiet($input, $expected)
     {
@@ -479,6 +503,8 @@ EOF;
 
     /**
      * @dataProvider getRenderedExceptions
+     *
+     * @group isolation-fail
      */
     public function testWriteException($exception, $expected)
     {
@@ -494,6 +520,8 @@ EOF;
 
     /**
      * @dataProvider getRenderedExceptions
+     *
+     * @group isolation-fail
      */
     public function testWriteExceptionVerbose($exception, $expected)
     {
@@ -521,6 +549,9 @@ EOF;
         ]];
     }
 
+    /**
+     * @group isolation-fail
+     */
     public function testWriteExceptionVerboseButNotReallyBecauseItIsABreakException()
     {
         $output = $this->getOutput();
@@ -537,6 +568,8 @@ EOF;
 
     /**
      * @dataProvider getExceptionOutput
+     *
+     * @group isolation-fail
      */
     public function testCompactExceptionOutput($theme, $exception, $expected)
     {
@@ -563,6 +596,8 @@ EOF;
 
     /**
      * @dataProvider getExecuteValues
+     *
+     * @group isolation-fail
      */
     public function testShellExecute($input, $expected)
     {
@@ -647,5 +682,28 @@ EOF;
         ];
 
         return new Configuration(\array_merge($defaults, $config));
+    }
+
+    /**
+     * @group isolation-fail
+     */
+    public function testStrictTypesExecute()
+    {
+        $shell = new Shell($this->getConfig(['strictTypes' => false]));
+        $shell->setOutput($this->getOutput());
+        $shell->execute('(function(): int { return 1.1; })()', true);
+        $this->assertTrue(true);
+    }
+
+    /**
+     * @group isolation-fail
+     */
+    public function testLaxTypesExecute()
+    {
+        $this->expectException(\TypeError::class);
+
+        $shell = new Shell($this->getConfig(['strictTypes' => true]));
+        $shell->setOutput($this->getOutput());
+        $shell->execute('(function(): int { return 1.1; })()', true);
     }
 }

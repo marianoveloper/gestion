@@ -11,7 +11,6 @@
 
 namespace Symfony\Component\HttpFoundation\Tests;
 
-use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\Stream;
@@ -21,8 +20,6 @@ use Symfony\Component\HttpFoundation\Tests\File\FakeFile;
 
 class BinaryFileResponseTest extends ResponseTestCase
 {
-    use ExpectDeprecationTrait;
-
     public function testConstruction()
     {
         $file = __DIR__.'/../README.md';
@@ -34,26 +31,6 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertFalse($response->headers->has('Content-Disposition'));
 
         $response = new BinaryFileResponse($file, 404, [], true, ResponseHeaderBag::DISPOSITION_INLINE);
-        $this->assertEquals(404, $response->getStatusCode());
-        $this->assertFalse($response->headers->has('ETag'));
-        $this->assertEquals('inline; filename=README.md', $response->headers->get('Content-Disposition'));
-    }
-
-    /**
-     * @group legacy
-     */
-    public function testConstructionLegacy()
-    {
-        $file = __DIR__.'/../README.md';
-        $this->expectDeprecation('Since symfony/http-foundation 5.2: The "Symfony\Component\HttpFoundation\BinaryFileResponse::create()" method is deprecated, use "new Symfony\Component\HttpFoundation\BinaryFileResponse()" instead.');
-        $response = BinaryFileResponse::create($file, 404, ['X-Header' => 'Foo'], true, null, true, true);
-        $this->assertEquals(404, $response->getStatusCode());
-        $this->assertEquals('Foo', $response->headers->get('X-Header'));
-        $this->assertTrue($response->headers->has('ETag'));
-        $this->assertTrue($response->headers->has('Last-Modified'));
-        $this->assertFalse($response->headers->has('Content-Disposition'));
-
-        $response = BinaryFileResponse::create($file, 404, [], true, ResponseHeaderBag::DISPOSITION_INLINE);
         $this->assertEquals(404, $response->getStatusCode());
         $this->assertFalse($response->headers->has('ETag'));
         $this->assertEquals('inline; filename=README.md', $response->headers->get('Content-Disposition'));
@@ -165,7 +142,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertEquals($responseRange, $response->headers->get('Content-Range'));
     }
 
-    public function provideRanges()
+    public static function provideRanges()
     {
         return [
             ['bytes=1-4', 1, 4, 'bytes 1-4/35'],
@@ -219,7 +196,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertEquals(200, $response->getStatusCode());
     }
 
-    public function provideFullFileRanges()
+    public static function provideFullFileRanges()
     {
         return [
             ['bytes=0-'],
@@ -285,7 +262,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertEquals('bytes */35', $response->headers->get('Content-Range'));
     }
 
-    public function provideInvalidRanges()
+    public static function provideInvalidRanges()
     {
         return [
             ['bytes=-40'],
@@ -311,7 +288,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertStringContainsString('README.md', $response->headers->get('X-Sendfile'));
     }
 
-    public function provideXSendfileFiles()
+    public static function provideXSendfileFiles()
     {
         return [
             [__DIR__.'/../README.md'],
@@ -334,7 +311,6 @@ class BinaryFileResponseTest extends ResponseTestCase
         $response = new BinaryFileResponse($file, 200, ['Content-Type' => 'application/octet-stream']);
         $reflection = new \ReflectionObject($response);
         $property = $reflection->getProperty('file');
-        $property->setAccessible(true);
         $property->setValue($response, $file);
 
         $response->prepare($request);
@@ -378,7 +354,7 @@ class BinaryFileResponseTest extends ResponseTestCase
         $this->assertEquals('foo', $response->headers->get('Accept-Ranges'));
     }
 
-    public function getSampleXAccelMappings()
+    public static function getSampleXAccelMappings()
     {
         return [
             ['/var/www/var/www/files/foo.txt', '/var/www/=/files/', '/files/var/www/files/foo.txt'],

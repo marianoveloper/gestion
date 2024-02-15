@@ -5,7 +5,6 @@ namespace Illuminate\Tests\Support;
 use BadMethodCallException;
 use Carbon\Carbon as BaseCarbon;
 use Carbon\CarbonImmutable as BaseCarbonImmutable;
-use DateTime;
 use DateTimeInterface;
 use Illuminate\Support\Carbon;
 use PHPUnit\Framework\TestCase;
@@ -26,7 +25,7 @@ class SupportCarbonTest extends TestCase
 
     protected function tearDown(): void
     {
-        Carbon::setTestNow();
+        Carbon::setTestNow(null);
         Carbon::serializeUsing(null);
 
         parent::tearDown();
@@ -34,7 +33,7 @@ class SupportCarbonTest extends TestCase
 
     public function testInstance()
     {
-        $this->assertInstanceOf(DateTime::class, $this->now);
+        $this->assertInstanceOf(Carbon::class, $this->now);
         $this->assertInstanceOf(DateTimeInterface::class, $this->now);
         $this->assertInstanceOf(BaseCarbon::class, $this->now);
         $this->assertInstanceOf(Carbon::class, $this->now);
@@ -117,5 +116,11 @@ class SupportCarbonTest extends TestCase
         $this->assertSame('2017-06-27 13:14:15', Carbon::now()->toDateTimeString());
         $this->assertSame('2017-06-27 13:14:15', BaseCarbon::now()->toDateTimeString());
         $this->assertSame('2017-06-27 13:14:15', BaseCarbonImmutable::now()->toDateTimeString());
+    }
+
+    public function testCarbonIsConditionable()
+    {
+        $this->assertTrue(Carbon::now()->when(null, fn (Carbon $carbon) => $carbon->addDays(1))->isToday());
+        $this->assertTrue(Carbon::now()->when(true, fn (Carbon $carbon) => $carbon->addDays(1))->isTomorrow());
     }
 }

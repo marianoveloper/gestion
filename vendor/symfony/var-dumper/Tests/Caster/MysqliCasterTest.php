@@ -16,6 +16,7 @@ use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
  * @requires extension mysqli
+ *
  * @group integration
  */
 class MysqliCasterTest extends TestCase
@@ -29,7 +30,6 @@ class MysqliCasterTest extends TestCase
 
         $xCast = <<<EODUMP
 mysqli_driver {%A
-  +reconnect: false
   +report_mode: 3
 }
 EODUMP;

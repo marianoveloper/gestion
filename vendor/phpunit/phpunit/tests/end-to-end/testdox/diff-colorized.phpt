@@ -1,5 +1,10 @@
 --TEST--
-TestDox: Diff; Colorized
+TestDox: Diff; Colorized; *nix
+--SKIPIF--
+<?php declare(strict_types=1);
+if (stripos(\PHP_OS, 'WIN') === 0) {
+    print 'skip: Colorized diff is different on Windows.';
+}
 --FILE--
 <?php declare(strict_types=1);
 $_SERVER['argv'][] = '--do-not-cache-result';
@@ -27,7 +32,7 @@ PHPUnit %s by Sebastian Bergmann and contributors.
    [31m┊[0m [31m-baz\n[0m
    [31m┊[0m  '
    [31m│[0m
-   [31m╵[0m %stests[2m/[22mend-to-end[2m/[22mtestdox[2m/[22m_files[2m/[22mDiffTest.php[2m:[22m[34m%d[0m
+   [31m╵[0m %stests[2m%e[22mend-to-end[2m%e[22mtestdox[2m%e[22m_files[2m%e[22mDiffTest.php[2m:[22m[34m%d[0m
    [31m┴[0m
 
 Time: %s, Memory: %s

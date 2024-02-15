@@ -11,6 +11,7 @@
 
 namespace Symfony\Component\HttpFoundation\Tests\Session\Storage\Handler;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcachedSessionHandler;
 
@@ -24,12 +25,8 @@ class MemcachedSessionHandlerTest extends TestCase
     private const PREFIX = 'prefix_';
     private const TTL = 1000;
 
-    /**
-     * @var MemcachedSessionHandler
-     */
-    protected $storage;
-
-    protected $memcached;
+    protected MemcachedSessionHandler $storage;
+    protected MockObject&\Memcached $memcached;
 
     protected function setUp(): void
     {
@@ -40,25 +37,18 @@ class MemcachedSessionHandlerTest extends TestCase
         }
 
         $r = new \ReflectionClass(\Memcached::class);
-        $methodsToMock = array_map(function ($m) { return $m->name; }, $r->getMethods(\ReflectionMethod::IS_PUBLIC));
+        $methodsToMock = array_map(fn ($m) => $m->name, $r->getMethods(\ReflectionMethod::IS_PUBLIC));
         $methodsToMock = array_diff($methodsToMock, ['getDelayed', 'getDelayedByKey']);
 
         $this->memcached = $this->getMockBuilder(\Memcached::class)
             ->disableOriginalConstructor()
-            ->setMethods($methodsToMock)
+            ->onlyMethods($methodsToMock)
             ->getMock();
 
         $this->storage = new MemcachedSessionHandler(
             $this->memcached,
             ['prefix' => self::PREFIX, 'expiretime' => self::TTL]
         );
-    }
-
-    protected function tearDown(): void
-    {
-        $this->memcached = null;
-        $this->storage = null;
-        parent::tearDown();
     }
 
     public function testOpenSession()
@@ -147,12 +137,12 @@ class MemcachedSessionHandlerTest extends TestCase
         }
     }
 
-    public function getOptionFixtures()
+    public static function getOptionFixtures()
     {
         return [
             [['prefix' => 'session'], true],
             [['expiretime' => 100], true],
-            [['prefix' => 'session', 'expiretime' => 200], true],
+            [['prefix' => 'session', 'ttl' => 200], true],
             [['expiretime' => 100, 'foo' => 'bar'], false],
         ];
     }
@@ -160,7 +150,6 @@ class MemcachedSessionHandlerTest extends TestCase
     public function testGetConnection()
     {
         $method = new \ReflectionMethod($this->storage, 'getMemcached');
-        $method->setAccessible(true);
 
         $this->assertInstanceOf(\Memcached::class, $method->invoke($this->storage));
     }

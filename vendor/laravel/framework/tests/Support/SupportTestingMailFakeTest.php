@@ -2,7 +2,6 @@
 
 namespace Illuminate\Tests\Support;
 
-use Illuminate\Contracts\Mail\Mailable as MailableContract;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Mail\Mailable;
@@ -52,6 +51,33 @@ class SupportTestingMailFakeTest extends TestCase
 
         $this->fake->assertSent(MailableStub::class, function ($mail) use ($user) {
             return $mail->hasTo($user) && $mail->locale === 'au';
+        });
+    }
+
+    public function testAssertTo()
+    {
+        $this->fake->to('taylor@laravel.com')->send($this->mailable);
+
+        $this->fake->assertSent(MailableStub::class, function ($mail) {
+            return $mail->hasTo('taylor@laravel.com');
+        });
+    }
+
+    public function testAssertCc()
+    {
+        $this->fake->cc('taylor@laravel.com')->send($this->mailable);
+
+        $this->fake->assertSent(MailableStub::class, function ($mail) {
+            return $mail->hasCc('taylor@laravel.com');
+        });
+    }
+
+    public function testAssertBcc()
+    {
+        $this->fake->bcc('taylor@laravel.com')->send($this->mailable);
+
+        $this->fake->assertSent(MailableStub::class, function ($mail) {
+            return $mail->hasBcc('taylor@laravel.com');
         });
     }
 
@@ -190,7 +216,7 @@ class SupportTestingMailFakeTest extends TestCase
     }
 }
 
-class MailableStub extends Mailable implements MailableContract
+class MailableStub extends Mailable
 {
     public $framework = 'Laravel';
 

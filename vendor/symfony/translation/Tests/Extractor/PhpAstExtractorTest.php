@@ -20,6 +20,8 @@ use Symfony\Component\Translation\MessageCatalogue;
 
 final class PhpAstExtractorTest extends TestCase
 {
+    public const OTHER_DOMAIN = 'not_messages';
+
     /**
      * @dataProvider resourcesProvider
      */
@@ -91,6 +93,9 @@ EOF;
                 $expectedNowdoc => 'prefix'.$expectedNowdoc,
                 'concatenated message with heredoc and nowdoc' => 'prefixconcatenated message with heredoc and nowdoc',
                 'default domain' => 'prefixdefault domain',
+                'mix-named-arguments' => 'prefixmix-named-arguments',
+                'mix-named-arguments-locale' => 'prefixmix-named-arguments-locale',
+                'mix-named-arguments-without-domain' => 'prefixmix-named-arguments-without-domain',
             ],
             'not_messages' => [
                 'translatable other-domain-test-no-params-short-array' => 'prefixtranslatable other-domain-test-no-params-short-array',
@@ -119,6 +124,9 @@ EOF;
                 'variable-assignation-inlined-in-trans-method-call2' => 'prefixvariable-assignation-inlined-in-trans-method-call2',
                 'variable-assignation-inlined-in-trans-method-call3' => 'prefixvariable-assignation-inlined-in-trans-method-call3',
                 'variable-assignation-inlined-with-named-arguments-in-trans-method' => 'prefixvariable-assignation-inlined-with-named-arguments-in-trans-method',
+                'mix-named-arguments-without-parameters' => 'prefixmix-named-arguments-without-parameters',
+                'mix-named-arguments-disordered' => 'prefixmix-named-arguments-disordered',
+                'const-domain' => 'prefixconst-domain',
             ],
             'validators' => [
                 'message-in-constraint-attribute' => 'prefixmessage-in-constraint-attribute',
@@ -139,19 +147,19 @@ EOF;
 
         $this->assertEquals($expectedCatalogue, $actualCatalogue);
 
-        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../fixtures/extractor-ast/translatable.html.php';
+        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../Fixtures/extractor-ast/translatable.html.php';
         $this->assertEquals(['sources' => [$filename.':2']], $catalogue->getMetadata('translatable single-quoted key'));
         $this->assertEquals(['sources' => [$filename.':37']], $catalogue->getMetadata('translatable other-domain-test-no-params-short-array', 'not_messages'));
 
-        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../fixtures/extractor-ast/translatable-fqn.html.php';
+        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../Fixtures/extractor-ast/translatable-fqn.html.php';
         $this->assertEquals(['sources' => [$filename.':2']], $catalogue->getMetadata('translatable-fqn single-quoted key'));
         $this->assertEquals(['sources' => [$filename.':37']], $catalogue->getMetadata('translatable-fqn other-domain-test-no-params-short-array', 'not_messages'));
 
-        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../fixtures/extractor-ast/translatable-short.html.php';
+        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../Fixtures/extractor-ast/translatable-short.html.php';
         $this->assertEquals(['sources' => [$filename.':2']], $catalogue->getMetadata('translatable-short single-quoted key'));
         $this->assertEquals(['sources' => [$filename.':37']], $catalogue->getMetadata('translatable-short other-domain-test-no-params-short-array', 'not_messages'));
 
-        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../fixtures/extractor-ast/translation.html.php';
+        $filename = str_replace(\DIRECTORY_SEPARATOR, '/', __DIR__).'/../Fixtures/extractor-ast/translation.html.php';
         $this->assertEquals(['sources' => [$filename.':2']], $catalogue->getMetadata('single-quoted key'));
         $this->assertEquals(['sources' => [$filename.':37']], $catalogue->getMetadata('other-domain-test-no-params-short-array', 'not_messages'));
     }
@@ -170,7 +178,7 @@ EOF;
             ], new TranslatableMessageVisitor()),
         ]);
         $extractor->setPrefix('prefix');
-        $extractor->extract(__DIR__.'/../fixtures/extractor-7.3/translation.html.php', $catalogue);
+        $extractor->extract(__DIR__.'/../Fixtures/extractor-7.3/translation.html.php', $catalogue);
 
         $expectedCatalogue = [
             'messages' => [
@@ -182,9 +190,9 @@ EOF;
         $this->assertEquals($expectedCatalogue, $catalogue->all());
     }
 
-    public function resourcesProvider(): array
+    public static function resourcesProvider(): array
     {
-        $directory = __DIR__.'/../fixtures/extractor-ast/';
+        $directory = __DIR__.'/../Fixtures/extractor-ast/';
         $phpFiles = [];
         $splFiles = [];
         foreach (new \DirectoryIterator($directory) as $fileInfo) {

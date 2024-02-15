@@ -3,6 +3,7 @@
 namespace Illuminate\Tests\Cache;
 
 use ArrayIterator;
+use BadMethodCallException;
 use DateInterval;
 use DateTime;
 use DateTimeImmutable;
@@ -11,19 +12,29 @@ use Illuminate\Cache\FileStore;
 use Illuminate\Cache\RedisStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Cache\TaggableStore;
+use Illuminate\Cache\TaggedCache;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Carbon;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 
 class CacheRepositoryTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow(Carbon::parse(self::getTestDate()));
+    }
+
     protected function tearDown(): void
     {
         m::close();
-        Carbon::setTestNow();
+
+        Carbon::setTestNow(null);
     }
 
     public function testGetReturnsValueFromCache()
@@ -95,11 +106,6 @@ class CacheRepositoryTest extends TestCase
             return 'bar';
         });
         $this->assertSame('bar', $result);
-
-        /*
-         * Use Carbon object...
-         */
-        Carbon::setTestNow(Carbon::now());
 
         $repo = $this->getRepository();
         $repo->getStore()->shouldReceive('get')->times(2)->andReturn(null);
@@ -255,14 +261,12 @@ class CacheRepositoryTest extends TestCase
         $this->assertFalse($result);
     }
 
-    public function dataProviderTestGetSeconds()
+    public static function dataProviderTestGetSeconds()
     {
-        Carbon::setTestNow(Carbon::parse($this->getTestDate()));
-
         return [
-            [Carbon::now()->addMinutes(5)],
-            [(new DateTime($this->getTestDate()))->modify('+5 minutes')],
-            [(new DateTimeImmutable($this->getTestDate()))->modify('+5 minutes')],
+            [Carbon::parse(self::getTestDate())->addMinutes(5)],
+            [(new DateTime(self::getTestDate()))->modify('+5 minutes')],
+            [(new DateTimeImmutable(self::getTestDate()))->modify('+5 minutes')],
             [new DateInterval('PT5M')],
             [300],
         ];
@@ -275,8 +279,6 @@ class CacheRepositoryTest extends TestCase
      */
     public function testGetSeconds($duration)
     {
-        Carbon::setTestNow(Carbon::parse($this->getTestDate()));
-
         $repo = $this->getRepository();
         $repo->getStore()->shouldReceive('put')->once()->with($key = 'foo', $value = 'bar', 300);
         $repo->put($key, $value, $duration);
@@ -360,6 +362,56 @@ class CacheRepositoryTest extends TestCase
         $repo->tags('foo', 'bar', 'baz');
     }
 
+    public function testItThrowsExceptionWhenStoreDoesNotSupportTags()
+    {
+        $this->expectException(BadMethodCallException::class);
+
+        $store = new FileStore(new Filesystem, '/usr');
+        $this->assertFalse(method_exists($store, 'tags'), 'Store should not support tagging.');
+        (new Repository($store))->tags('foo');
+    }
+
+    public function testTagMethodReturnsTaggedCache()
+    {
+        $store = (new Repository(new ArrayStore()))->tags('foo');
+
+        $this->assertInstanceOf(TaggedCache::class, $store);
+    }
+
+    public function testPossibleInputTypesToTags()
+    {
+        $repo = new Repository(new ArrayStore());
+
+        $store = $repo->tags('foo');
+        $this->assertEquals(['foo'], $store->getTags()->getNames());
+
+        $store = $repo->tags(['foo!', 'Kangaroo']);
+        $this->assertEquals(['foo!', 'Kangaroo'], $store->getTags()->getNames());
+
+        $store = $repo->tags('r1', 'r2', 'r3');
+        $this->assertEquals(['r1', 'r2', 'r3'], $store->getTags()->getNames());
+    }
+
+    public function testEventDispatcherIsPassedToStoreFromRepository()
+    {
+        $repo = new Repository(new ArrayStore());
+        $repo->setEventDispatcher(new Dispatcher());
+
+        $store = $repo->tags('foo');
+
+        $this->assertSame($store->getEventDispatcher(), $repo->getEventDispatcher());
+    }
+
+    public function testDefaultCacheLifeTimeIsSetOnTaggableStore()
+    {
+        $repo = new Repository(new ArrayStore());
+        $repo->setDefaultCacheTime(random_int(1, 100));
+
+        $store = $repo->tags('foo');
+
+        $this->assertSame($store->getDefaultCacheTime(), $repo->getDefaultCacheTime());
+    }
+
     public function testTaggableRepositoriesSupportTags()
     {
         $taggable = m::mock(TaggableStore::class);
@@ -386,7 +438,7 @@ class CacheRepositoryTest extends TestCase
         return $repository;
     }
 
-    protected function getTestDate()
+    protected static function getTestDate()
     {
         return '2030-07-25 12:13:14 UTC';
     }

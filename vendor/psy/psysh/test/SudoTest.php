@@ -15,16 +15,6 @@ use Psy\Sudo;
 
 class SudoTest extends TestCase
 {
-    /**
-     * @before
-     */
-    public function getReady()
-    {
-        if (\version_compare(\PHP_VERSION, '7.1.0', '<')) {
-            $this->markTestSkipped('YOLO');
-        }
-    }
-
     public function testFetchProperty()
     {
         $obj = new ClassWithSecrets();
@@ -47,7 +37,7 @@ class SudoTest extends TestCase
         $this->assertSame(
             'private and method with ["foo",2]',
             Sudo::callMethod($obj, 'privateMethod', ['foo', 2]
-        ));
+            ));
     }
 
     public function testStaticProperty()
@@ -72,7 +62,7 @@ class SudoTest extends TestCase
         $this->assertSame(
             'private and static and method with ["foo",2]',
             Sudo::callStatic($obj, 'privateStaticMethod', ['foo', 2]
-        ));
+            ));
     }
 
     public function testFetchClassConst()
@@ -97,7 +87,7 @@ class SudoTest extends TestCase
         $this->assertSame(
             'private and method with ["foo",2]',
             Sudo::callMethod($obj, 'privateMethod', ['foo', 2]
-        ));
+            ));
     }
 
     public function testParentStaticProps()
@@ -122,7 +112,7 @@ class SudoTest extends TestCase
         $this->assertSame(
             'private and static and method with ["foo",2]',
             Sudo::callStatic($obj, 'privateStaticMethod', ['foo', 2]
-        ));
+            ));
     }
 
     public function testParentConsts()

@@ -1,6 +1,6 @@
 <?php
 
-namespace test\Mockery;
+namespace Mockery\Tests\PHP80;
 
 use ArrayIterator;
 use DateTime;
@@ -16,7 +16,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
 {
     public function testMockingIteratorAggregateDoesNotImplementIterator()
     {
-        $mock = mock('test\Mockery\ImplementsIteratorAggregate');
+        $mock = mock(ImplementsIteratorAggregate::class);
         $this->assertInstanceOf('IteratorAggregate', $mock);
         $this->assertInstanceOf('Traversable', $mock);
         $this->assertNotInstanceOf('Iterator', $mock);
@@ -24,7 +24,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
 
     public function testMockingIteratorDoesNotImplementIterator()
     {
-        $mock = mock('test\Mockery\ImplementsIterator');
+        $mock = mock(ImplementsIterator::class);
         $this->assertInstanceOf('Iterator', $mock);
         $this->assertInstanceOf('Traversable', $mock);
     }
@@ -34,7 +34,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
     {
         $mock = mock(ArgumentMixedTypeHint::class);
         $object = new \stdClass();
-        $mock->allows()->foo($object);
+        $mock->allows()->foo($object)->once();
 
         $mock->foo($object);
     }
@@ -44,7 +44,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
     {
         $mock = mock(ArgumentUnionTypeHint::class);
         $object = new ArgumentUnionTypeHint();
-        $mock->allows()->foo($object);
+        $mock->allows()->foo($object)->once();
 
         $mock->foo($object);
     }
@@ -53,7 +53,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
     public function it_can_mock_a_class_with_a_union_argument_type_hint_including_null()
     {
         $mock = mock(ArgumentUnionTypeHintWithNull::class);
-        $mock->allows()->foo(null);
+        $mock->allows()->foo(null)->once();
 
         $mock->foo(null);
     }
@@ -63,7 +63,7 @@ class Php80LanguageFeaturesTest extends MockeryTestCase
     {
         $mock = mock(ArgumentParentTypeHint::class);
         $object = new ArgumentParentTypeHint();
-        $mock->allows()->foo($object);
+        $mock->allows()->foo($object)->once();
 
         $mock->foo($object);
     }

@@ -16,7 +16,7 @@ use Symfony\Component\String\Inflector\EnglishInflector;
 
 class EnglishInflectorTest extends TestCase
 {
-    public function singularizeProvider()
+    public static function singularizeProvider()
     {
         // see http://english-zone.com/spelling/plurals.html
         // see http://www.scribd.com/doc/3271143/List-of-100-Irregular-Plural-Nouns-in-English
@@ -54,6 +54,7 @@ class EnglishInflectorTest extends TestCase
             ['children', 'child'],
             ['circuses', ['circus', 'circuse', 'circusis']],
             ['cliffs', 'cliff'],
+            ['codes', 'code'],
             ['committee', 'committee'],
             ['crises', ['cris', 'crise', 'crisis']],
             ['criteria', ['criterion', 'criterium']],
@@ -108,6 +109,7 @@ class EnglishInflectorTest extends TestCase
             ['mice', 'mouse'],
             ['moves', 'move'],
             ['movies', 'movie'],
+            ['names', 'name'],
             ['nebulae', 'nebula'],
             ['neuroses', ['neuros', 'neurose', 'neurosis']],
             ['news', 'news'],
@@ -140,6 +142,8 @@ class EnglishInflectorTest extends TestCase
             ['species', 'species'],
             ['spies', 'spy'],
             ['staves', ['staf', 'stave', 'staff']],
+            ['status', 'status'],
+            ['statuses', 'status'],
             ['stories', 'story'],
             ['strata', ['straton', 'stratum']],
             ['suitcases', ['suitcas', 'suitcase', 'suitcasis']],
@@ -166,7 +170,7 @@ class EnglishInflectorTest extends TestCase
         ];
     }
 
-    public function pluralizeProvider()
+    public static function pluralizeProvider()
     {
         // see http://english-zone.com/spelling/plurals.html
         // see http://www.scribd.com/doc/3271143/List-of-100-Irregular-Plural-Nouns-in-English
@@ -174,6 +178,7 @@ class EnglishInflectorTest extends TestCase
             ['access', 'accesses'],
             ['address', 'addresses'],
             ['agenda', 'agendas'],
+            ['aircraft', 'aircraft'],
             ['alumnus', 'alumni'],
             ['analysis', 'analyses'],
             ['antenna', 'antennas'], // antennae
@@ -181,6 +186,7 @@ class EnglishInflectorTest extends TestCase
             ['arch', 'arches'],
             ['atlas', 'atlases'],
             ['axe', 'axes'],
+            ['axis', 'axes'],
             ['baby', 'babies'],
             ['bacterium', 'bacteria'],
             ['base', 'bases'],
@@ -277,6 +283,7 @@ class EnglishInflectorTest extends TestCase
             ['sheriff', 'sheriffs'],
             ['shoe', 'shoes'],
             ['species', 'species'],
+            ['status', ['status', 'statuses']],
             ['spy', 'spies'],
             ['staff', 'staves'],
             ['story', 'stories'],
@@ -290,6 +297,7 @@ class EnglishInflectorTest extends TestCase
             ['tree', 'trees'],
             ['waltz', 'waltzes'],
             ['wife', 'wives'],
+            ['icon', 'icons'],
 
             // test casing: if the first letter was uppercase, it should remain so
             ['Man', 'Men'],

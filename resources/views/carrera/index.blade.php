@@ -180,7 +180,7 @@
                         @enderror
                     </div>
                 </div>
-                <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Adjuntar Resolución </h1>
+                <h1 class="mt-8 text-xl font-bold text-center bg-green-200">Adjuntar Resolución</h1>
                 <hr class="mt-2 mb-6">
                 <span>
                     A continuación se deberá adjuntar en formato Pdf

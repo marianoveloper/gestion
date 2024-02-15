@@ -18,7 +18,7 @@ use Symfony\Component\Mime\MimeTypes;
 /**
  * @requires extension fileinfo
  */
-class MimeTypesTest extends AbstractMimeTypeGuesserTest
+class MimeTypesTest extends AbstractMimeTypeGuesserTestCase
 {
     protected function getGuesser(): MimeTypeGuesserInterface
     {
@@ -74,16 +74,6 @@ class MimeTypesTest extends AbstractMimeTypeGuesserTest
         $this->assertSame(['foo', 'moof'], $mt->getExtensions('text/baz'));
     }
 
-    /**
-     * PHP 8 detects .csv files as "application/csv" (or "text/csv", depending
-     * on your system) while PHP 7 returns "text/plain".
-     *
-     * "text/csv" is described by RFC 7111.
-     *
-     * @see https://datatracker.ietf.org/doc/html/rfc7111
-     *
-     * @requires PHP 8
-     */
     public function testCsvExtension()
     {
         $mt = new MimeTypes();

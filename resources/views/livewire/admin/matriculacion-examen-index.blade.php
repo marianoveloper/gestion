@@ -3,6 +3,10 @@
     <div class="card">
 
 
+            <div class="card-header">
+               <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
+            </div>
+
             @if ($matriculacion->count())
             <div class="card-body">
                 <table class="table table-striped">

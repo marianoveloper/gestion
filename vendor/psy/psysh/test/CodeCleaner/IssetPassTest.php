@@ -15,6 +15,8 @@ use Psy\CodeCleaner\IssetPass;
 
 /**
  * Code cleaner to check for invalid isset() arguments.
+ *
+ * @group isolation-fail
  */
 class IssetPassTest extends CodeCleanerTestCase
 {
@@ -108,7 +110,6 @@ class IssetPassTest extends CodeCleanerTestCase
     {
         return [
             // isset() can be used on dereferences of temporary expressions
-            // TODO: as of which version?
             ['isset([0, 1][0])'],
             ['isset(([0, 1] + [])[0])'],
             ['isset([[0, 1]][0][0])'],
@@ -118,7 +119,25 @@ class IssetPassTest extends CodeCleanerTestCase
             ['isset("str"->a)'],
             ['isset((["a" => "b"] + [])->a)'],
             ['isset((["a" => "b"] + [])->a->b)'],
+        ];
+    }
 
+    /**
+     * @dataProvider validPHP8Statements
+     */
+    public function testValidPHP8Statements($code)
+    {
+        $this->parseAndTraverse($code);
+        $this->assertTrue(true);
+    }
+
+    public function validPHP8Statements()
+    {
+        if (\version_compare(\PHP_VERSION, '8.0', '<')) {
+            $this->markTestSkipped();
+        }
+
+        return [
             // Nullsafe operator
             ['isset($foo?->bar)'],
             ['isset($foo?->bar->baz)'],

@@ -91,6 +91,12 @@
                                     Director
                                 </span>
                                 @break
+                                 @case(8)
+                                <span
+                                    class="badge badge-info">
+                                   Secretario Académico
+                                </span>
+                                @break
                                 @default
 
                                 @endswitch

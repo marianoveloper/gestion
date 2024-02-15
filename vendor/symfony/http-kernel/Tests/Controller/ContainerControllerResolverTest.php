@@ -13,45 +13,12 @@ namespace Symfony\Component\HttpKernel\Tests\Controller;
 
 use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Bridge\PhpUnit\ExpectDeprecationTrait;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ContainerControllerResolver;
 
 class ContainerControllerResolverTest extends ControllerResolverTest
 {
-    use ExpectDeprecationTrait;
-
-    /**
-     * @group legacy
-     */
-    public function testGetControllerServiceWithSingleColon()
-    {
-        $this->expectDeprecation('Since symfony/http-kernel 5.1: Referencing controllers with a single colon is deprecated. Use "foo::action" instead.');
-
-        $service = new ControllerTestService('foo');
-
-        $container = $this->createMockContainer();
-        $container->expects($this->once())
-            ->method('has')
-            ->with('foo')
-            ->willReturn(true);
-        $container->expects($this->once())
-            ->method('get')
-            ->with('foo')
-            ->willReturn($service)
-        ;
-
-        $resolver = $this->createControllerResolver(null, $container);
-        $request = Request::create('/');
-        $request->attributes->set('_controller', 'foo:action');
-
-        $controller = $resolver->getController($request);
-
-        $this->assertSame($service, $controller[0]);
-        $this->assertSame('action', $controller[1]);
-    }
-
     public function testGetControllerService()
     {
         $service = new ControllerTestService('foo');
@@ -149,7 +116,7 @@ class ContainerControllerResolverTest extends ControllerResolverTest
         $this->assertSame('action', $controller[1]);
     }
 
-    public function getControllers()
+    public static function getControllers()
     {
         return [
             ['\\'.ControllerTestService::class.'::action'],
@@ -204,7 +171,7 @@ class ContainerControllerResolverTest extends ControllerResolverTest
         $resolver->getController($request);
     }
 
-    public function getUndefinedControllers()
+    public static function getUndefinedControllers(): array
     {
         $tests = parent::getUndefinedControllers();
         $tests[0] = ['foo', \InvalidArgumentException::class, 'Controller "foo" does neither exist as service nor as class'];
@@ -228,7 +195,7 @@ class ContainerControllerResolverTest extends ControllerResolverTest
         return $tests;
     }
 
-    protected function createControllerResolver(LoggerInterface $logger = null, ContainerInterface $container = null)
+    protected function createControllerResolver(?LoggerInterface $logger = null, ?ContainerInterface $container = null)
     {
         if (!$container) {
             $container = $this->createMockContainer();

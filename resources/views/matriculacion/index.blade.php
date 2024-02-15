@@ -38,7 +38,7 @@
                 <div class="grid grid-cols-3 gap-3 mb-4">
                     <div class="mb-4">
                         {!! Form::label('Tipo de Matriculación', 'Tipo de Matriculación') !!}
-                        {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director'],
+                        {!! Form::select('tipo',['1'=>'Estudiantes','2'=>'Profesores','3'=>'Tutores','4'=>'Asesor Pedagógico','5'=>'Referente Virtual','6'=>'Coordinador','7'=>'Director','8'=>'Secretario Acdémico'],
                         null, ['class'=>'focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-7 pr-12
                         sm:text-sm border-gray-300 rounded-md mt-1']) !!}
                     </div>

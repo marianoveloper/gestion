@@ -6,6 +6,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 
+## 4.7.5 - 2023-11-08
+
+### Fixed
+
+* Protect against UUIDv7 collisions within the same millisecond, as reported
+  in [#518](https://github.com/ramsey/uuid/issues/518) and fixed in
+  [#522](https://github.com/ramsey/uuid/pull/522).
+* Improve the return type hint for `UuidInterface::compareTo()`.
+
+
+## 4.7.4 - 2023-04-15
+
+### Fixed
+
+* Allow brick/math version `^0.11`.
+* Add explicit `Stringable` interface to `UuidInterface`.
+* Fix namespace conflict reported in [#490](https://github.com/ramsey/uuid/issues/490).
+* Fix unserialize error with `OrderedTimeCodec` reported in
+  [#494](https://github.com/ramsey/uuid/issues/494).
+
+
 ## 4.7.3 - 2023-01-12
 
 ### Fixed
@@ -453,7 +474,7 @@ The following functionality is deprecated and will be removed in ramsey/uuid
   for these fields. You may use the new `Math\CalculatorInterface::toIntegerValue()`
   method to convert the `Type\Hexadecimal` instances to instances of
   `Type\Integer`. This library provides `Math\BrickMathCalculator`, which may be
-  used for this purpose, or you may use the arbitrary-precision arithemetic
+  used for this purpose, or you may use the arbitrary-precision arithmetic
   library of your choice.
   * `getClockSeqHiAndReserved()`
   * `getClockSeqLow()`

@@ -20,6 +20,7 @@ use Symfony\Component\VarDumper\Test\VarDumperTestTrait;
 
 /**
  * @requires extension rdkafka
+ *
  * @group integration
  */
 class RdKafkaCasterTest extends TestCase
@@ -29,8 +30,8 @@ class RdKafkaCasterTest extends TestCase
     private const TOPIC = 'test-topic';
     private const GROUP_ID = 'test-group-id';
 
-    private $hasBroker = false;
-    private $broker;
+    private bool $hasBroker = false;
+    private string $broker;
 
     protected function setUp(): void
     {

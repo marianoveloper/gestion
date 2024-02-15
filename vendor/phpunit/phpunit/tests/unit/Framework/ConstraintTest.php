@@ -15,7 +15,6 @@ use ArrayObject;
 use Countable;
 use PHPUnit\Framework\Constraint\Count;
 use PHPUnit\Framework\Constraint\SameSize;
-use PHPUnit\TestFixture\ClassWithNonPublicAttributes;
 use PHPUnit\TestFixture\DummyException;
 use PHPUnit\TestFixture\TestIterator;
 use PHPUnit\Util\Filter;
@@ -29,7 +28,7 @@ final class ConstraintTest extends TestCase
     public function testConstraintArrayNotHasKey(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::arrayHasKey(0)
+            Assert::arrayHasKey(0),
         );
 
         $this->assertFalse($constraint->evaluate([0 => 1], '', true));
@@ -45,7 +44,7 @@ Failed asserting that an array does not have the key 0.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -57,7 +56,7 @@ EOF
     public function testConstraintArrayNotHasKey2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::arrayHasKey(0)
+            Assert::arrayHasKey(0),
         );
 
         try {
@@ -70,7 +69,7 @@ Failed asserting that an array does not have the key 0.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -84,7 +83,7 @@ EOF
         $file = TEST_FILES_PATH . 'ClassWithNonPublicAttributes.php';
 
         $constraint = Assert::logicalNot(
-            Assert::fileExists()
+            Assert::fileExists(),
         );
 
         $this->assertFalse($constraint->evaluate($file, '', true));
@@ -100,7 +99,7 @@ Failed asserting that file "{$file}" does not exist.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -114,7 +113,7 @@ EOF
         $file = TEST_FILES_PATH . 'ClassWithNonPublicAttributes.php';
 
         $constraint = Assert::logicalNot(
-            Assert::fileExists()
+            Assert::fileExists(),
         );
 
         try {
@@ -127,7 +126,7 @@ Failed asserting that file "{$file}" does not exist.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -139,7 +138,7 @@ EOF
     public function testConstraintNotGreaterThan(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::greaterThan(1)
+            Assert::greaterThan(1),
         );
 
         $this->assertTrue($constraint->evaluate(1, '', true));
@@ -155,7 +154,7 @@ Failed asserting that 2 is not greater than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -167,7 +166,7 @@ EOF
     public function testConstraintNotGreaterThan2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::greaterThan(1)
+            Assert::greaterThan(1),
         );
 
         try {
@@ -180,7 +179,7 @@ Failed asserting that 2 is not greater than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -207,7 +206,7 @@ Failed asserting that 0 is equal to 1 or is greater than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -230,7 +229,7 @@ Failed asserting that 0 is equal to 1 or is greater than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -242,7 +241,7 @@ EOF
     public function testConstraintNotGreaterThanOrEqual(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::greaterThanOrEqual(1)
+            Assert::greaterThanOrEqual(1),
         );
 
         $this->assertFalse($constraint->evaluate(1, '', true));
@@ -258,7 +257,7 @@ Failed asserting that not( 1 is equal to 1 or is greater than 1 ).
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -270,7 +269,7 @@ EOF
     public function testConstraintNotGreaterThanOrEqual2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::greaterThanOrEqual(1)
+            Assert::greaterThanOrEqual(1),
         );
 
         try {
@@ -283,7 +282,7 @@ Failed asserting that not( 1 is equal to 1 or is greater than 1 ).
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -305,7 +304,7 @@ EOF
     public function testConstraintNotIsAnything(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::anything()
+            Assert::anything(),
         );
 
         $this->assertFalse($constraint->evaluate(null, '', true));
@@ -321,7 +320,7 @@ Failed asserting that null is not anything.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -333,7 +332,7 @@ EOF
     public function testConstraintIsNotEqual(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::equalTo(1)
+            Assert::equalTo(1),
         );
 
         $this->assertTrue($constraint->evaluate(0, '', true));
@@ -350,7 +349,7 @@ Failed asserting that 1 is not equal to 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -362,7 +361,7 @@ EOF
     public function testConstraintIsNotEqual2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::equalTo(1)
+            Assert::equalTo(1),
         );
 
         try {
@@ -375,7 +374,7 @@ Failed asserting that 1 is not equal to 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -390,7 +389,7 @@ EOF
         $b = new stdClass;
 
         $constraint = Assert::logicalNot(
-            Assert::identicalTo($a)
+            Assert::identicalTo($a),
         );
 
         $this->assertTrue($constraint->evaluate($b, '', true));
@@ -398,9 +397,9 @@ EOF
         $this->assertEquals(
             sprintf(
                 'is not identical to an object of class "%s"',
-                stdClass::class
+                stdClass::class,
             ),
-            $constraint->toString()
+            $constraint->toString(),
         );
         $this->assertCount(1, $constraint);
 
@@ -413,7 +412,7 @@ Failed asserting that two variables don't reference the same object.
 
 EOF
                 ,
-                $this->trimnl(TestFailure::exceptionToString($e))
+                $this->trimnl(TestFailure::exceptionToString($e)),
             );
 
             return;
@@ -427,7 +426,7 @@ EOF
         $a = new stdClass;
 
         $constraint = Assert::logicalNot(
-            Assert::identicalTo($a)
+            Assert::identicalTo($a),
         );
 
         try {
@@ -440,7 +439,7 @@ Failed asserting that two variables don't reference the same object.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -452,7 +451,7 @@ EOF
     public function testConstraintIsNotIdentical3(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::identicalTo('a')
+            Assert::identicalTo('a'),
         );
 
         try {
@@ -465,7 +464,7 @@ Failed asserting that two strings are not identical.
 
 EOF
                 ,
-                $this->trimnl(TestFailure::exceptionToString($e))
+                $this->trimnl(TestFailure::exceptionToString($e)),
             );
 
             return;
@@ -483,9 +482,9 @@ EOF
         $this->assertEquals(
             sprintf(
                 'is instance of class "%s"',
-                \Exception::class
+                \Exception::class,
             ),
-            $constraint->toString()
+            $constraint->toString(),
         );
         $this->assertCount(1, $constraint);
 
@@ -495,9 +494,9 @@ EOF
         $this->assertEquals(
             sprintf(
                 'is instance of interface "%s"',
-                Countable::class
+                Countable::class,
             ),
-            $interfaceConstraint->toString()
+            $interfaceConstraint->toString(),
         );
 
         try {
@@ -511,9 +510,9 @@ Failed asserting that %s Object () is an instance of class "%s".
 EOF
                     ,
                     stdClass::class,
-                    \Exception::class
+                    \Exception::class,
                 ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -538,9 +537,9 @@ Failed asserting that %s Object () is an instance of class "%s".
 EOF
                     ,
                     stdClass::class,
-                    \Exception::class
+                    \Exception::class,
                 ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -552,7 +551,7 @@ EOF
     public function testConstraintIsNotInstanceOf(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isInstanceOf(stdClass::class)
+            Assert::isInstanceOf(stdClass::class),
         );
 
         $this->assertFalse($constraint->evaluate(new stdClass, '', true));
@@ -560,9 +559,9 @@ EOF
         $this->assertEquals(
             sprintf(
                 'is not instance of class "%s"',
-                stdClass::class
+                stdClass::class,
             ),
-            $constraint->toString()
+            $constraint->toString(),
         );
         $this->assertCount(1, $constraint);
 
@@ -577,9 +576,9 @@ Failed asserting that %s Object () is not an instance of class "%s".
 EOF
                     ,
                     stdClass::class,
-                    stdClass::class
+                    stdClass::class,
                 ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -591,7 +590,7 @@ EOF
     public function testConstraintIsNotInstanceOf2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isInstanceOf(stdClass::class)
+            Assert::isInstanceOf(stdClass::class),
         );
 
         try {
@@ -606,9 +605,9 @@ Failed asserting that %s Object () is not an instance of class "%s".
 EOF
                     ,
                     stdClass::class,
-                    stdClass::class
+                    stdClass::class,
                 ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -620,7 +619,7 @@ EOF
     public function testConstraintIsNotType(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isType('string')
+            Assert::isType('string'),
         );
 
         $this->assertTrue($constraint->evaluate(0, '', true));
@@ -637,7 +636,7 @@ Failed asserting that '' is not of type "string".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -649,7 +648,7 @@ EOF
     public function testConstraintIsNotType2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isType('string')
+            Assert::isType('string'),
         );
 
         try {
@@ -662,7 +661,7 @@ Failed asserting that '' is not of type "string".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -674,7 +673,7 @@ EOF
     public function testConstraintIsNotNull(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isNull()
+            Assert::isNull(),
         );
 
         $this->assertFalse($constraint->evaluate(null, '', true));
@@ -691,7 +690,7 @@ Failed asserting that null is not null.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -703,7 +702,7 @@ EOF
     public function testConstraintIsNotNull2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::isNull()
+            Assert::isNull(),
         );
 
         try {
@@ -716,7 +715,7 @@ Failed asserting that null is not null.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -728,7 +727,7 @@ EOF
     public function testConstraintNotLessThan(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::lessThan(1)
+            Assert::lessThan(1),
         );
 
         $this->assertTrue($constraint->evaluate(1, '', true));
@@ -745,7 +744,7 @@ Failed asserting that 0 is not less than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -757,7 +756,7 @@ EOF
     public function testConstraintNotLessThan2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::lessThan(1)
+            Assert::lessThan(1),
         );
 
         try {
@@ -770,7 +769,7 @@ Failed asserting that 0 is not less than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -797,7 +796,7 @@ Failed asserting that 2 is equal to 1 or is less than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -820,7 +819,7 @@ Failed asserting that 2 is equal to 1 or is less than 1.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -832,7 +831,7 @@ EOF
     public function testConstraintNotLessThanOrEqual(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::lessThanOrEqual(1)
+            Assert::lessThanOrEqual(1),
         );
 
         $this->assertTrue($constraint->evaluate(2, '', true));
@@ -849,7 +848,7 @@ Failed asserting that not( 1 is equal to 1 or is less than 1 ).
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -861,7 +860,7 @@ EOF
     public function testConstraintNotLessThanOrEqual2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::lessThanOrEqual(1)
+            Assert::lessThanOrEqual(1),
         );
 
         try {
@@ -874,187 +873,7 @@ Failed asserting that not( 1 is equal to 1 or is less than 1 ).
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintClassNotHasAttribute(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::classHasAttribute('privateAttribute')
-        );
-
-        $this->assertTrue($constraint->evaluate(stdClass::class, '', true));
-        $this->assertFalse($constraint->evaluate(ClassWithNonPublicAttributes::class, '', true));
-        $this->assertEquals('does not have attribute "privateAttribute"', $constraint->toString());
-        $this->assertCount(1, $constraint);
-
-        try {
-            $constraint->evaluate(ClassWithNonPublicAttributes::class);
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-Failed asserting that class "%s" does not have attribute "privateAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintClassNotHasAttribute2(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::classHasAttribute('privateAttribute')
-        );
-
-        try {
-            $constraint->evaluate(ClassWithNonPublicAttributes::class, 'custom message');
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-custom message
-Failed asserting that class "%s" does not have attribute "privateAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintClassNotHasStaticAttribute(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::classHasStaticAttribute('privateStaticAttribute')
-        );
-
-        $this->assertTrue($constraint->evaluate(stdClass::class, '', true));
-        $this->assertFalse($constraint->evaluate(ClassWithNonPublicAttributes::class, '', true));
-        $this->assertEquals('does not have static attribute "privateStaticAttribute"', $constraint->toString());
-        $this->assertCount(1, $constraint);
-
-        try {
-            $constraint->evaluate(ClassWithNonPublicAttributes::class);
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-Failed asserting that class "%s" does not have static attribute "privateStaticAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintClassNotHasStaticAttribute2(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::classHasStaticAttribute('privateStaticAttribute')
-        );
-
-        try {
-            $constraint->evaluate(ClassWithNonPublicAttributes::class, 'custom message');
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-custom message
-Failed asserting that class "%s" does not have static attribute "privateStaticAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintObjectNotHasAttribute(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::objectHasAttribute('privateAttribute')
-        );
-
-        $this->assertTrue($constraint->evaluate(new stdClass, '', true));
-        $this->assertFalse($constraint->evaluate(new ClassWithNonPublicAttributes, '', true));
-        $this->assertEquals('does not have attribute "privateAttribute"', $constraint->toString());
-        $this->assertCount(1, $constraint);
-
-        try {
-            $constraint->evaluate(new ClassWithNonPublicAttributes);
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-Failed asserting that object of class "%s" does not have attribute "privateAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
-            );
-
-            return;
-        }
-
-        $this->fail();
-    }
-
-    public function testConstraintObjectNotHasAttribute2(): void
-    {
-        $constraint = Assert::logicalNot(
-            Assert::objectHasAttribute('privateAttribute')
-        );
-
-        try {
-            $constraint->evaluate(new ClassWithNonPublicAttributes, 'custom message');
-        } catch (ExpectationFailedException $e) {
-            $this->assertEquals(
-                sprintf(
-                    <<<'EOF'
-custom message
-Failed asserting that object of class "%s" does not have attribute "privateAttribute".
-
-EOF
-                    ,
-                    ClassWithNonPublicAttributes::class
-                ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1069,7 +888,7 @@ EOF
     public function testConstraintPCRENotMatch(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::matchesRegularExpression('/foo/')
+            Assert::matchesRegularExpression('/foo/'),
         );
 
         $this->assertTrue($constraint->evaluate('barbazbar', '', true));
@@ -1086,7 +905,7 @@ Failed asserting that 'barfoobar' does not match PCRE pattern "/foo/".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1101,7 +920,7 @@ EOF
     public function testConstraintPCRENotMatch2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::matchesRegularExpression('/foo/')
+            Assert::matchesRegularExpression('/foo/'),
         );
 
         try {
@@ -1114,7 +933,7 @@ Failed asserting that 'barfoobar' does not match PCRE pattern "/foo/".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1126,7 +945,7 @@ EOF
     public function testConstraintStringStartsNotWith(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringStartsWith('prefix')
+            Assert::stringStartsWith('prefix'),
         );
 
         $this->assertTrue($constraint->evaluate('foo', '', true));
@@ -1143,7 +962,7 @@ Failed asserting that 'prefixfoo' starts not with "prefix".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1155,7 +974,7 @@ EOF
     public function testConstraintStringStartsNotWith2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringStartsWith('prefix')
+            Assert::stringStartsWith('prefix'),
         );
 
         try {
@@ -1168,7 +987,7 @@ Failed asserting that 'prefixfoo' starts not with "prefix".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1180,7 +999,7 @@ EOF
     public function testConstraintStringNotContains(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringContains('foo')
+            Assert::stringContains('foo'),
         );
 
         $this->assertTrue($constraint->evaluate('barbazbar', '', true));
@@ -1197,7 +1016,7 @@ Failed asserting that 'barfoobar' does not contain "foo".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1209,7 +1028,7 @@ EOF
     public function testConstraintStringNotContainsWhenIgnoreCase(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringContains('oryginał')
+            Assert::stringContains('oryginał'),
         );
 
         $this->assertTrue($constraint->evaluate('original', '', true));
@@ -1226,7 +1045,7 @@ EOF
     public function testConstraintStringNotContainsForUtf8StringWhenNotIgnoreCase(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringContains('oryginał', false)
+            Assert::stringContains('oryginał', false),
         );
 
         $this->assertTrue($constraint->evaluate('original', '', true));
@@ -1243,7 +1062,7 @@ EOF
     public function testConstraintStringNotContains2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringContains('foo')
+            Assert::stringContains('foo'),
         );
 
         try {
@@ -1256,7 +1075,7 @@ Failed asserting that 'barfoobar' does not contain "foo".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1268,7 +1087,7 @@ EOF
     public function testConstraintStringEndsNotWith(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringEndsWith('suffix')
+            Assert::stringEndsWith('suffix'),
         );
 
         $this->assertTrue($constraint->evaluate('foo', '', true));
@@ -1285,7 +1104,7 @@ Failed asserting that 'foosuffix' ends not with "suffix".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1297,7 +1116,7 @@ EOF
     public function testConstraintStringEndsNotWith2(): void
     {
         $constraint = Assert::logicalNot(
-            Assert::stringEndsWith('suffix')
+            Assert::stringEndsWith('suffix'),
         );
 
         try {
@@ -1310,7 +1129,7 @@ Failed asserting that 'foosuffix' ends not with "suffix".
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1356,7 +1175,7 @@ Failed asserting that actual size 2 matches expected size 5.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1368,7 +1187,7 @@ EOF
     public function testConstraintNotCountFailing(): void
     {
         $constraint = Assert::logicalNot(
-            new Count(2)
+            new Count(2),
         );
 
         try {
@@ -1380,7 +1199,7 @@ Failed asserting that actual size 2 does not match expected size 2.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1392,7 +1211,7 @@ EOF
     public function testConstraintNotSameSizeFailing(): void
     {
         $constraint = Assert::logicalNot(
-            new SameSize([1, 2])
+            new SameSize([1, 2]),
         );
 
         try {
@@ -1404,7 +1223,7 @@ Failed asserting that actual size 2 does not match expected size 2.
 
 EOF
                 ,
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;
@@ -1430,9 +1249,9 @@ Failed asserting that exception of type "%s" matches expected exception "FoobarE
 
 EOF
                     ,
-                    DummyException::class
+                    DummyException::class,
                 ),
-                TestFailure::exceptionToString($e)
+                TestFailure::exceptionToString($e),
             );
 
             return;

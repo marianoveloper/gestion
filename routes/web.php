@@ -5,7 +5,6 @@ use App\Models\Desmatriculacion;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PanelController;
 use App\Http\Controllers\BotManController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\ExamenController;
@@ -85,5 +84,3 @@ Route::get('notificacion', [NotificacionController::class, 'index'])->name('noti
 Route::post('notificacion', [NotificacionController::class, 'store'])->name('notificacion.store');
 
 Route::resource('desmatriculacionpropuestas',DesmatriculacionPropuestaController::class)->only('index','store','update')->names('desmatriculacion-propuestas');
-
-Route::get('panel', [PanelController::class, 'index'])->name('panel');

@@ -5,7 +5,18 @@ use Carbon\CarbonImmutable;
 use Laravel\SerializableClosure\SerializableClosure;
 use Laravel\SerializableClosure\Serializers\Signed;
 use Laravel\SerializableClosure\Support\ReflectionClosure;
+use Laravel\SerializableClosure\UnsignedSerializableClosure;
 use Tests\Fixtures\Model;
+
+test('closure with simple const', function () {
+    $c = function () {
+        return ObjWithConst::FOO;
+    };
+
+    $u = s($c)();
+
+    expect($u)->toBe('bar');
+})->with('serializers');
 
 test('closure use return value', function () {
     $a = 100;
@@ -37,12 +48,18 @@ test('closure use transformation with Native', function () {
         return $data;
     });
 
-    $c = unserialize(serialize(new SerializableClosure(function () use ($a) {
-        return $a;
-    })));
+    if ($this->serializer == UnsignedSerializableClosure::class) {
+        $c = unserialize(serialize(SerializableClosure::unsigned(function () use ($a) {
+            return $a;
+        })));
+    } else {
+        $c = unserialize(serialize(new SerializableClosure(function () use ($a) {
+            return $a;
+        })));
+    }
 
     expect($c())->toEqual(50);
-})->skip((float) phpversion() < '7.4');
+})->with('serializers')->skip((float) phpversion() < '7.4');
 
 test('closure use transformation with Signed', function () {
     $a = 100;
@@ -64,12 +81,18 @@ test('closure use transformation with Signed', function () {
         return $data;
     });
 
-    $c = unserialize(serialize(new SerializableClosure(function () use ($a) {
-        return $a;
-    })));
+    if ($this->serializer == UnsignedSerializableClosure::class) {
+        $c = unserialize(serialize(SerializableClosure::unsigned(function () use ($a) {
+            return $a;
+        })));
+    } else {
+        $c = unserialize(serialize(new SerializableClosure(function () use ($a) {
+            return $a;
+        })));
+    }
 
     expect($c())->toEqual(50);
-})->skip((float) phpversion() < '7.4');
+})->with('serializers')->skip((float) phpversion() < '7.4');
 
 test('closure use return closure', function () {
     $a = function ($p) {
@@ -204,7 +227,6 @@ test('closure real serialization', function () {
 
 test('closure nested', function () {
     $o = function ($a) {
-
         // this should never happen
         if ($a === false) {
             return false;
@@ -330,7 +352,7 @@ test('mixed encodings', function () {
     expect($r[1])->toEqual($b);
 })->with('serializers');
 
-test('serialization string content dont change', function () {
+test('serializable closure serialization string content dont change', function () {
     $a = 100;
 
     SerializableClosure::setSecretKey('foo');
@@ -349,6 +371,25 @@ OEF
     );
 });
 
+test('unsigned serializable closure serialization string content dont change', function () {
+    $a = 100;
+
+    SerializableClosure::setSecretKey('foo');
+
+    $c = SerializableClosure::unsigned(function () use ($a) {
+        return $a;
+    });
+
+    $actual = explode('s:32:', serialize($c))[0];
+
+    expect($actual)->toBe(<<<OEF
+O:55:"Laravel\SerializableClosure\UnsignedSerializableClosure":1:{s:12:"serializable";O:46:"Laravel\SerializableClosure\Serializers\Native":5:{s:3:"use";a:1:{s:1:"a";i:100;}s:8:"function";s:47:"function () use (\$a) {
+        return \$a;
+    }";s:5:"scope";s:22:"P\Tests\SerializerTest";s:4:"this";N;s:4:"self";
+OEF
+    );
+});
+
 test('use objects with serializable closures properties', function () {
     $a = new stdClass();
 
@@ -356,9 +397,15 @@ test('use objects with serializable closures properties', function () {
         SerializableClosure::setSecretKey('secret');
     }
 
-    $a->b = new SerializableClosure(function () {
-        return 'Hi';
-    });
+    if ($this->serializer == UnsignedSerializableClosure::class) {
+        $a->b = SerializableClosure::unsigned(function () {
+            return 'Hi';
+        });
+    } else {
+        $a->b = new SerializableClosure(function () {
+            return 'Hi';
+        });
+    }
 
     $closure = function () use ($a) {
         return ($a->b)();
@@ -438,6 +485,83 @@ test('serializes with used object date properties', function ($_, $date) {
     new CarbonImmutable,
 ]);
 
+function serializer_php_74_switch_statement_test_is_two($a)
+{
+    return $a === 2;
+}
+
+class SerializerPhp74SwitchStatementClass
+{
+    public static function isThree($a)
+    {
+        return $a === 3;
+    }
+
+    public function isFour($a)
+    {
+        return $a === 4;
+    }
+}
+
+class SerializerPhp74Class
+{
+}
+
+test('instanceof', function () {
+    $closure = function ($a) {
+        $b = $a instanceof DateTime || $a instanceof SerializerPhp74Class || $a instanceof Model;
+
+        return [
+            $b,
+            $a instanceof DateTime || $a instanceof SerializerPhp74Class || $a instanceof Model,
+            (function ($a) {
+                return ($a instanceof DateTime || $a instanceof SerializerPhp74Class || $a instanceof Model) === true;
+            })($a),
+        ];
+    };
+
+    $u = s($closure);
+
+    expect($u(new DateTime))->toEqual([true, true, true])
+        ->and($u(new SerializerPhp74Class))->toEqual([true, true, true])
+        ->and($u(new Model))->toEqual([true, true, true])
+        ->and($u(new stdClass))->toEqual([false, false, false]);
+})->with('serializers');
+
+test('switch statement', function () {
+    $closure = function ($a) {
+        switch (true) {
+            case $a === 1:
+                return 'one';
+            case serializer_php_74_switch_statement_test_is_two($a):
+                return 'two';
+            case SerializerPhp74SwitchStatementClass::isThree($a):
+                return 'three';
+            case (new SerializerPhp74SwitchStatementClass)->isFour($a):
+                return 'four';
+            case $a instanceof SerializerPhp74SwitchStatementClass:
+                return 'five';
+            case $a instanceof DateTime:
+                return 'six';
+            case $a instanceof Model:
+                return 'seven';
+            default:
+                return 'other';
+        }
+    };
+
+    $u = s($closure);
+
+    expect($u(1))->toEqual('one')
+        ->and($u(2))->toEqual('two')
+        ->and($u(3))->toEqual('three')
+        ->and($u(4))->toEqual('four')
+        ->and($u(new SerializerPhp74SwitchStatementClass))->toEqual('five')
+        ->and($u(new DateTime))->toEqual('six')
+        ->and($u(new Model()))->toEqual('seven')
+        ->and($u(999))->toEqual('other');
+})->with('serializers');
+
 class A
 {
     protected static function aStaticProtected()
@@ -459,8 +583,11 @@ class A
 class A2
 {
     private $phrase = 'Hello, World!';
+
     private $closure1;
+
     private $closure2;
+
     private $closure3;
 
     public function __construct()
@@ -511,4 +638,9 @@ class A3
 class ObjSelf
 {
     public $o;
+}
+
+class ObjWithConst
+{
+    const FOO = 'bar';
 }

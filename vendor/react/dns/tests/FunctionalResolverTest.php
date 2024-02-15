@@ -183,10 +183,14 @@ class FunctionalResolverTest extends TestCase
         $factory = new Factory();
         $this->resolver = $factory->create('255.255.255.255');
 
-        gc_collect_cycles();
-        gc_collect_cycles(); // clear twice to avoid leftovers in PHP 7.4 with ext-xdebug and code coverage turned on
+        while (gc_collect_cycles()) {
+            // collect all garbage cycles
+        }
 
         $promise = $this->resolver->resolve('google.com');
+
+        $promise->then(null, $this->expectCallableOnce()); // avoid reporting unhandled rejection
+
         unset($promise);
 
         $this->assertEquals(0, gc_collect_cycles());
@@ -201,10 +205,14 @@ class FunctionalResolverTest extends TestCase
         $factory = new Factory();
         $this->resolver = $factory->createCached('255.255.255.255');
 
-        gc_collect_cycles();
-        gc_collect_cycles(); // clear twice to avoid leftovers in PHP 7.4 with ext-xdebug and code coverage turned on
+        while (gc_collect_cycles()) {
+            // collect all garbage cycles
+        }
 
         $promise = $this->resolver->resolve('google.com');
+
+        $promise->then(null, $this->expectCallableOnce()); // avoid reporting unhandled rejection
+
         unset($promise);
 
         $this->assertEquals(0, gc_collect_cycles());
@@ -219,8 +227,9 @@ class FunctionalResolverTest extends TestCase
         $factory = new Factory();
         $this->resolver = $factory->create('127.0.0.1');
 
-        gc_collect_cycles();
-        gc_collect_cycles(); // clear twice to avoid leftovers in PHP 7.4 with ext-xdebug and code coverage turned on
+        while (gc_collect_cycles()) {
+            // collect all garbage cycles
+        }
 
         $promise = $this->resolver->resolve('google.com');
         $promise->cancel();
@@ -238,8 +247,9 @@ class FunctionalResolverTest extends TestCase
         $factory = new Factory();
         $this->resolver = $factory->createCached('127.0.0.1');
 
-        gc_collect_cycles();
-        gc_collect_cycles(); // clear twice to avoid leftovers in PHP 7.4 with ext-xdebug and code coverage turned on
+        while (gc_collect_cycles()) {
+            // collect all garbage cycles
+        }
 
         $promise = $this->resolver->resolve('google.com');
         $promise->cancel();

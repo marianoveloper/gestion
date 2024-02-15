@@ -21,7 +21,7 @@ final class DsnTest extends TestCase
     /**
      * @dataProvider constructProvider
      */
-    public function testConstruct(string $dsnString, string $scheme, string $host, string $user = null, string $password = null, int $port = null, array $options = [], string $path = null)
+    public function testConstruct(string $dsnString, string $scheme, string $host, ?string $user = null, ?string $password = null, ?int $port = null, array $options = [], ?string $path = null)
     {
         $dsn = new Dsn($dsnString);
         $this->assertSame($dsnString, $dsn->getOriginalDsn());
@@ -35,7 +35,7 @@ final class DsnTest extends TestCase
         $this->assertSame($options, $dsn->getOptions());
     }
 
-    public function constructProvider(): iterable
+    public static function constructProvider(): iterable
     {
         yield 'simple dsn' => [
             'scheme://localhost',
@@ -151,35 +151,35 @@ final class DsnTest extends TestCase
         new Dsn($dsnString);
     }
 
-    public function invalidDsnProvider(): iterable
+    public static function invalidDsnProvider(): iterable
     {
         yield [
             'some://',
-            'The "some://" translation provider DSN is invalid.',
+            'The translation provider DSN is invalid.',
         ];
 
         yield [
             '//loco',
-            'The "//loco" translation provider DSN must contain a scheme.',
+            'The translation provider DSN must contain a scheme.',
         ];
 
         yield [
             'file:///some/path',
-            'The "file:///some/path" translation provider DSN must contain a host (use "default" by default).',
+            'The translation provider DSN must contain a host (use "default" by default).',
         ];
     }
 
     /**
      * @dataProvider getOptionProvider
      */
-    public function testGetOption($expected, string $dsnString, string $option, string $default = null)
+    public function testGetOption($expected, string $dsnString, string $option, ?string $default = null)
     {
         $dsn = new Dsn($dsnString);
 
         $this->assertSame($expected, $dsn->getOption($option, $default));
     }
 
-    public function getOptionProvider(): iterable
+    public static function getOptionProvider(): iterable
     {
         yield [
             'foo',
@@ -217,7 +217,7 @@ final class DsnTest extends TestCase
         $this->assertSame($expectedValue, $dsn->getRequiredOption($option));
     }
 
-    public function getRequiredOptionProvider(): iterable
+    public static function getRequiredOptionProvider(): iterable
     {
         yield [
             'value',
@@ -245,7 +245,7 @@ final class DsnTest extends TestCase
         $dsn->getRequiredOption($option);
     }
 
-    public function getRequiredOptionThrowsMissingRequiredOptionExceptionProvider(): iterable
+    public static function getRequiredOptionThrowsMissingRequiredOptionExceptionProvider(): iterable
     {
         yield [
             'The option "foo_bar" is required but missing.',

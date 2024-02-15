@@ -18,7 +18,6 @@ class CourseController extends Controller
      */
     public function index()
     {
-
         return view('dev.courses.index');
     }
 

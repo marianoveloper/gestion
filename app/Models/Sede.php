@@ -25,7 +25,4 @@ class Sede extends Model
     public function aperturas(){
         return $this->hasManyThrough(Apertura::class, Academic::class);
     }
-    public function aperturapropuestas(){
-        return $this->hasManyThrough(AperturaPropuestas::class, Academic::class);
-    }
 }

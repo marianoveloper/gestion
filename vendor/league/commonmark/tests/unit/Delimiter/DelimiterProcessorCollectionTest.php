@@ -15,6 +15,7 @@ namespace League\CommonMark\Tests\Unit\Delimiter;
 
 use League\CommonMark\Delimiter\Processor\DelimiterProcessorCollection;
 use League\CommonMark\Delimiter\Processor\DelimiterProcessorInterface;
+use League\CommonMark\Exception\InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class DelimiterProcessorCollectionTest extends TestCase
@@ -39,8 +40,8 @@ final class DelimiterProcessorCollectionTest extends TestCase
 
     public function testAddProcessorForCharacterAlreadyRegistered(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectErrorMessage('Delim processor for character "*" already exists');
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Delim processor for character "*" already exists');
 
         $collection = new DelimiterProcessorCollection();
 

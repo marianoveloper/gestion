@@ -40,6 +40,7 @@ final class CursorTest extends TestCase
         $cursor = new Cursor($string);
 
         $this->assertEquals($expectedPosition, $cursor->getNextNonSpacePosition());
+        $this->assertEquals($expectedPosition, $cursor->getNextNonSpacePosition());
     }
 
     /**
@@ -50,12 +51,13 @@ final class CursorTest extends TestCase
         $cursor = new Cursor($string);
 
         $this->assertEquals($expectedCharacter, $cursor->getNextNonSpaceCharacter());
+        $this->assertEquals($expectedCharacter, $cursor->getNextNonSpaceCharacter());
     }
 
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForTestingNextNonSpaceMethods(): iterable
+    public static function dataForTestingNextNonSpaceMethods(): iterable
     {
         return [
             ['', 0, null],
@@ -83,7 +85,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForGetIndentTest(): iterable
+    public static function dataForGetIndentTest(): iterable
     {
         return [
             ['', 0, 0],
@@ -134,7 +136,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForGetCharacterTest(): iterable
+    public static function dataForGetCharacterTest(): iterable
     {
         return [
             ['', null, ''],
@@ -166,7 +168,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForPeekTest(): iterable
+    public static function dataForPeekTest(): iterable
     {
         return [
             ['', 0, ''],
@@ -191,7 +193,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForIsLineBlankTest(): iterable
+    public static function dataForIsLineBlankTest(): iterable
     {
         return [
             ['', true],
@@ -219,7 +221,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForAdvanceTest(): iterable
+    public static function dataForAdvanceTest(): iterable
     {
         return [
             ['', 0, 0],
@@ -253,7 +255,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForAdvanceTestBy(): iterable
+    public static function dataForAdvanceTestBy(): iterable
     {
         return [
             ['', 0, 0],
@@ -316,7 +318,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForAdvanceToNextNonSpaceTest(): iterable
+    public static function dataForAdvanceToNextNonSpaceTest(): iterable
     {
         return [
             ['', 0, 0],
@@ -354,7 +356,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForAdvanceToNextNonSpaceOrNewlineTest(): iterable
+    public static function dataForAdvanceToNextNonSpaceOrNewlineTest(): iterable
     {
         return [
             ['', 0, 0],
@@ -392,7 +394,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForGetRemainderTest(): iterable
+    public static function dataForGetRemainderTest(): iterable
     {
         return [
             [' ', 0, ' '],
@@ -424,7 +426,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForIsAtEndTest(): iterable
+    public static function dataForIsAtEndTest(): iterable
     {
         return [
             ['', false, true],
@@ -454,7 +456,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForTestMatch(): iterable
+    public static function dataForTestMatch(): iterable
     {
         return [
             ['this is a test', '/[aeiou]s/', 0, 4, 'is'],
@@ -480,7 +482,7 @@ final class CursorTest extends TestCase
     /**
      * @return iterable<array<mixed>>
      */
-    public function dataForTestGetSubstring(): iterable
+    public static function dataForTestGetSubstring(): iterable
     {
         yield ['Hello', 0, 2, 'He'];
         yield ['Hello', 1, 3, 'ell'];

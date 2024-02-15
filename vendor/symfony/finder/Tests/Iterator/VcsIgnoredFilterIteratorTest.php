@@ -16,10 +16,7 @@ use Symfony\Component\Finder\Iterator\VcsIgnoredFilterIterator;
 
 class VcsIgnoredFilterIteratorTest extends IteratorTestCase
 {
-    /**
-     * @var string
-     */
-    private $tmpDir;
+    private string $tmpDir;
 
     protected function setUp(): void
     {
@@ -59,7 +56,7 @@ class VcsIgnoredFilterIteratorTest extends IteratorTestCase
         $this->assertIterator($this->toAbsolute($expectedResult), $iterator);
     }
 
-    public function getAcceptData(): iterable
+    public static function getAcceptData(): iterable
     {
         yield 'simple file' => [
             [

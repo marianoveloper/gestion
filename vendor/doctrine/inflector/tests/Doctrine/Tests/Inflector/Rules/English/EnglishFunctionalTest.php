@@ -61,6 +61,7 @@ class EnglishFunctionalTest extends LanguageFunctionalTest
             ['canvas', 'canvases'],
             ['carp', 'carp'],
             ['case', 'cases'],
+            ['cave', 'caves'],
             ['categoria', 'categorias'],
             ['category', 'categories'],
             ['cattle', 'cattle'],
@@ -82,6 +83,7 @@ class EnglishFunctionalTest extends LanguageFunctionalTest
             ['congoese', 'congoese'],
             ['contretemps', 'contretemps'],
             ['cookie', 'cookies'],
+            ['brownie', 'brownies'],
             ['copy', 'copies'],
             ['coreopsis', 'coreopsis'],
             ['corps', 'corps'],
@@ -116,6 +118,7 @@ class EnglishFunctionalTest extends LanguageFunctionalTest
             ['emphasis', 'emphases'],
             ['employee-child', 'employee-children'],
             ['energy', 'energies'],
+            ['epoch', 'epochs'],
             ['equipment', 'equipment'],
             ['evidence', 'evidence'],
             ['experience', 'experiences'],
@@ -387,6 +390,7 @@ class EnglishFunctionalTest extends LanguageFunctionalTest
             ['fascia', 'fascium'],
             ['status', 'statu'],
             ['campus', 'campu'],
+            ['axis', 'axes'],
         ];
     }
 

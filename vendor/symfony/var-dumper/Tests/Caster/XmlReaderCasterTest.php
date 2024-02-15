@@ -21,8 +21,7 @@ class XmlReaderCasterTest extends TestCase
 {
     use VarDumperTestTrait;
 
-    /** @var \XmlReader */
-    private $reader;
+    private \XMLReader $reader;
 
     protected function setUp(): void
     {
@@ -64,7 +63,7 @@ EODUMP;
         $this->assertDumpMatchesFormat($expectedDump, $this->reader);
     }
 
-    public function provideNodes()
+    public static function provideNodes()
     {
         return [
             [0, <<<'EODUMP'

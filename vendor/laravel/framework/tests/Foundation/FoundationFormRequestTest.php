@@ -120,13 +120,42 @@ class FoundationFormRequestTest extends TestCase
         $this->createRequest([], FoundationTestFormRequestHooks::class)->validateResolved();
     }
 
-    public function test_after_validation_runs_after_validation()
+    public function testAfterValidationRunsAfterValidation()
     {
         $request = $this->createRequest([], FoundationTestFormRequestHooks::class);
 
         $request->validateResolved();
 
         $this->assertEquals(['name' => 'Adam'], $request->all());
+    }
+
+    public function testValidatedMethodReturnsOnlyRequestedValidatedData()
+    {
+        $request = $this->createRequest(['name' => 'specified', 'with' => 'extras']);
+
+        $request->validateResolved();
+
+        $this->assertSame('specified', $request->validated('name'));
+    }
+
+    public function testValidatedMethodReturnsOnlyRequestedNestedValidatedData()
+    {
+        $payload = ['nested' => ['foo' => 'bar', 'baz' => ''], 'array' => [1, 2]];
+
+        $request = $this->createRequest($payload, FoundationTestFormRequestNestedStub::class);
+
+        $request->validateResolved();
+
+        $this->assertSame('bar', $request->validated('nested.foo'));
+    }
+
+    public function testRequestCanPassWithoutRulesMethod()
+    {
+        $request = $this->createRequest([], FoundationTestFormRequestWithoutRulesMethod::class);
+
+        $request->validateResolved();
+
+        $this->assertEquals([], $request->all());
     }
 
     /**
@@ -355,5 +384,13 @@ class FoundationTestFormRequestPassesWithResponseStub extends FormRequest
     public function authorize()
     {
         return Response::allow('baz');
+    }
+}
+
+class FoundationTestFormRequestWithoutRulesMethod extends FormRequest
+{
+    public function authorize()
+    {
+        return true;
     }
 }

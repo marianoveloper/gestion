@@ -20,27 +20,7 @@ class MatriculacionController extends Controller
         return view('admin.matriculacion.index',compact('matriculacion'));
     }
 
-    public function update(Request $request, Matriculacion $matriculacion)
-    {
-        //dd($request->status);
-        if($request->status==1){
 
-            $request->status=2;
-
-        }elseif($request->status==2){
-            $request->status=3;
-        }
-        else{
-
-            $request->status=1;
-        }
-
-
-
-        $matriculacion->update($request->all());
-
-        return back();
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -52,6 +32,4 @@ class MatriculacionController extends Controller
     {
         //
     }
-
-
 }

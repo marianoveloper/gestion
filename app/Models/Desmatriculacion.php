@@ -54,12 +54,6 @@ public function scopeStatus($query,$status){
     }
 }
 
-public function scopeId($query,$id){
-    if($id){
-        return $query->where('id',$id);
-    }
-}
-
 public function scopeTipo($query,$tipo){
 
     if($tipo){

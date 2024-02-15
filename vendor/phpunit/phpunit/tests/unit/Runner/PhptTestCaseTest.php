@@ -31,7 +31,6 @@ EXPECT test
 --EXPECT--
 Hello PHPUnit!
 EOF;
-
     private const EXPECTF_CONTENT = <<<'EOF'
 --TEST--
 EXPECTF test
@@ -40,7 +39,6 @@ EXPECTF test
 --EXPECTF--
 Hello %s!
 EOF;
-
     private const EXPECTREGEX_CONTENT = <<<'EOF'
 --TEST--
 EXPECTREGEX test
@@ -49,7 +47,6 @@ EXPECTREGEX test
 --EXPECTREGEX--
 Hello [HPU]{4}[nit]{3}!
 EOF;
-
     private const EXPECT_MISSING_ASSERTION_CONTENT = <<<'EOF'
 --TEST--
 Missing EXPECTF value test
@@ -57,7 +54,6 @@ Missing EXPECTF value test
 --FILE--
 <?php echo "Hello PHPUnit!"; ?>
 EOF;
-
     private const FILE_SECTION = <<<'EOF'
 <?php echo "Hello PHPUnit!"; ?>
 
@@ -118,10 +114,10 @@ EOF;
         $fileSection = '<?php echo "Hello PHPUnit!"; ?>' . PHP_EOL;
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with($fileSection)
-             ->willReturn(['stdout' => '', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with($fileSection)
+            ->willReturn(['stdout' => '', 'stderr' => '']);
 
         $this->testCase->run();
     }
@@ -142,10 +138,10 @@ EOF
         $renderedCode = "<?php echo '" . $this->dirname . "' . '" . $this->filename . "'; ?>" . PHP_EOL;
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with($renderedCode)
-             ->willReturn(['stdout' => '', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with($renderedCode)
+            ->willReturn(['stdout' => '', 'stderr' => '']);
 
         $this->testCase->run();
     }
@@ -161,10 +157,10 @@ EOF
         $this->setPhpContent($phptContent);
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with($skipifSection)
-             ->willReturn(['stdout' => 'skip: Reason', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with($skipifSection)
+            ->willReturn(['stdout' => 'skip: Reason', 'stderr' => '']);
 
         $this->testCase->run();
     }
@@ -239,10 +235,10 @@ EOF
         $this->setPhpContent(self::EXPECT_CONTENT);
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with(self::FILE_SECTION)
-             ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with(self::FILE_SECTION)
+            ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
 
         $result = $this->testCase->run();
 
@@ -254,10 +250,10 @@ EOF
         $this->setPhpContent(self::EXPECTF_CONTENT);
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with(self::FILE_SECTION)
-             ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with(self::FILE_SECTION)
+            ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
 
         $result = $this->testCase->run();
 
@@ -269,10 +265,10 @@ EOF
         $this->setPhpContent(self::EXPECTREGEX_CONTENT);
 
         $this->phpProcess
-             ->expects($this->once())
-             ->method('runJob')
-             ->with(self::FILE_SECTION)
-             ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
+            ->expects($this->once())
+            ->method('runJob')
+            ->with(self::FILE_SECTION)
+            ->willReturn(['stdout' => 'Hello PHPUnit!', 'stderr' => '']);
 
         $result = $this->testCase->run();
 
@@ -340,7 +336,7 @@ EOF
                 "\r\n" => PHP_EOL,
                 "\r"   => PHP_EOL,
                 "\n"   => PHP_EOL,
-            ]
+            ],
         );
     }
 }

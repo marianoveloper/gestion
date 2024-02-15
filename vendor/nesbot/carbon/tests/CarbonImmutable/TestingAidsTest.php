@@ -17,6 +17,7 @@ use Carbon\CarbonImmutable as Carbon;
 use Carbon\CarbonInterface;
 use Closure;
 use DateTimeZone;
+use Exception;
 use stdClass;
 use Tests\AbstractTestCase;
 
@@ -218,8 +219,8 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2013-09-01T10:20:30-07:00', Carbon::createFromFormat('H:i:s', '10:20:30')->toIso8601String());
 
         // Custom timezone.
-        $this->assertSame('2013-09-01T10:20:15+03:00', Carbon::createFromFormat('H:i e', '10:20 Europe/Kiev')->toIso8601String());
-        $this->assertSame('2013-09-01T10:20:15+01:00', Carbon::createFromFormat('H:i', '10:20', 'Europe/London')->toIso8601String());
+        $this->assertSame('2013-09-01T10:20:00+03:00', Carbon::createFromFormat('H:i e', '10:20 Europe/Kiev')->toIso8601String());
+        $this->assertSame('2013-09-01T10:20:00+01:00', Carbon::createFromFormat('H:i', '10:20', 'Europe/London')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+07:00', Carbon::createFromFormat('H:i:s e', '11:30:00+07:00')->toIso8601String());
         $this->assertSame('2013-09-01T11:30:00+05:00', Carbon::createFromFormat('H:i:s', '11:30:00', '+05:00')->toIso8601String());
 
@@ -228,7 +229,7 @@ class TestingAidsTest extends AbstractTestCase
 
         // Weird format, naive modify would fail here.
         $this->assertSame('2005-08-09T05:10:15-07:00', Carbon::createFromFormat('l jS \of F Y', 'Tuesday 9th of August 2005')->toIso8601String());
-        $this->assertSame('2013-09-01T05:12:13-07:00', Carbon::createFromFormat('i:s', '12:13')->toIso8601String());
+        $this->assertSame('2013-09-01T00:12:13-07:00', Carbon::createFromFormat('i:s', '12:13')->toIso8601String());
         $this->assertSame('2018-09-05T05:10:15-07:00', Carbon::createFromFormat('Y/d', '2018/5')->toIso8601String());
 
         // Resetting to epoch.
@@ -237,28 +238,30 @@ class TestingAidsTest extends AbstractTestCase
         $this->assertSame('2018-05-06T00:00:00-07:00', Carbon::createFromFormat('Y-m-d|', '2018-05-06')->toIso8601String());
         $this->assertSame('1970-01-01T10:20:30-08:00', Carbon::createFromFormat('|H:i:s', '10:20:30')->toIso8601String());
 
+        $kyiv = $this->firstValidTimezoneAmong(['Europe/Kyiv', 'Europe/Kiev'])->getName();
         // Resetting to epoch (timezone fun).
         $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('|', '')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('e|', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('e|', $kyiv)->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00+01:00', Carbon::createFromFormat('|', '', 'Europe/London')->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('!', '')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('!e', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00+03:00', Carbon::createFromFormat('!e', $kyiv)->toIso8601String());
         $this->assertSame('1970-01-01T00:00:00+01:00', Carbon::createFromFormat('!', '', 'Europe/London')->toIso8601String());
-        $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('e!', 'Europe/Kiev')->toIso8601String());
+        $this->assertSame('1970-01-01T00:00:00-08:00', Carbon::createFromFormat('e!', $kyiv)->toIso8601String());
 
         // Escaped epoch resets.
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\|', '|')->toIso8601String());
         $this->assertSame('2013-09-01T05:10:15-07:00', Carbon::createFromFormat('\!', '!')->toIso8601String());
-        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', 'Europe/Kiev !')->toIso8601String());
+        $this->assertSame('2013-09-01T05:10:15+03:00', Carbon::createFromFormat('e \!', $kyiv.' !')->toIso8601String());
+
+        Carbon::setTestNow('2023-12-05 21:09:54');
+        $this->assertSame('2023-12-05 15:00:00.000000', Carbon::createFromFormat('H', '15')->format('Y-m-d H:i:s.u'));
     }
 
     public function testCreateFromPartialFormatWithMicroseconds()
     {
         Carbon::setTestNowAndTimezone(Carbon::parse('2013-09-01 05:10:15.123456', 'America/Vancouver'));
 
-        // Set microseconds to zero to match behavior of DateTime::createFromFormat()
-        // See https://bugs.php.net/bug.php?id=74332
-        $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2018-05-06 05:10:15.123456', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
 
@@ -266,7 +269,7 @@ class TestingAidsTest extends AbstractTestCase
     {
         Carbon::setTestNowAndTimezone(date_create_immutable('2013-09-01 05:10:15.123456', new DateTimeZone('America/Vancouver')));
 
-        $this->assertSame('2018-05-06 05:10:15.000000', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
+        $this->assertSame('2018-05-06 05:10:15.123456', Carbon::createFromFormat('Y-m-d', '2018-05-06')->format('Y-m-d H:i:s.u'));
         $this->assertSame('2013-09-01 10:20:30.654321', Carbon::createFromFormat('H:i:s.u', '10:20:30.654321')->format('Y-m-d H:i:s.u'));
     }
 
@@ -295,9 +298,9 @@ class TestingAidsTest extends AbstractTestCase
 
         try {
             Carbon::withTestNow($testNow, static function () {
-                throw new \Exception();
+                throw new Exception();
             });
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             // ignore
         }
 

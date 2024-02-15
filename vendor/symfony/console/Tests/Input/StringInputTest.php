@@ -27,7 +27,6 @@ class StringInputTest extends TestCase
         $input = new StringInput($input);
         $r = new \ReflectionClass(ArgvInput::class);
         $p = $r->getProperty('tokens');
-        $p->setAccessible(true);
         $this->assertEquals($tokens, $p->getValue($input), $message);
     }
 
@@ -43,7 +42,7 @@ class StringInputTest extends TestCase
         $this->assertEquals('bar', $input->getOption('foo'));
     }
 
-    public function getTokenizeData()
+    public static function getTokenizeData()
     {
         return [
             ['', [], '->tokenize() parses an empty string'],

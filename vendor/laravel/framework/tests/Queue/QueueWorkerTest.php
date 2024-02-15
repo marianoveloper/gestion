@@ -23,6 +23,7 @@ class QueueWorkerTest extends TestCase
 {
     public $events;
     public $exceptionHandler;
+    public $maintenanceFlags;
 
     protected function setUp(): void
     {
@@ -37,7 +38,11 @@ class QueueWorkerTest extends TestCase
 
     protected function tearDown(): void
     {
-        Container::setInstance(null);
+        parent::tearDown();
+
+        Carbon::setTestNow();
+
+        Container::setInstance();
     }
 
     public function testJobCanBeFired()
@@ -406,7 +411,7 @@ class InsomniacWorker extends Worker
         $this->sleptFor = $seconds;
     }
 
-    public function stop($status = 0)
+    public function stop($status = 0, $options = null)
     {
         return $status;
     }

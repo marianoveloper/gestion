@@ -5,7 +5,9 @@ namespace Illuminate\Tests\Foundation\Testing;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\RefreshDatabaseState;
+use Mockery as m;
 use PHPUnit\Framework\TestCase;
+use ReflectionMethod;
 
 class RefreshDatabaseTest extends TestCase
 {
@@ -15,12 +17,12 @@ class RefreshDatabaseTest extends TestCase
     {
         RefreshDatabaseState::$migrated = false;
 
-        $this->traitObject = $this->getMockForTrait(RefreshDatabase::class, [], '', true, true, true, [
+        $this->traitObject = $this->getMockForAbstractClass(RefreshDatabaseTestMockClass::class, [], '', true, true, true, [
             'artisan',
             'beginDatabaseTransaction',
         ]);
 
-        $kernelObj = \Mockery::mock();
+        $kernelObj = m::mock();
         $kernelObj->shouldReceive('setArtisan')
             ->with(null);
 
@@ -31,7 +33,7 @@ class RefreshDatabaseTest extends TestCase
 
     private function __reflectAndSetupAccessibleForProtectedTraitMethod($methodName)
     {
-        $migrateFreshUsingReflection = new \ReflectionMethod(
+        $migrateFreshUsingReflection = new ReflectionMethod(
             get_class($this->traitObject),
             $methodName
         );
@@ -44,7 +46,7 @@ class RefreshDatabaseTest extends TestCase
     public function testRefreshTestDatabaseDefault()
     {
         $this->traitObject
-            ->expects($this->exactly(1))
+            ->expects($this->once())
             ->method('artisan')
             ->with('migrate:fresh', [
                 '--drop-views' => false,
@@ -62,7 +64,7 @@ class RefreshDatabaseTest extends TestCase
         $this->traitObject->dropViews = true;
 
         $this->traitObject
-            ->expects($this->exactly(1))
+            ->expects($this->once())
             ->method('artisan')
             ->with('migrate:fresh', [
                 '--drop-views' => true,
@@ -80,7 +82,7 @@ class RefreshDatabaseTest extends TestCase
         $this->traitObject->dropTypes = true;
 
         $this->traitObject
-            ->expects($this->exactly(1))
+            ->expects($this->once())
             ->method('artisan')
             ->with('migrate:fresh', [
                 '--drop-views' => false,
@@ -92,4 +94,15 @@ class RefreshDatabaseTest extends TestCase
 
         $refreshTestDatabaseReflection->invoke($this->traitObject);
     }
+}
+
+class RefreshDatabaseTestMockClass
+{
+    use RefreshDatabase;
+
+    public $app;
+
+    public $dropViews = false;
+
+    public $dropTypes = false;
 }

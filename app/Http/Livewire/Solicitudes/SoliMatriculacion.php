@@ -17,7 +17,7 @@ class SoliMatriculacion extends Component
 
     public function render()
     {
-        $user=auth()->user();
+        $user=auth()->user();//$user->id
 
         $matriculacion = Matriculacion::where('user_id',$user->id)
         ->carrera($this->carrera_id)

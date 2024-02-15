@@ -22,7 +22,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
+          php-version: 8.3
           extensions: :apcu, :imagick
           coverage: none
           tools: none
@@ -42,8 +42,8 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 8.1
-          extensions: :apcu, :imagick
+          php-version: 8.3
+          extensions: :apcu, :imagick, ctype
           coverage: none
           tools: none
 
@@ -76,6 +76,7 @@ jobs:
           - "8.1"
           - "8.2"
           - "8.3"
+          - "8.4"
 
         coverage-driver:
           - "pcov"

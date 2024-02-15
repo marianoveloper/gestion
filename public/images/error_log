@@ -1,0 +1,2 @@
+[18-Oct-2023 21:08:37 America/Argentina/Buenos_Aires] PHP Notice:  ob_end_clean(): Failed to delete buffer. No buffer to delete in /home/evirtual/GestionVirtual/public/images/data.php on line 1
+[28-Nov-2023 17:50:42 America/Argentina/Buenos_Aires] PHP Notice:  ob_end_clean(): Failed to delete buffer. No buffer to delete in /home/evirtual/GestionVirtual/public/images/inc.php on line 1

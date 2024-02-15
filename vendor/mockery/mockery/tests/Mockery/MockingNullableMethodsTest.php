@@ -32,13 +32,6 @@ class MockingNullableMethodsTest extends MockeryTestCase
      */
     private $container;
 
-    protected function mockeryTestSetUp()
-    {
-        parent::mockeryTestSetUp();
-
-        require_once __DIR__ . "/Fixtures/MethodWithNullableReturnType.php";
-    }
-
     /**
      * @test
      */
@@ -46,7 +39,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nonNullablePrimitive')->andReturn('a string');
+        $mock->shouldReceive('nonNullablePrimitive')->andReturn('a string')->once();
         $mock->nonNullablePrimitive();
     }
 
@@ -69,7 +62,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullablePrimitive')->andReturn(null);
+        $mock->shouldReceive('nullablePrimitive')->andReturn(null)->once();
         $mock->nullablePrimitive();
     }
 
@@ -80,7 +73,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullablePrimitive')->andReturn('a string');
+        $mock->shouldReceive('nullablePrimitive')->andReturn('a string')->once();
         $mock->nullablePrimitive();
     }
 
@@ -91,7 +84,9 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nonNullableSelf')->andReturn(new MethodWithNullableReturnType());
+        $mock->shouldReceive('nonNullableSelf')
+            ->andReturn(new MethodWithNullableReturnType())
+            ->once();
         $mock->nonNullableSelf();
     }
 
@@ -114,7 +109,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullableSelf')->andReturn(new MethodWithNullableReturnType());
+        $mock->shouldReceive('nullableSelf')->andReturn(new MethodWithNullableReturnType())->once();
         $mock->nullableSelf();
     }
 
@@ -125,7 +120,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullableSelf')->andReturn(null);
+        $mock->shouldReceive('nullableSelf')->andReturn(null)->once();
         $mock->nullableSelf();
     }
 
@@ -136,7 +131,10 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nonNullableClass')->andReturn(new MethodWithNullableReturnType());
+        $mock->shouldReceive('nonNullableClass')
+            ->andReturn(new MethodWithNullableReturnType())
+            ->once();
+
         $mock->nonNullableClass();
     }
 
@@ -159,7 +157,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullableClass')->andReturn(new MethodWithNullableReturnType());
+        $mock->shouldReceive('nullableClass')->andReturn(new MethodWithNullableReturnType())->once();
         $mock->nullableClass();
     }
 
@@ -170,7 +168,7 @@ class MockingNullableMethodsTest extends MockeryTestCase
     {
         $mock = mock("test\Mockery\Fixtures\MethodWithNullableReturnType");
 
-        $mock->shouldReceive('nullableClass')->andReturn(null);
+        $mock->shouldReceive('nullableClass')->andReturn(null)->once();
         $mock->nullableClass();
     }
 

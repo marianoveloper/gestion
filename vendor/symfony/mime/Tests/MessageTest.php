@@ -13,6 +13,7 @@ namespace Symfony\Component\Mime\Tests;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Exception\LogicException;
 use Symfony\Component\Mime\Header\Headers;
 use Symfony\Component\Mime\Header\MailboxListHeader;
 use Symfony\Component\Mime\Header\UnstructuredHeader;
@@ -37,7 +38,7 @@ class MessageTest extends TestCase
         $this->assertNull($m->getBody());
         $this->assertEquals(new Headers(), $m->getHeaders());
 
-        $m = new Message($h = (new Headers())->addDateHeader('Date', new \DateTime()), $b = new TextPart('content'));
+        $m = new Message($h = (new Headers())->addDateHeader('Date', new \DateTimeImmutable()), $b = new TextPart('content'));
         $this->assertSame($b, $m->getBody());
         $this->assertEquals($h, $m->getHeaders());
 
@@ -125,6 +126,14 @@ class MessageTest extends TestCase
         $this->assertEquals('thomas@symfony.com', $message->getPreparedHeaders()->get('Sender')->getAddress()->getAddress());
     }
 
+    public function testGenerateMessageIdThrowsWhenHasFromButNoAddresses()
+    {
+        $message = new Message();
+        $message->getHeaders()->addMailboxListHeader('From', []);
+        $this->expectException(LogicException::class);
+        $message->generateMessageId();
+    }
+
     public function testToString()
     {
         $message = new Message();
@@ -168,6 +177,7 @@ EOF;
             ),
             new DataPart('text data', 'text.txt')
         );
+        $body->getHeaders()->addHeader('foo', 'bar');
         $e = new Message((new Headers())->addMailboxListHeader('To', ['you@example.com']), $body);
         $expected = clone $e;
 
@@ -201,7 +211,7 @@ EOF;
                         "subtype": "plain",
                         "disposition": null,
                         "name": null,
-                        "encoding": "quoted-printable",
+                        "encoding": "quoted-printable",%A
                         "headers": [],
                         "class": "Symfony\\\\Component\\\\Mime\\\\Part\\\TextPart"
                     },
@@ -211,7 +221,7 @@ EOF;
                         "subtype": "html",
                         "disposition": null,
                         "name": null,
-                        "encoding": "quoted-printable",
+                        "encoding": "quoted-printable",%A
                         "headers": [],
                         "class": "Symfony\\\\Component\\\\Mime\\\\Part\\\\TextPart"
                     }
@@ -221,21 +231,30 @@ EOF;
             },
             {
                 "filename": "text.txt",
-                "mediaType": "application",
+                "mediaType": "application",%A
                 "body": "text data",
                 "charset": null,
                 "subtype": "octet-stream",
                 "disposition": "attachment",
                 "name": "text.txt",
-                "encoding": "base64",
+                "encoding": "base64",%A
                 "headers": [],
                 "class": "Symfony\\\\Component\\\\Mime\\\\Part\\\\DataPart"
             }
         ],
-        "headers": [],
+        "headers": {
+            "foo": [
+                {
+                    "value": "bar",
+                    "name": "foo",
+                    "lineLength": 76,
+                    "lang": null,
+                    "charset": "utf-8"
+                }
+            ]
+        },
         "class": "Symfony\\\\Component\\\\Mime\\\\Part\\\\Multipart\\\\MixedPart"
-    },
-    "message": null
+    }
 }
 EOF;
 
@@ -249,12 +268,12 @@ EOF;
         ], [new JsonEncoder()]);
 
         $serialized = $serializer->serialize($e, 'json');
-        $this->assertSame($expectedJson, json_encode(json_decode($serialized), \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
+        $this->assertStringMatchesFormat($expectedJson, json_encode(json_decode($serialized), \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
 
         $n = $serializer->deserialize($serialized, Message::class, 'json');
-        $this->assertEquals($expected->getHeaders(), $n->getHeaders());
+        $this->assertEquals($expected, $n);
 
         $serialized = $serializer->serialize($e, 'json');
-        $this->assertSame($expectedJson, json_encode(json_decode($serialized), \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
+        $this->assertStringMatchesFormat($expectedJson, json_encode(json_decode($serialized), \JSON_PRETTY_PRINT | \JSON_UNESCAPED_SLASHES));
     }
 }

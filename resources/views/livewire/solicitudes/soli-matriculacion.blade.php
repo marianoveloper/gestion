@@ -3,6 +3,22 @@
     <div class="px-6 py-3 card">
 
 
+
+          <!--  <div class="card-header">
+               <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
+            </div>-->
+    <!--<div class="pb-4 card-header col-3">
+        <label for="Carrera">Filtro por Carrera</label>
+        <select class="mb-3 text-center form-select form-select-lg" name="bcarrera" id="bcarrera" wire:model='ebcarrera'>
+            <option value="%%">Todas las Carreras</option>
+            @foreach($carrera as $car)
+                <option value="{{$car->id}}">{{$car->name}}</option>
+
+            @endforeach
+        </select>
+    </div>-->
+
+
             @if ($matriculacion->count())
             <div class="px-6 py-4">
                 <h5 class="font-semibold text">Unidad Academica:  {{$matriculacion[0]->academic->name}} </h5>

@@ -28,13 +28,6 @@ public function scopeAcademic($query,$academic_id){
     }
 }
 
-public function scopeSubcategory($query,$subcategory_id){
-
-    if($subacategory_id){
-        return $query->where('subcategory_id',$subcategory_id);
-    }
-}
-
 public function scopeStatus($query,$status){
 
     if($status){
@@ -61,18 +54,10 @@ public function academic(){
 
 }
 
-public function subcategory(){
-    return $this->belongsTo(Subcategory::class);
-}
 
 public function carrera(){
     return $this->belongsTo(Carrera::class);
 
-}
-
-public function materia(){
-
-    return $this->belongsTo(Materia::class);
 }
     public function resource(){
 

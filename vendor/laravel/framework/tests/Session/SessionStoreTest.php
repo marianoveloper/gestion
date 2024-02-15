@@ -5,7 +5,9 @@ namespace Illuminate\Tests\Session;
 use Illuminate\Cookie\CookieJar;
 use Illuminate\Session\CookieSessionHandler;
 use Illuminate\Session\Store;
+use Illuminate\Support\MessageBag;
 use Illuminate\Support\Str;
+use Illuminate\Support\ViewErrorBag;
 use Mockery as m;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
@@ -226,7 +228,7 @@ class SessionStoreTest extends TestCase
     {
         $session = $this->getSession();
         $session->put('boom', 'baz');
-        $session->flashInput(['foo' => 'bar', 'bar' => 0]);
+        $session->flashInput(['foo' => 'bar', 'bar' => 0, 'name' => null]);
 
         $this->assertTrue($session->hasOldInput('foo'));
         $this->assertSame('bar', $session->getOldInput('foo'));
@@ -239,6 +241,9 @@ class SessionStoreTest extends TestCase
         $this->assertSame('bar', $session->getOldInput('foo'));
         $this->assertEquals(0, $session->getOldInput('bar'));
         $this->assertFalse($session->hasOldInput('boom'));
+
+        $this->assertSame('default', $session->getOldInput('input', 'default'));
+        $this->assertNull($session->getOldInput('name', 'default'));
     }
 
     public function testDataFlashing()
@@ -436,6 +441,75 @@ class SessionStoreTest extends TestCase
         $this->assertSame('foo', $session->getName());
     }
 
+    public function testForget()
+    {
+        $session = $this->getSession();
+        $session->put('foo', 'bar');
+        $this->assertTrue($session->has('foo'));
+        $session->forget('foo');
+        $this->assertFalse($session->has('foo'));
+
+        $session->put('foo', 'bar');
+        $session->put('bar', 'baz');
+        $session->forget(['foo', 'bar']);
+        $this->assertFalse($session->has('foo'));
+        $this->assertFalse($session->has('bar'));
+    }
+
+    public function testSetPreviousUrl()
+    {
+        $session = $this->getSession();
+        $session->setPreviousUrl('https://example.com/foo/bar');
+
+        $this->assertTrue($session->has('_previous.url'));
+        $this->assertSame('https://example.com/foo/bar', $session->get('_previous.url'));
+
+        $url = $session->previousUrl();
+        $this->assertSame('https://example.com/foo/bar', $url);
+    }
+
+    public function testPasswordConfirmed()
+    {
+        $session = $this->getSession();
+        $this->assertFalse($session->has('auth.password_confirmed_at'));
+        $session->passwordConfirmed();
+        $this->assertTrue($session->has('auth.password_confirmed_at'));
+    }
+
+    public function testKeyPush()
+    {
+        $session = $this->getSession();
+        $session->put('language', ['PHP' => ['Laravel']]);
+        $session->push('language.PHP', 'Symfony');
+
+        $this->assertEquals(['PHP' => ['Laravel', 'Symfony']], $session->get('language'));
+    }
+
+    public function testKeyPull()
+    {
+        $session = $this->getSession();
+        $session->put('name', 'Taylor');
+
+        $this->assertSame('Taylor', $session->pull('name'));
+        $this->assertSame('Taylor Otwell', $session->pull('name', 'Taylor Otwell'));
+        $this->assertNull($session->pull('name'));
+    }
+
+    public function testKeyHas()
+    {
+        $session = $this->getSession();
+        $session->put('first_name', 'Mehdi');
+        $session->put('last_name', 'Rajabi');
+
+        $this->assertTrue($session->has('first_name'));
+        $this->assertTrue($session->has('last_name'));
+        $this->assertTrue($session->has('first_name', 'last_name'));
+        $this->assertTrue($session->has(['first_name', 'last_name']));
+
+        $this->assertFalse($session->has('first_name', 'foo'));
+        $this->assertFalse($session->has('foo', 'bar'));
+    }
+
     public function testKeyExists()
     {
         $session = $this->getSession();
@@ -479,19 +553,110 @@ class SessionStoreTest extends TestCase
         $this->assertSame('bar', $result);
     }
 
-    public function getSession()
+    public function testRememberMethodReturnsPreviousValueIfItAlreadySets()
+    {
+        $session = $this->getSession();
+        $session->put('key', 'foo');
+        $result = $session->remember('key', function () {
+            return 'bar';
+        });
+        $this->assertSame('foo', $session->get('key'));
+        $this->assertSame('foo', $result);
+    }
+
+    public function testValidationErrorsCanBeSerializedAsJson()
+    {
+        $session = $this->getSession('json');
+        $session->getHandler()->shouldReceive('read')->once()->andReturn(serialize([]));
+        $session->start();
+        $session->put('errors', $errorBag = new ViewErrorBag);
+        $messageBag = new MessageBag([
+            'first_name' => [
+                'Your first name is required',
+                'Your first name must be at least 1 character',
+            ],
+        ]);
+        $messageBag->setFormat('<p>:message</p>');
+        $errorBag->put('default', $messageBag);
+
+        $session->getHandler()->shouldReceive('write')->once()->with(
+            $this->getSessionId(),
+            json_encode([
+                '_token' => $session->token(),
+                'errors' => [
+                    'default' => [
+                        'format' => '<p>:message</p>',
+                        'messages' => [
+                            'first_name' => [
+                                'Your first name is required',
+                                'Your first name must be at least 1 character',
+                            ],
+                        ],
+                    ],
+                ],
+                '_flash' => [
+                    'old' => [],
+                    'new' => [],
+                ],
+            ])
+        );
+        $session->save();
+
+        $this->assertFalse($session->isStarted());
+    }
+
+    public function testValidationErrorsCanBeReadAsJson()
+    {
+        $session = $this->getSession('json');
+        $session->getHandler()->shouldReceive('read')->once()->with($this->getSessionId())->andReturn(json_encode([
+            'errors' => [
+                'default' => [
+                    'format' => '<p>:message</p>',
+                    'messages' => [
+                        'first_name' => [
+                            'Your first name is required',
+                            'Your first name must be at least 1 character',
+                        ],
+                    ],
+                ],
+            ],
+        ]));
+        $session->start();
+
+        $errors = $session->get('errors');
+
+        $this->assertInstanceOf(ViewErrorBag::class, $errors);
+        $this->assertInstanceOf(MessageBag::class, $errors->getBags()['default']);
+        $this->assertEquals('<p>:message</p>', $errors->getBags()['default']->getFormat());
+        $this->assertEquals(['first_name' => [
+            'Your first name is required',
+            'Your first name must be at least 1 character',
+        ]], $errors->getBags()['default']->getMessages());
+    }
+
+    public function testItIsMacroable()
+    {
+        $this->getSession()->macro('foo', function () {
+            return 'macroable';
+        });
+
+        $this->assertSame('macroable', $this->getSession()->foo());
+    }
+
+    public function getSession($serialization = 'php')
     {
         $reflection = new ReflectionClass(Store::class);
 
-        return $reflection->newInstanceArgs($this->getMocks());
+        return $reflection->newInstanceArgs($this->getMocks($serialization));
     }
 
-    public function getMocks()
+    public function getMocks($serialization = 'json')
     {
         return [
             $this->getSessionName(),
             m::mock(SessionHandlerInterface::class),
             $this->getSessionId(),
+            $serialization,
         ];
     }
 

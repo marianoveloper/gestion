@@ -563,6 +563,13 @@ class CronExpressionTest extends TestCase
         // Issue #125, this is just all sorts of wrong
         $this->assertFalse(CronExpression::isValidExpression('990 14 * * mon-fri0345345'));
 
+        // Issue #137, multiple question marks are not allowed
+        $this->assertFalse(CronExpression::isValidExpression('0 8 ? * ?'));
+        // Question marks are only allowed in dom and dow part
+        $this->assertFalse(CronExpression::isValidExpression('? * * * *'));
+        $this->assertFalse(CronExpression::isValidExpression('* ? * * *'));
+        $this->assertFalse(CronExpression::isValidExpression('* * * ? *'));
+
         // see https://github.com/dragonmantank/cron-expression/issues/5
         $this->assertTrue(CronExpression::isValidExpression('2,17,35,47 5-7,11-13 * * *'));
     }
@@ -812,5 +819,12 @@ class CronExpressionTest extends TestCase
         $cron = new CronExpression('0 0 1 1 *');
         $prev = $cron->getPreviousRunDate(new \DateTimeImmutable('2021-09-07T09:36:00Z'));
         $this->assertEquals(new \DateTime('2021-01-01 00:00:00'), $prev);
+    }
+
+    public function testIssue151ExpressionSupportLW()
+    {
+        $cron = new CronExpression('0 10 LW * *');
+        $this->assertTrue($cron->isDue(new \DateTimeImmutable('2023-08-31 10:00:00')));
+        $this->assertFalse($cron->isDue(new \DateTimeImmutable('2023-08-30 10:00:00')));
     }
 }

@@ -21,7 +21,6 @@
                             <th>Descripción</th>
                             <th>Programa</th>
                             <th>Resolución</th>
-                            <th>Cv</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -55,11 +54,7 @@
                                     <i class="fas fa-download"></i>
                                 </button>
                             </td>
-                            <td width="10px">
-                                <button wire:click="descargaCv({{$cat->id}})" class="btn btn-outline-danger">
-                                    <i class="fas fa-download"></i>
-                                </button>
-                            </td>
+
                             <td width="10px">
 
                                 @switch($cat->status)

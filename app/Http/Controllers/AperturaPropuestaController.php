@@ -53,19 +53,16 @@ class AperturaPropuestaController extends Controller
             'academic_id'=>'required',
             'subcategory'=>'required',
             'title'=>'required',
-            'objetivos'=>'required',
-            'destinatarios'=>'required',
-            'requisitos'=>'required',
-            'modalidad'=>'required',
+
             'duracion'=>'required',
-            'cupo'=>'required',
+
             'date_start'=>'required|date|after:tomorrow',
-            'costo'=>'required',
+
 
             'descripcion'=>'required|mimes:pdf',
             'programa'=>'required|mimes:pdf',
             'resol'=>'required|mimes:pdf',
-            'cv'=>'required|mimes:pdf',
+            'certificado'=>'required',
 
 
 
@@ -78,13 +75,9 @@ class AperturaPropuestaController extends Controller
             'academic_id.required'=>'El campo académica es obligatorio',
             'subcategory.required'=>'El campo subcategoría es obligatorio',
             'title.required'=>'El campo titulo es obligatorio',
-            'objetivos.required'=>'El campo objetivos es obligatorio',
-            'destinatarios.required'=>'El campo destinatarios es obligatorio',
-            'requisitos.required'=>'El campo requisitos es obligatorio',
-            'modalidad.required'=>'El campo modalidad es obligatorio',
+
             'duracion.required'=>'El campo duración es obligatorio',
-            'cupo.required'=>'El campo cupo es obligatorio',
-            'costo.required'=>'El campo costo es obligatorio',
+
             'tipo_resol.required'=>'El campo tipo de resolución es obligatorio',
 
             'descripcion.required'=>'El campo descripción es obligatorio',
@@ -96,8 +89,7 @@ class AperturaPropuestaController extends Controller
             'resol.required'=>'El campo resolución es obligatorio',
             'resol.mimes'=>'El archivo debe ser de tipo pdf',
 
-            'cv.required'=>'El campo cv es obligatorio',
-            'cv.mimes'=>'El archivo debe ser de tipo pdf',
+
 
         ]);
 
@@ -144,19 +136,7 @@ class AperturaPropuestaController extends Controller
             'name'=>$name,
         ]);
 
-     //cv propuesta
-     if($request->file('cv')){
 
-        $name=$request->file('cv')->getClientOriginalName();
-
-        $url=Storage::putFileAs('cvpuccv',$request->file('cv'),$name);
-
-     }
-
-     $propuesta->resource()->create([
-         'url'=>$url,
-                 'name'=>$name,
-             ]);
 
 
 

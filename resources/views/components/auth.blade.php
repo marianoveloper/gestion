@@ -42,7 +42,7 @@
 
             <form method="POST" action="{{ route('login') }}" class="w-full px-4 mx-auto sm:w-2/3 lg:px-0">
                 @csrf
-
+                @csrf
 
                 <div class="pt-4 pb-2">
                     <label for="email" value="{{ __('Email') }}"class="block text-sm font-medium text-yellow-200">Email</label>

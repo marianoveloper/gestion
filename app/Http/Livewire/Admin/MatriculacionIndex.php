@@ -18,7 +18,13 @@ class MatriculacionIndex extends Component
 
     protected $paginationTheme ="bootstrap";
 
-    public $bpaginacion=16;
+    public $carreras;
+    public $materias;
+    public $carreraFilter;
+    public $materiaFilter;
+    public $searchFilter;
+
+    /*public $bpaginacion=16;
     public $buscar;
     public $escarrera='like';
     public $ebcarrera= '%%';
@@ -26,9 +32,33 @@ class MatriculacionIndex extends Component
     public $mat,$file;
     public $carrera_id;
     public $academic_id;
-    public $numero;
+    public $numero;*/
+
+public function mount(){
+    $this->carreras=Carrera::all();
+   $this->materias=Materia::all();
+
+}
+
     public function render()
     {
+
+
+        $matriculacion= Matriculacion::query()
+           ->when($this->carreraFilter, function ($query) {
+               $query->where('carrera_id', $this->carreraFilter);})
+            ->when($this->materiaFilter, function ($query) {
+            $query->where('materia_id', $this->materiaFilter);})
+            ->when($this->searchFilter, function ($query) {
+                $query->where('carrera_id', 'like', '%'.$this->searchFilter.'%');
+           })
+           ->with('carrera','materia')->latest('id')->paginate(16);  //Esto es para que se vean los datos en la tabla
+
+
+return view('livewire.admin.matriculacion-index',compact('matriculacion'));
+
+           /*
+
 
         //buscar carrera
         if($this->ebcarrera=='%%'){
@@ -36,9 +66,6 @@ class MatriculacionIndex extends Component
             $this->escarrera='like';
         }
         else{$this->escarrera= '=';}
-
-
-
 
         //buscar paginacion
         if($this->bpaginacion=='all'){
@@ -77,7 +104,7 @@ class MatriculacionIndex extends Component
 
 
 
-       return view('livewire.admin.matriculacion-index',compact('matriculacion','academic','carrera'));
+       //return view('livewire.admin.matriculacion-index',compact('matriculacion','academic','carrera'));
     }
 
     public function limpiar_page(){
@@ -131,6 +158,11 @@ class MatriculacionIndex extends Component
         public function cerrarModal(){
             $this->modal=false;
 
+        }
+
+        public function listarmateria($carrera_id){
+
+            $this->materias=Materia::where("carrera_id",$carrera_id)->get();
         }
 
 

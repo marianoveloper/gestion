@@ -54,7 +54,8 @@ class MatriculacionController extends Controller
         'academic_id'=>'required',
         'carrera_id'=>'required',
         'materia_id'=>'required',
-        'date_start'=>'required|date|after:tomorrow',
+        'date_start'=>'required|date|after:today',
+
         'time_start'=>'required',
         'file'=>'required|mimes:xls,xlsx|max:2048',
 

@@ -1,21 +1,34 @@
 <div>
 
     <div class="card">
-
-
-          <!--  <div class="card-header">
-               <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
-            </div>-->
-    <div class="pb-4 card-header col-3">
-        <label for="Carrera">Filtro por Carrera</label>
-        <select class="mb-3 text-center form-select form-select-lg" name="bcarrera" id="bcarrera" wire:model='ebcarrera'>
+<div class="row>">
+    <div class="col-md-4">
+        <label for="Carrera">Carreras</label>
+        <select wire:model="carreraFilter" class="form-control" wire:change='listarmateria($event.target.value)'>
             <option value="%%">Todas las Carreras</option>
-            @foreach($carrera as $car)
+            @foreach($carreras as $car)
                 <option value="{{$car->id}}">{{$car->name}}</option>
 
             @endforeach
         </select>
     </div>
+    <div class="col-md-4">
+        <label for="Materia">Materias</label>
+        <select wire:model="materiaFilter" class="form-control">
+            <option value="%%">Todas las Materias</option>
+            @foreach($materias as $mat)
+                <option value="{{$mat->id}}">{{$mat->name}}</option>
+
+            @endforeach
+        </select>
+    </div>
+    <!--<div class="col-md-4">
+        <label for="searchFilter">Buscar</label>
+        <input wire:model="searchFilter" class="form-control" type="text" name="searchFilter" id="searchFilter">
+    </div>-->
+</div>
+
+
 
 
             @if ($matriculacion->count())

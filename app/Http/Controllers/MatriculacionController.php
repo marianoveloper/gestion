@@ -91,19 +91,34 @@ class MatriculacionController extends Controller
         'name'=>$name,
     ]);
 
+if(auth()->user()->id!=51){
+    $correo=auth()->user()->email;
+    $academic=$matriculacion->academic->name;
 
+    $subject="Matriculación en ".$matriculacion->carrera->name;
 
-     $correo=auth()->user()->email;
-        $academic=$matriculacion->academic->name;
+    $mail=new EmailNotification($subject,$correo,$academic);
+   //$mail=new Notificacion($subject,$correo);
+    $confirmation=new EmailConfirmation($subject,$correo,$academic);
+
+    Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
+    Mail::to($correo)->send($confirmation);
+}
+else{
+    $correo=auth()->user()->email;
+        $academic=auth()->user()->name;
 
         $subject="Matriculación en ".$matriculacion->carrera->name;
 
         $mail=new EmailNotification($subject,$correo,$academic);
        //$mail=new Notificacion($subject,$correo);
-        $confirmation=new EmailConfirmation($subject,$correo,$academic);
+        $confirmation=new EmailNods($subject,$correo,$academic);
 
         Mail::to('soportevirtual@uccuyo.edu.ar')->send($mail);
         Mail::to($correo)->send($confirmation);
+}
+
+
 
 
     return redirect()->route('matriculacion.index',$matriculacion)

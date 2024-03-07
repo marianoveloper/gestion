@@ -19,25 +19,40 @@ class MatriculacionPropuestaIndex extends Component
 
     public $search;
 
-    public $mat,$file;
-    public $propuesta_id;
-    public $academic_id;
- public $user_id;
-    public $bpaginacion=16;
-    public $buscar;
-    public $espropuesta='like';
-    public $ebpropuesta= '%%';
-    public $esusuario='like';
-    public $ebusuario= '%%';
-    public $modal=0;
-
-    public $numero;
 
 
-    public function render()
-    {
+    public $searchFilter;
+    public $usuarios;
+    public $propuestas;
+    public $usuarioFilter;
+    public $propuestaFilter;
 
-            //buscar propuesta
+    public function mount(){
+        $this->usuarios=User::all();
+        $this->propuestas=Propuesta::all();
+
+    }
+
+
+
+        public function render()
+        {
+
+
+            $matriculacion= MatriculacionPropuesta::query()
+               ->when($this->usuarioFilter, function ($query) {
+                   $query->where('user_id', $this->usuarioFilter);})
+                ->when($this->propuestaFilter, function ($query) {
+                $query->where('propuesta_id', $this->propuestaFilter);})
+                ->when($this->searchFilter, function ($query) {
+                    $query->where('propuesta_id', 'like', '%'.$this->searchFilter.'%');
+               })
+               ->with('user','propuesta')->latest('id')->paginate(16);  //Esto es para que se vean los datos en la tabla
+
+
+    return view('livewire.admin.matriculacion-propuesta-index',compact('matriculacion'));
+
+            /*buscar propuesta
             if($this->ebpropuesta=='%%'){
                 $this->ebpropuesta='%%';
                 $this->espropuesta='like';
@@ -68,7 +83,7 @@ class MatriculacionPropuestaIndex extends Component
         ->propuesta($this->propuesta_id)
         ->academic($this->academic_id)
         ->latest('id')
-        ->paginate(16);*/
+        ->paginate(16);
 
 
 
@@ -99,7 +114,7 @@ class MatriculacionPropuestaIndex extends Component
         }) ->latest('id')->paginate($numero);
 
 
-        return view('livewire.admin.matriculacion-propuesta-index',compact('matriculacion','academic','propuesta','usuario'));
+        return view('livewire.admin.matriculacion-propuesta-index',compact('matriculacion','academic','propuesta','usuario'));*/
     }
 
     public function limpiar_page(){
@@ -137,6 +152,11 @@ class MatriculacionPropuestaIndex extends Component
             }
 
 
+        }
+
+        public function listarpropuesta(){
+
+            $this->propuestas=Propuesta::all()->get();
         }
 
 }

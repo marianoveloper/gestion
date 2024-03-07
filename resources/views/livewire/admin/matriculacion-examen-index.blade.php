@@ -3,9 +3,31 @@
     <div class="card">
 
 
-            <div class="card-header">
-               <input wire:keydown="limpiar_page" wire:model="search" class="form-control w-100" placeholder="escriba un nombre" type="text" name="">
+        <div class="row">
+            <div class="mb-3 col-md-6">
+
+                <label for="Carrera">Carreras</label>
+                <select wire:model="carreraFilter" class="mb-3 text-center form-control form-select form-select-lg"
+                    wire:change='listarmateria($event.target.value)'>
+                    <option value="">Todas las Carreras</option>
+                    @foreach($carreras as $car)
+                    <option value="{{$car->id}}">{{$car->name}}</option>
+
+                    @endforeach
+                </select>
             </div>
+            <div class="mb-3 col-md-6">
+                <label for="Materia">Materias</label>
+                <select wire:model="materiaFilter" class="mb-3 text-center form-control form-select form-select-lg">
+                    <option value="">Todas las Materias</option>
+                    @foreach($materias as $mat)
+                    <option value="{{$mat->id}}">{{$mat->name}}</option>
+
+                    @endforeach
+                </select>
+            </div>
+
+        </div>
 
             @if ($matriculacion->count())
             <div class="card-body">

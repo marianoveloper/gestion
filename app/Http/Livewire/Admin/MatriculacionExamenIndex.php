@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Admin;
 use App\Models\Carrera;
+use App\Models\Materia;
 use Livewire\Component;
 use App\Models\Academic;
 use Livewire\WithPagination;
@@ -21,8 +22,38 @@ class MatriculacionExamenIndex extends Component
     public $carrera_id;
     public $academic_id;
 
+    public $carreras;
+    public $materias;
+    public $carreraFilter;
+    public $materiaFilter;
+    public $searchFilter;
+
+    public function mount(){
+        $this->carreras=Carrera::all();
+       $this->materias=Materia::all();
+
+    }
+
+
     public function render()
     {
+
+
+
+        $matriculacion= MatriculacionExamen::query()
+           ->when($this->carreraFilter, function ($query) {
+               $query->where('carrera_id', $this->carreraFilter);})
+            ->when($this->materiaFilter, function ($query) {
+            $query->where('materia_id', $this->materiaFilter);})
+            ->when($this->searchFilter, function ($query) {
+                $query->where('carrera_id', 'like', '%'.$this->searchFilter.'%');
+           })
+           ->with('carrera','materia')->latest('id')->paginate(16);  //Esto es para que se vean los datos en la tabla
+
+
+return view('livewire.admin.matriculacion-examen-index',compact('matriculacion'));
+
+/*
         $academic= Academic::all();
         $carrera= Carrera::all();
 
@@ -35,7 +66,7 @@ class MatriculacionExamenIndex extends Component
 
 
 
-       return view('livewire.admin.matriculacion-examen-index',compact('matriculacion','academic','carrera'));
+       return view('livewire.admin.matriculacion-examen-index',compact('matriculacion','academic','carrera'));*/
     }
 
     public function limpiar_page(){
@@ -72,6 +103,11 @@ class MatriculacionExamenIndex extends Component
                 $mat->save();
             }
 
+        }
+
+        public function listarmateria($carrera_id){
+
+            $this->materias=Materia::where("carrera_id",$carrera_id)->get();
         }
 }
 

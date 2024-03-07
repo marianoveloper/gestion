@@ -3,34 +3,33 @@
 
 
     <div class="card">
-
         <div class="row">
-        <div class="mb-3 col-md-6">
+            <div class="mb-3 col-md-6">
 
+                <label for="Carrera">Usuario</label>
+                <select wire:model="usuarioFilter" class="mb-3 text-center form-control form-select form-select-lg" >
 
-            <label for="Carrera">Filtro por usuario</label>
-            <select class="mb-3 text-center form-control form-select form-select-lg" name="bcusuario" id="bcusuario" wire:model='ebusuario'>
-                <option value="%%">Todas los Usuarios</option>
-                @foreach($usuario as $car)
+                    <option value="">Todos los usuarios</option>
+                    @foreach($usuarios as $car)
                     <option value="{{$car->id}}">{{$car->name}}</option>
 
-                @endforeach
-            </select>
+                    @endforeach
+                </select>
+            </div>
+            <div class="mb-3 col-md-6">
+                <label for="Materia">Propuestas</label>
+                <select wire:model="propuestaFilter" class="mb-3 text-center form-control form-select form-select-lg">
+                    <option value="">Todas las Propuestas</option>
+                    @foreach($propuestas as $mat)
+                    <option value="{{$mat->id}}">{{$mat->name}}</option>
+
+                    @endforeach
+                </select>
+            </div>
+
         </div>
-        <div class="py-1 mb-3 col-md-6">
-
-            <label for="Carrera">Filtro por Propuesta</label>
-            <select class="mb-3 text-center form-control form-select form-select-sm" name="bcarrera" id="bcarrera" wire:model='ebpropuesta'>
-                <option value="%%">Todas las Propuestas</option>
-                @foreach($propuesta as $car)
-                    <option value="{{$car->id}}">{{$car->name}}</option>
-
-                @endforeach
-            </select>
 
 
-        </div>
-        </div>
 <?php ($matriculacion);?>
             @if ($matriculacion->count())
             <div class="card-body">

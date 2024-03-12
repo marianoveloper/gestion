@@ -188,9 +188,9 @@
                     <div class="mt-4 mb-4">
                         <div>
 
-                            {!! Form::file('cv', ['class'=> 'form-input w-full'. ($errors->has('cv')? 'border-red-600':
+                            {!! Form::file('usuario', ['class'=> 'form-input w-full'. ($errors->has('usuario')? 'border-red-600':
                             ''),'id'=>'file','accept'=>'pdf/*']) !!}
-                            @error('resol')
+                            @error('usuario')
                             <strong class="text-xs text-red-600">{{$message}}</strong>
                             @enderror
                         </div>

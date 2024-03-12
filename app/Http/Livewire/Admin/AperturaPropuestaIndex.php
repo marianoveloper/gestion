@@ -23,7 +23,7 @@ class AperturaPropuestaIndex extends Component
     {
         $academic= Academic::all();
         $sede=Sede::all();
-        $propuesta=AperturaPropuesta::all();
+        $propuesta=AperturaPropuesta::orderby('id','desc')->get();
 
 
         return view('livewire.admin.apertura-propuesta-index',compact('academic','sede','propuesta'));
@@ -81,17 +81,17 @@ class AperturaPropuestaIndex extends Component
         );
        }
 
-       public function descargaCv($id){
+       public function descargaUsuario($id){
 
         $this->car=DB::table('resources')->where('resourceable_id',$id)->where('resourceable_type',"App\Models\AperturaPropuesta")->get();
       // dd($this->car);
 
        foreach($this->car as $item){
-        if($item->url=="cvpuccv/".$item->name)
+        if($item->url=="usuariopuccv/".$item->name)
             $this->down=$item->name;
        }
         return response()->download(
-            storage_path('app/public/cvpuccv/') .$this->down
+            storage_path('app/public/usuariopuccv/') .$this->down
         );
        }
 

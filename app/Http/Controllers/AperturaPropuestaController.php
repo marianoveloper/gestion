@@ -62,6 +62,7 @@ class AperturaPropuestaController extends Controller
             'descripcion'=>'required|mimes:pdf',
             'programa'=>'required|mimes:pdf',
             'resol'=>'required|mimes:pdf',
+            'usuario'=>'required|mimes:xls,xlsx|max:2048',
             'certificado'=>'required',
 
 
@@ -129,6 +130,19 @@ class AperturaPropuestaController extends Controller
             $name=$request->file('resol')->getClientOriginalName();
 
             $url=Storage::putFileAs('resolpuccv',$request->file('resol'),$name);
+        }
+
+        $propuesta->resource()->create([
+            'url'=>$url,
+            'name'=>$name,
+        ]);
+
+
+         //datos responsables
+         if($request->file('usuario')){
+            $name=$request->file('usuario')->getClientOriginalName();
+
+            $url=Storage::putFileAs('usuariopuccv',$request->file('usuario'),$name);
         }
 
         $propuesta->resource()->create([

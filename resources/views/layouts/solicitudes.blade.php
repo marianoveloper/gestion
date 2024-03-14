@@ -99,6 +99,12 @@
             'active' => request()->routeIs('solicitudes.desmatriculacionPropuesta.index'),
             'icon' => 'fa-solid fa-gauge-high',
         ],
+        [
+            'title'=>'Apertura de Propuesta',
+            'url'=> route('solicitudes.aperturaPropuesta.index'),
+            'active' => request()->routeIs('solicitudes.aperturaPropuesta.index'),
+            'icon' => 'fa-solid fa-gauge-high',
+        ],
 
 
 

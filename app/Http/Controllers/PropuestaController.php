@@ -52,9 +52,9 @@ class PropuestaController extends Controller
 
             'sede_id'=>'required',
             'academic_id'=>'required',
-            'subcategoria_id'=>'required',
+
             'title'=>'required',
-            'objetivos'=>'required',
+            /*'objetivos'=>'required',
             'destinatarios'=>'required',
             'requisitos'=>'required',
             'duracion'=>'required',
@@ -68,7 +68,7 @@ class PropuestaController extends Controller
             'resol'=>'required|mimes:pdf|max:2048',
             'cv'=>'required|mimes:pdf|max:2048',
             'flyer'=>'image',
-
+            'subcategoria_id'=>'required',*/
 
 
            ]);

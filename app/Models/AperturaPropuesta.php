@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\Image;
 use App\Models\Academic;
 use App\Models\Resource;
+use App\Models\Propuesta;
 use App\Models\Subcategory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -45,6 +46,10 @@ public function academic(){
 
             return $this->morphOne(Image::class,'imageable');
         }
+
+public function propuesta(){
+    return $this->belongsTo(Propuesta::class);
+}
 
  public function sede(){
        return $this->belongsTo(Sede::class);

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Image;
 use App\Models\Academic;
 use App\Models\Resource;
+use App\Models\AperturaPropuesta;
 use App\Models\MatriculacionPropuesta;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -43,6 +44,12 @@ class Propuesta extends Model
         public function image(){
 
             return $this->morphOne(Image::class,'imageable');
+        }
+
+        public function aperturapropuesta(){
+
+                return $this->hasOne(AperturaPropuesta::class);
+
         }
 
  public function sede(){

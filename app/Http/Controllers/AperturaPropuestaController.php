@@ -150,7 +150,15 @@ class AperturaPropuestaController extends Controller
             'name'=>$name,
         ]);
 
+       // dd($propuesta->sede->id);
 
+        $propuesta->propuesta()->create([
+            'name'=>$propuesta->title,
+            'sede_id'=>$propuesta->sede->id,
+            'academic_id'=>$propuesta->academic->id,
+            'status'=>'2',
+
+        ]);
 
 
 

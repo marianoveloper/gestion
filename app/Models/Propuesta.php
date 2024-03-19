@@ -82,6 +82,12 @@ public function scopeAcademic($query,$academic_id){
      return $query->where('academic_id',$academic_id);
  }
 }
+public function scopePropuesta($query,$propuesta_id){
+
+    if($propuesta_id){
+        return $query->where('propuesta_id',$propuesta_id);
+    }
+ }
 
 public function scopeSede($query,$sede_id){
 
@@ -90,12 +96,6 @@ public function scopeSede($query,$sede_id){
  }
 }
 
-public function scopePropuesta($query,$propuesta_id){
 
- if($propuesta_id){
-     return $query->where('propuesta_id',$propuesta_id);
- }
-
-}
 
 }

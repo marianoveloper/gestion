@@ -30,6 +30,7 @@
                             <th scope="col" class="px-6 py-3">Nombre</th>
                             <th scope="col" class="px-6 py-3 text-center">Dni</th>
                             <th scope="col" class="px-6 py-3">Email</th>
+                            <th scope="col" class="px-6 py-3">Fecha Desmat..</th>
                             <th scope="col" class="px-6 py-3">Enviado</th>
                             <th scope="col" class="px-6 py-3">Estado</th>
                             <th scope="col" class="px-6 py-3">Completado</th>
@@ -103,11 +104,14 @@
                               <td>{{$mat->name}}</td>
                               <td>{{$mat->dni}}</td>
                               <td>{{$mat->email}}</td>
+                              <td> </td>
                             @else
+
                              <td> </td>
                              <td> </td>
                             <td>  </td>
                             <td>  </td>
+                            <td>{{$mat->date_start}}</td>
                             @endif
                             <td width="10px">
                                 @if(isset($mat->resource->id))

@@ -57,7 +57,16 @@
                     @error('email')
                     <strong class="text-xs text-red-600">{{$message}}</strong>
                     @enderror
+                    <div class="mb-4">
+                        <div class="mb-4">
+                            <label for="date_start" class="block mb-2 text-sm font-bold text-gray-700">Fecha de Desmatriculación:</label>
+                            <input type="date" class="block w-full pr-12 mt-1 border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 pl-7 sm:text-sm" id="date_start" wire:model="date_start">
+                        </div>
 
+                        @error('date_start')
+                        <strong class="text-xs text-red-600">{{$message}}</strong>
+                        @enderror
+                    </div>
                     <div class="form-group">
                         <label for="academica" class="col-md-4 col-form-label text-md-right" id="">Unidad Academica </label>
                         <div class="mb-4">
